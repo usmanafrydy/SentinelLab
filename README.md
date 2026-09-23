@@ -52,4 +52,3 @@ There is nothing to run yet. Begin with `docs/NEXT_SESSION.md`, then review `doc
 Complete one meaningful change, run applicable checks, review the staged diff, commit with a descriptive message, and push to the configured GitHub repository. Keep progress documentation accurate.
 
 Use synthetic or explicitly authorized local-lab data. Never commit credentials, private logs, or real investigation reports.
-
