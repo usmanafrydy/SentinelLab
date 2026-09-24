@@ -1,51 +1,34 @@
-# One-month roadmap
+# Delivery schedule - September 24 to October 17, 2026
 
-Assumption: approximately 2-3 hours per day. Experience and available time still need confirmation.
+Deadline: October 17, at least two days before October 19. October 18 is contingency only. Daily availability is unconfirmed; provisionally plan around 2-3 hours per day and reduce optional scope when necessary.
 
-## Week 1 - Data foundations
+| Dates | Work | Completion checkpoint |
+| --- | --- | --- |
+| Sep 24 - Day 1 | Requirements, success criteria, event-format design, learning example | Written scope, measurable criteria, valid synthetic example |
+| Sep 25-26 | Verify Python environment, introduce Python through records, implement validation | Documented setup and parser checks |
+| Sep 27-28 | Normalize timestamps, persist events, handle duplicates/conflicts | Import survives restart and repeat imports |
+| Sep 29-30 | Basic upload and search workflow | Import and inspect events through a local browser |
+| Oct 1-3 | Specify window/grouping behavior and implement three rules | Positive, negative, and boundary checks |
+| Oct 4-5 | Alert deduplication, evidence references, rule explanations | Repeatable results with traceable evidence |
+| Oct 6-7 | Edge cases and detection review | Tested rules and documented limitations |
+| Oct 8-9 | Dashboard, investigations, notes, timelines | Complete analyst review workflow |
+| Oct 10-12 | Access protection, input security checks, report exports | Protected workflow and faithful reports |
+| Oct 13-15 | Local-lab scenarios, evaluation, fixes, clean setup, documentation | Reproducible complete demonstration |
+| Oct 16-17 | Demo recording, case study, accurate CV bullets, release | Portfolio package and release saved on GitHub |
 
-1. Confirm scope and acceptance criteria.
-2. Prepare Python development tools and environment.
-3. Learn essential Python through event records.
-4. Document the event schema and synthetic scenarios.
-5. Implement parsing, validation, and normalization.
-6. Add SQLite storage and repeated-import handling.
-7. Connect upload and event search.
+## Scope priorities
 
-## Week 2 - Detection
+Required: one format, three rules, evidence views, investigations, access protection, reports, meaningful tests, and reproducible documentation.
 
-8. Specify rule grouping, thresholds, and time-window semantics.
-9. Implement repeated account failures.
-10. Implement failures across distinct accounts.
-11. Implement success after a failure burst.
-12. Add rule versions and alert deduplication.
-13. Test benign, duplicate, unordered, and boundary cases.
-14. Add alert explanations and justified ATT&CK mappings.
+Optional: second format, automatic collection, multiple roles, container packaging, and hosted demo. Do not add optional work while required acceptance criteria remain unmet.
 
-## Week 3 - Investigation and application security
+## Daily working pattern
 
-15. Build dashboard filters and counts.
-16. Add investigation status and disposition.
-17. Add notes and action history.
-18. Add evidence timelines.
-19. Protect analyst access.
-20. Check input handling, access control, session protection, and sensitive data handling.
-21. Export investigation reports.
+Explain the concept; implement a bounded change; run relevant checks; have the owner review or try the result; record progress; commit and publish the checkpoint. Do not equate a scheduled date with completed work.
 
-## Week 4 - Evaluation and portfolio
+## Release gates
 
-22. Generate logs from a local test application.
-23. Exercise controlled benign and suspicious scenarios.
-24. Evaluate against a separate labeled scenario set.
-25. Measure performance with documented hardware and datasets.
-26. Verify clean installation and backup/restore.
-27. Fix defects and polish the interface.
-28. Record a demo; consider restricted hosting only if feasible.
-29. Write a source-grounded portfolio case study.
-30. Review, tag a release, and prepare accurate CV bullets.
-
-## Scope control
-
-Core: one format, three rules, evidence views, investigations, reports, and meaningful tests.
-Optional: second format, automatic collection, multiple roles, container packaging, and hosted demo.
-Synthetic evaluation does not establish real-world detection accuracy. Adjust the schedule to actual progress.
+1. All required criteria in ACCEPTANCE_CRITERIA.md have results.
+2. Clean setup reproduces the main workflow.
+3. Known limitations and evaluation context are documented.
+4. GitHub contains the final source, setup instructions, and portfolio material.

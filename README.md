@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Initial structure only. No application features, dependencies, or executable tests have been implemented. Development is planned to begin on September 24, 2026, when the owner resumes work.
+Day 1 planning completed on September 24, 2026: project requirements, acceptance criteria, an initial event format, and a synthetic teaching example. No application features or executable application tests have been implemented yet. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,7 +45,7 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-There is nothing to run yet. Begin with `docs/NEXT_SESSION.md`, then review `docs/ROADMAP.md` and `AGENTS.md`.
+There is no application to run yet. Start with [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
 
 ## Development workflow
 

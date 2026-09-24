@@ -12,7 +12,7 @@
 
 ## Current scope
 
-The September 23, 2026 request authorizes only the initial structure and GitHub repository. Do not implement features or install application dependencies until the owner resumes development. No automatic start or scheduled work has been requested.
+The owner resumed development on September 24, 2026 with Start SentinelLab Day 1. Work through the dated roadmap in bounded learning checkpoints. Completion deadline: October 17, 2026, at least two days before October 19. The owner has basic Python, networking, and cybersecurity knowledge; daily availability is unconfirmed. No automatic start or scheduled work has been requested.
 
 ## Product direction
 
