@@ -1,6 +1,6 @@
 # Authentication event format v1 - working design
 
-Version 1 input is UTF-8 JSON Lines (.jsonl): each nonblank line is a complete JSON object. This avoids a large enclosing array and permits clear per-line error reporting. Day 2 implements field validation, line errors, and timestamp/IP normalization. Persistence, event-identity deduplication, conflict handling, and detection ordering remain planned for later stages.
+Version 1 input is UTF-8 JSON Lines (.jsonl): each nonblank line is a complete JSON object. This avoids a large enclosing array and permits clear per-line error reporting. Day 2 implements field validation, line errors, and timestamp/IP normalization. Day 3 adds persistence, event-identity deduplication, and conflict handling through database.py import. Detection ordering remains for later.
 
 ## Fields
 
@@ -44,4 +44,6 @@ The sample is synthetic. No network traffic, real login attempt, or attack is ge
 - IPv6 zone identifiers such as %3 are unsupported. Address text is normalized with Python's IP parser.
 - Accepted original text is kept in memory without its LF terminator; summaries never echo original records or invalid values.
 - A final newline is a line terminator, not an extra blank line. Empty files produce zero counts.
-- Day 2 does not deduplicate events: two identical valid records are both returned. The storage stage will implement the identity policy above.
+- Day 2 does not deduplicate events: two identical valid records are both returned. The separate Day 3 storage command implements the identity policy above.
+
+See DATABASE.md for canonical comparison, first-occurrence preservation, transaction behavior, and counts.

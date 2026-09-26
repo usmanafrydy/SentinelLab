@@ -33,3 +33,7 @@ The observation of a pattern is distinct from a confirmed incident. Shared IP ad
 ## Day 2 evidence - September 26
 
 The command-line reader has automated coverage for AC-01 field validation/line summaries and AC-02 timezone normalization. Resource limits and rejection of hostile/malformed records cover part of AC-12. The 27-test suite also checks the command-line entry point and safe error output. These are component-level results: web upload, persistence, and all remaining release workflow criteria still require implementation and verification. Do not interpret these checks as a completed release acceptance run.
+
+## Day 3 evidence
+
+AC-03 has storage coverage for original preservation, canonical duplicates, conflicts, and first-import provenance. AC-04 event persistence is tested across processes; search and investigation storage remain pending. AC-12 has parameterized-query and safe-error tests. A forced write failure verifies rollback of event rows and the import summary. Full suite: 46 passing tests. These are component checks, not a completed release acceptance run.

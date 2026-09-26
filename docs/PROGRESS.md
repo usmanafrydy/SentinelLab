@@ -17,11 +17,11 @@ Created and published the scaffold to the private usmanafrydy/SentinelLab reposi
 
 ## Owner's next actions
 
-Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_02_GUIDE.md. Daily availability remains unconfirmed.
+Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_03_GUIDE.md. Day 2 answers have not been recorded. Daily availability remains unconfirmed.
 
 ## Next implementation checkpoint
 
-Day 3: implement SQLite persistence and event duplicate/conflict handling. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
+Day 4: implement event search and retrieval. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
 
 ## September 26, 2026 - Day 2
 
@@ -36,3 +36,16 @@ Day 3: implement SQLite persistence and event duplicate/conflict handling. See d
 - Delivery target remains October 17. The daily learning session number does not imply that work ran on September 25.
 
 - Local Git metadata writes are blocked by an explicit Windows deny entry. Files are saved locally; Day 2 publication uses the GitHub connector. Local HEAD/index reconciliation remains pending, as documented in NEXT_SESSION.md.
+
+## Day 3 learning session - September 26, 2026
+
+- Verified that the user reconciled Day 2 local history: clean branch at 3d997d734b4a18a3747c367f462681c9f3747b88 matching GitHub.
+- Added SQLite events/imports tables, preserving normalized and original first-accepted evidence.
+- Added atomic imports, canonical duplicate skipping, conflict reporting without overwrites, and persisted safe summaries.
+- Added import and read-only summary commands.
+- All 46 tests passed, including 19 new storage/integration tests. Corrected test connection cleanup on Windows and checked original-text preservation against CRLF bytes during development.
+- Separate-process demo: first import inserted 3; second inserted 0 and skipped 3 duplicates; reopening shows 3 events and 2 completed imports.
+- Local data/runtime/day03_demo.db is excluded from Git. No extra dependencies installed.
+- Added simple English/Roman Urdu learning guide and updated setup/design/continuation notes.
+- Assistant-side staging still hit a Windows metadata permission error. Connected GitHub publication is available; compare local history with the published commit before further reconciliation.
+- Event search, detection, web interface, and analyst authentication remain unimplemented. Target remains October 17.

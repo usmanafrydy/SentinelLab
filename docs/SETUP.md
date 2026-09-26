@@ -1,4 +1,4 @@
-# Run the Day 2 reader
+# Run SentinelLab readers and storage commands
 
 ## Requirements and current environment
 
@@ -62,7 +62,7 @@ Expected: Accepted: 2, Rejected: 1, Blank lines skipped: 1. Line 2 is rejected b
 & $projectPython scripts/run_tests.py
 ```
 
-Expected for this checkpoint: 27 passing tests. These check validation and the command-line workflow, not a database, dashboard, or detection engine.
+Expected for Day 3: 46 passing tests for validation, database persistence, and command-line workflows. Dashboard and detection tests come later.
 
 Add --json to check_events.py for a machine-readable summary. Exit code 0 means the file was checked without rejected records; 1 means some records were rejected; 2 means a fatal input/usage problem. An empty file is valid and produces zero counts. Summaries omit original event values.
 
@@ -73,3 +73,18 @@ Add --json to check_events.py for a machine-readable summary. Exit code 0 means 
 - File cannot be read: check the file path and permissions; run from the project folder or supply an absolute sample path.
 - Rejected line: read its reason, compare the fields with EVENT_FORMAT.md, and correct the input if appropriate. Do not alter original investigation evidence just to make it pass.
 - Large file: current file limit is 2 MiB and 10,000 physical lines; individual lines are limited to 16 KiB.
+
+## Day 3: save and inspect events
+
+After choosing $projectPython above:
+
+```powershell
+& $projectPython scripts/database.py import data/samples/day01_login_events.jsonl --database data/runtime/day03_demo.db
+& $projectPython scripts/database.py summary --database data/runtime/day03_demo.db
+```
+
+This laptop's demo database already contains 3 events from two imports. Another identical import reports 0 inserted and 3 duplicates. On a fresh checkout, the first import creates the database and inserts 3. Parent folders are created automatically. Relative paths are resolved from the current working directory.
+
+Add --json for structured output. Storage exit codes: 0 = success (including duplicates alone); 1 = completed with invalid records or conflicts; 2 = fatal file/database/usage problem. Exit 1 can still save valid new records. A database write failure rolls back the whole batch.
+
+check_events.py remains a format-only reader. database.py import explicitly saves events. Summary is read-only. See DATABASE.md for schema, evidence, and count definitions.
