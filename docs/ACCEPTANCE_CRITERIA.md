@@ -29,3 +29,7 @@ R2: group by source IP; count distinct usernames with failure events in [t - 10 
 R3: for a success at time t, group by the same username and source IP; count failures in [t - 5 minutes, t). Equal-time failures are excluded because the source format does not establish order within a timestamp.
 
 The observation of a pattern is distinct from a confirmed incident. Shared IP addresses, misconfigured clients, and human typing mistakes can produce suspicious-looking activity.
+
+## Day 2 evidence - September 26
+
+The command-line reader has automated coverage for AC-01 field validation/line summaries and AC-02 timezone normalization. Resource limits and rejection of hostile/malformed records cover part of AC-12. The 27-test suite also checks the command-line entry point and safe error output. These are component-level results: web upload, persistence, and all remaining release workflow criteria still require implementation and verification. Do not interpret these checks as a completed release acceptance run.

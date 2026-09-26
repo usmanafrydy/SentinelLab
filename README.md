@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 1 planning completed on September 24, 2026: project requirements, acceptance criteria, an initial event format, and a synthetic teaching example. No application features or executable application tests have been implemented yet. Target completion: October 17, 2026.
+Day 2 completed on September 26, 2026: a working command-line login-record reader, field validation, UTC/IP normalization, safe line-error summaries, and 27 passing tests. Database storage, duplicate-event handling, detection rules, and the dashboard are not implemented yet. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -15,11 +15,11 @@ Day 1 planning completed on September 24, 2026: project requirements, acceptance
 - Record investigation notes and export reports.
 - Test detection behavior using synthetic and local-lab data.
 
-These are planned capabilities, not completed features. This will be a learning prototype, not a production SIEM.
+The list above describes the final target; the Current status section states what is implemented. This is a learning prototype, not a production SIEM.
 
 ## Proposed stack
 
-Python, FastAPI, SQLite, HTML/CSS/JavaScript, and pytest. Versions and dependencies will be selected during implementation.
+Current checkpoint: Python 3.12, standard-library validation, and unittest. No third-party dependencies yet. Planned later: FastAPI, SQLite persistence, HTML/CSS/JavaScript, and optional pytest tooling; versions will be selected when needed.
 
 ## Layout
 
@@ -45,7 +45,7 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-There is no application to run yet. Start with [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
+Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 2 guide](docs/DAY_02_GUIDE.md). Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
 
 ## Development workflow
 

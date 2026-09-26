@@ -2,6 +2,9 @@
 
 ## Owner preferences
 
+- Use simple English, short steps, and Roman Urdu for difficult concepts. The owner explicitly requested this teaching style.
+- Active project location: C:\Users\Dell\Desktop\Projects\SentinelLab. Do not edit leftover copies under Documents.
+
 - The assistant creates and maintains all required files, directories, code, tests, sample data, and documentation.
 - Explain each work step in beginner-friendly language: purpose, concept, action, expected result, verification, and troubleshooting.
 - Explain important decisions so the owner can understand and present the project in interviews.
