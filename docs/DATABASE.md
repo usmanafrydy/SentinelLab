@@ -27,4 +27,4 @@ Exit 0: completed successfully, including duplicates-only imports. Exit 1: compl
 
 ## Limits
 
-Reader limits remain 2 MiB/file, 10,000 physical lines, and 16 KiB/line. Lock timeout: five seconds. No total database retention limit yet. No event search, attack detection, encryption at rest, tamper-evident storage, or full forensic chain of custody yet. Generated databases are excluded from Git. Use synthetic or authorized local-lab data.
+Reader limits remain 2 MiB/file, 10,000 physical lines, and 16 KiB/line. Lock timeout: five seconds. No total database retention limit yet. Read-only event search and evidence lookup are documented in SEARCH.md. No attack detection, encryption at rest, tamper-evident storage, or full forensic chain of custody yet. Generated databases are excluded from Git. Use synthetic or authorized local-lab data.

@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 3 learning session completed: SQLite persistence, duplicate-event skipping, conflict reporting without overwriting evidence, saved import summaries, and 46 passing tests. Event search, detection rules, and the dashboard are not implemented yet. Target completion: October 17, 2026.
+Day 4 learning session completed: SQLite persistence, duplicate/conflict handling, read-only event search by username/IP/time/outcome, original-evidence lookup, and 57 passing tests. Detection rules and the dashboard are not implemented yet. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,7 +45,7 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
+Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 4 search guide](docs/DAY_04_GUIDE.md), [search contract](docs/SEARCH.md), [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
 
 ## Development workflow
 

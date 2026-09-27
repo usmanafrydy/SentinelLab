@@ -62,7 +62,7 @@ Expected: Accepted: 2, Rejected: 1, Blank lines skipped: 1. Line 2 is rejected b
 & $projectPython scripts/run_tests.py
 ```
 
-Expected for Day 3: 46 passing tests for validation, database persistence, and command-line workflows. Dashboard and detection tests come later.
+Expected for Day 4: 57 passing tests for validation, database persistence, and command-line workflows. Dashboard and detection tests come later.
 
 Add --json to check_events.py for a machine-readable summary. Exit code 0 means the file was checked without rejected records; 1 means some records were rejected; 2 means a fatal input/usage problem. An empty file is valid and produces zero counts. Summaries omit original event values.
 
@@ -88,3 +88,7 @@ This laptop's demo database already contains 3 events from two imports. Another 
 Add --json for structured output. Storage exit codes: 0 = success (including duplicates alone); 1 = completed with invalid records or conflicts; 2 = fatal file/database/usage problem. Exit 1 can still save valid new records. A database write failure rolls back the whole batch.
 
 check_events.py remains a format-only reader. database.py import explicitly saves events. Summary is read-only. See DATABASE.md for schema, evidence, and count definitions.
+
+## Day 4: search and original evidence
+
+Follow DAY_04_GUIDE.md for copyable commands and expected results. SEARCH.md defines filters, pagination, and exit codes. Search and get are read-only and require an existing database.

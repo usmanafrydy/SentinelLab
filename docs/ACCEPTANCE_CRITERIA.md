@@ -37,3 +37,7 @@ The command-line reader has automated coverage for AC-01 field validation/line s
 ## Day 3 evidence
 
 AC-03 has storage coverage for original preservation, canonical duplicates, conflicts, and first-import provenance. AC-04 event persistence is tested across processes; search and investigation storage remain pending. AC-12 has parameterized-query and safe-error tests. A forced write failure verifies rollback of event rows and the import summary. Full suite: 46 passing tests. These are component checks, not a completed release acceptance run.
+
+## Day 4 evidence
+
+AC-04 event search now has combined-filter, UTC boundary, empty-result, and deterministic pagination coverage; investigation persistence remains pending. AC-12 search values are parameterized, output is escaped, and read-only operations leave database bytes unchanged in tests. Full suite: 57 passing tests. These remain component checks, not a completed release acceptance run.

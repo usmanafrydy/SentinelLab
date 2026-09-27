@@ -17,11 +17,11 @@ Created and published the scaffold to the private usmanafrydy/SentinelLab reposi
 
 ## Owner's next actions
 
-Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_03_GUIDE.md. Day 2 answers have not been recorded. Daily availability remains unconfirmed.
+Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_04_GUIDE.md. Day 2 and Day 3 answers have not been recorded. Daily availability remains unconfirmed.
 
 ## Next implementation checkpoint
 
-Day 4: implement event search and retrieval. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
+Day 5: begin the local browser upload/search workflow. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
 
 ## September 26, 2026 - Day 2
 
@@ -49,3 +49,14 @@ Day 4: implement event search and retrieval. See docs/NEXT_SESSION.md. Publicati
 - Added simple English/Roman Urdu learning guide and updated setup/design/continuation notes.
 - Assistant-side staging still hit a Windows metadata permission error. Connected GitHub publication is available; compare local history with the published commit before further reconciliation.
 - Event search, detection, web interface, and analyst authentication remain unimplemented. Target remains October 17.
+
+## Day 4 learning session - September 27, 2026
+
+- All published Day 3 files matched local files before editing.
+- Added read-only account/IP/outcome/time search with bounded pages and deterministic time/ID ordering; original evidence lookup by internal ID.
+- No schema migration or extra dependencies. Search intervals include start and exclude end.
+- All 57 tests passed, including 11 new search tests for combined filters, boundaries, paging ties, invalid input, SQL-looking text, evidence, unchanged database bytes, and CLI behavior.
+- Existing demo search returns 2 failures; lookup ID 1 returns demo-001 and original evidence.
+- Added simple English/Roman Urdu Day 4 guide, search contract, and continuation notes.
+- Local Git metadata remains behind published content; connector publication outcome is confirmed in the conversation after verification.
+- Detection, browser interface, investigations, and analyst authentication remain pending. October 17 remains the target.
