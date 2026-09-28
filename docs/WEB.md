@@ -34,3 +34,7 @@ Dynamic log values use textContent/DOM nodes, never HTML insertion. CSS classes 
 67 automated tests total. Browser-tested: empty database, good import, mixed input with duplicate/rejection summary, failed-login filter, original evidence, invalid IP error, 27-record Next pagination, and literal HTML-like username with zero injected image elements. Narrow viewport had no page-level horizontal overflow; table scrolling is intentional. A malformed Failure option was found in browser testing and fixed, with a parser regression test added.
 
 Normal demo: data/runtime/day05_demo.db has 3 events and 2 imports after verification. Browser QA used a separate ignored day05_ui_checks.db and synthetic JSONL. Generated databases, environments, and QA inputs stay out of Git. Closing/reopening the browser retains saved data. Existing storage tests verify persistence across processes.
+
+## Day 6 scope note
+
+R1 now runs through scripts/detect.py as a read-only preview. This browser still provides event import/search/evidence only; no detection endpoint or automatic evaluation was added. The notice now makes that distinction explicit.

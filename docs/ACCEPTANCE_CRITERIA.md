@@ -22,7 +22,7 @@ All criteria are pending as of September 24, 2026. These are future checks, not 
 
 ## Rule defaults and terminology
 
-Defaults are lab design choices, not universal security thresholds. Rules run on stored event time, not import time. Version 1 uses batch evaluation; out-of-order input is sorted for evaluation. Window boundaries are inclusive. Detailed alert grouping/cooldown behavior must be specified and tested before detection implementation.
+Defaults are lab design choices, not universal security thresholds. Rules run on stored event time, not import time. Version 1 uses batch evaluation; out-of-order input is sorted for evaluation. Window boundaries are inclusive. R1 grouping is specified and tested in DETECTION_RULES.md. R2/R3 grouping remains proposed until those rules are implemented.
 
 R1: group by exact normalized username and source IP; count distinct failure events in [t - 5 minutes, t].
 R2: group by source IP; count distinct usernames with failure events in [t - 10 minutes, t]. This pattern can suggest spraying but does not establish which passwords were attempted.
@@ -45,3 +45,7 @@ AC-04 event search now has combined-filter, UTC boundary, empty-result, and dete
 ## Day 5 evidence
 
 Browser upload/search/evidence now exercises AC-01 through AC-04 for events. AC-12 has HTTP upload limits, origin/token checks, safe text rendering, asset allowlisting, and automated/browser checks. Analyst authentication, investigation persistence, cookie-session CSRF controls, and final release acceptance remain pending. Full suite: 67 passing tests. Browser UI is a local prototype, not a finished alert dashboard.
+
+## Day 6 evidence
+
+AC-05 has R1 coverage for 4 versus 5 failures and the inclusive 300-second boundary. AC-08 has deterministic preview IDs, rule version/parameters, reasons, and resolvable evidence references; persistent alert deduplication remains pending. AC-13 includes ties, shuffled events, grouping isolation, successes, reimports/conflicts, and episode rearming. Full suite: 83 passing tests. These component results do not complete the remaining rules or release acceptance.

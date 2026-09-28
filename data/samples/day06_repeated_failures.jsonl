@@ -1,0 +1,6 @@
+{"event_id":"day06-failure-5","source":"day06-local-lab","timestamp":"2026-09-28T09:05:00Z","source_ip":"192.0.2.60","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day06-failure-1","source":"day06-local-lab","timestamp":"2026-09-28T09:00:00Z","source_ip":"192.0.2.60","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day06-success-1","source":"day06-local-lab","timestamp":"2026-09-28T09:04:00Z","source_ip":"192.0.2.60","username":"lab_user","event_type":"login","outcome":"success"}
+{"event_id":"day06-failure-3","source":"day06-local-lab","timestamp":"2026-09-28T09:02:00Z","source_ip":"192.0.2.60","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day06-failure-2","source":"day06-local-lab","timestamp":"2026-09-28T09:01:00Z","source_ip":"192.0.2.60","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day06-failure-4","source":"day06-local-lab","timestamp":"2026-09-28T09:03:00Z","source_ip":"192.0.2.60","username":"lab_user","event_type":"login","outcome":"failure"}

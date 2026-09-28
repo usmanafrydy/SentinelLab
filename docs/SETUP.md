@@ -62,7 +62,7 @@ Expected: Accepted: 2, Rejected: 1, Blank lines skipped: 1. Line 2 is rejected b
 & $projectPython scripts/run_tests.py
 ```
 
-Expected for Day 5: 67 passing tests for validation, storage, search, CLI, and the local HTTP interface. Detection and full dashboard tests come later.
+Expected for Day 6: 83 passing tests for validation, storage, search, CLI, local HTTP, and R1 detection. Remaining-rule and full dashboard tests come later.
 
 Add --json to check_events.py for a machine-readable summary. Exit code 0 means the file was checked without rejected records; 1 means some records were rejected; 2 means a fatal input/usage problem. An empty file is valid and produces zero counts. Summaries omit original event values.
 
@@ -102,3 +102,7 @@ After selecting $projectPython above:
 ```
 
 Open http://127.0.0.1:8765. Keep PowerShell open; Ctrl+C stops the server without deleting data. A fresh database starts with zero events/imports. This laptop's verified Day 5 demo has 3 events and 2 imports; importing the Day 1 sample again skips 3 duplicates. It is separate from the Day 3 database. If the port is busy, use the already running preview or add --port 8767 and use that port in the URL. No host override is supported. Follow DAY_05_GUIDE.md for browser practice and WEB.md for protocol and limitations. All runtime databases remain ignored by Git.
+
+## Day 6: R1 detection preview
+
+Follow DAY_06_GUIDE.md for copyable sample import/detect/evidence commands. scripts/detect.py --database PATH [--json] evaluates only R1, without database writes. Exit 0 means success regardless of alert count; exit 2 means failure. Maximum dataset: 10,000 stored events. See DETECTION_RULES.md for exact window/grouping behavior. The existing browser does not automatically run this command.

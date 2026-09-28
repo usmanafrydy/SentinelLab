@@ -9,10 +9,10 @@
   <script src="/static/app.js" defer></script>
 </head>
 <body>
-  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 5</span></header>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 6</span></header>
   <main>
     <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1>Follow the evidence.</h1><p>Import login records, find relevant activity, and inspect the original evidence.</p></section>
-    <p class="notice">Learning prototype · No analyst sign-in or attack detection yet. Use synthetic lab data on this computer.</p>
+    <p class="notice">Learning prototype · R1 detection runs separately from PowerShell. Analyst sign-in is pending. Use synthetic lab data.</p>
     <section class="stats" aria-label="Database overview"><article><span>Saved events</span><strong id="event-count">—</strong></article><article><span>Completed imports</span><strong id="import-count">—</strong></article><article><span>Evidence handling</span><strong class="small-stat">Original records retained</strong></article></section>
     <section class="panel" aria-labelledby="import-title"><div class="section-heading"><div><p class="eyebrow">01 / COLLECT</p><h2 id="import-title">Import login records</h2></div><span class="muted">JSON Lines · up to 2 MiB</span></div>
       <form id="upload-form"><label for="event-file">Choose a lab file</label><div class="upload-controls"><input id="event-file" type="file" accept=".jsonl,.ndjson" required><button id="upload-button" type="submit">Import records</button></div><p class="hint">One JSON event per line. Identical events are skipped; conflicting records never replace the original.</p></form>

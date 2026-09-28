@@ -17,11 +17,11 @@ Created and published the scaffold to the private usmanafrydy/SentinelLab reposi
 
 ## Owner's next actions
 
-Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_05_GUIDE.md. Day 2-4 answers have not been recorded. Daily availability remains unconfirmed.
+Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Day 5 exercise completed: owner correctly identified frontend, duplicate skipping, and the need to investigate failed logins. Current exercise: docs/DAY_06_GUIDE.md. Day 2-4 answers have not been recorded. Daily availability remains unconfirmed.
 
 ## Next implementation checkpoint
 
-Day 6: specify detection grouping/window behavior and implement the first repeated-failure rule. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
+Day 7: implement R2 distinct-account failures and R3 success after failures, using the documented policies and meaningful tests. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
 
 ## September 26, 2026 - Day 2
 
@@ -72,3 +72,14 @@ Day 6: specify detection grouping/window behavior and implement the first repeat
 - Normal day05_demo.db has 3 events and 2 imports; Day 3 demo is unchanged. Separate ignored QA files retain only synthetic test data.
 - Added Day 5 learning guide and web contract. Detection/investigations/sign-in remain pending; target remains October 17.
 - Publish through the GitHub connector because local metadata writes remain restricted. Verify publication separately before claiming completion.
+
+## Day 6 implementation - September 28, 2026
+
+- Verified published Day 5 contents match local files before changes. Recorded owner's completed Day 5 exercise.
+- Specified R1 version 1.0.0, inclusive 300-second window, exact username/IP grouping, tie batching, rearm-below-threshold behavior, evidence snapshot, and deterministic IDs. R2/R3 policies remain planned.
+- Added bounded read-only R1 detection and scripts/detect.py. No database migration, alert persistence, browser detection, or dependencies added.
+- Added out-of-order synthetic sample with 5 failures and 1 success; new separate day06_demo.db produces 1 preview. Existing Day 5 demo produces 0 R1 previews. Both results verified.
+- Full suite: 83 passing tests including 16 new detection integration cases. Database bytes remain unchanged by detection; all evidence references resolve.
+- Added Day 6 English/Roman Urdu guide and sanitized JSON example. UI notice distinguishes command-line R1 from the event browser.
+- Existing browser import/search/evidence stays available. R2/R3, persistent alerts, investigations, authentication, and final portfolio work remain pending. Deadline October 17.
+- GitHub checkpoint is published through the connector and verified separately; local Git metadata remains behind because of the previously observed Windows restrictions.

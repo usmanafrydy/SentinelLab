@@ -1,0 +1,60 @@
+{
+  "mode": "read_only_preview",
+  "rules_evaluated": [
+    "R1"
+  ],
+  "events_scanned": 6,
+  "alert_count": 1,
+  "alerts": [
+    {
+      "alert_id": "R1-3faa9330e4e99aba6d82133fa030a7072ac778fff0b9ac4b542d5a56f9987961",
+      "rule_id": "R1",
+      "rule_version": "1.0.0",
+      "title": "Repeated failed logins",
+      "parameters": {
+        "threshold": 5,
+        "window_seconds": 300
+      },
+      "group": {
+        "username": "lab_user",
+        "source_ip": "192.0.2.60"
+      },
+      "failure_count": 5,
+      "first_event_at": "2026-09-28T09:00:00.000000+00:00",
+      "triggered_at": "2026-09-28T09:05:00.000000+00:00",
+      "reason": "5 failed logins for the same username and source IP within an inclusive 300-second window. Investigate; this does not confirm compromise.",
+      "evidence": [
+        {
+          "internal_id": 2,
+          "source": "day06-local-lab",
+          "event_id": "day06-failure-1",
+          "timestamp_utc": "2026-09-28T09:00:00.000000+00:00"
+        },
+        {
+          "internal_id": 5,
+          "source": "day06-local-lab",
+          "event_id": "day06-failure-2",
+          "timestamp_utc": "2026-09-28T09:01:00.000000+00:00"
+        },
+        {
+          "internal_id": 4,
+          "source": "day06-local-lab",
+          "event_id": "day06-failure-3",
+          "timestamp_utc": "2026-09-28T09:02:00.000000+00:00"
+        },
+        {
+          "internal_id": 6,
+          "source": "day06-local-lab",
+          "event_id": "day06-failure-4",
+          "timestamp_utc": "2026-09-28T09:03:00.000000+00:00"
+        },
+        {
+          "internal_id": 1,
+          "source": "day06-local-lab",
+          "event_id": "day06-failure-5",
+          "timestamp_utc": "2026-09-28T09:05:00.000000+00:00"
+        }
+      ]
+    }
+  ]
+}

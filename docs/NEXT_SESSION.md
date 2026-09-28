@@ -1,19 +1,21 @@
-# Next session - Day 6
+# Next session - Day 7
 
-Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Target completion October 17, 2026. Simple English and Roman Urdu as needed.
+Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Simple English and Roman Urdu as needed.
 
-1. Read AGENTS.md, PROGRESS.md, ACCEPTANCE_CRITERIA.md, EVENT_FORMAT.md, DATABASE.md, and WEB.md.
-2. Verify GitHub main and local files before editing. Preserve changes and existing permissions.
-3. Review Day 5 questions; Day 1 is complete and Day 2-5 answers are unrecorded.
-4. Specify alert grouping/cooldown and deterministic IDs before detection implementation. Follow documented defaults: R1 five failures for exact username/source IP within inclusive five minutes; R2 ten distinct accounts within inclusive ten minutes; R3 success after five matching failures in [t-5 minutes,t).
-5. Implement and test the first repeated-failure rule as a bounded checkpoint. Sort stored event time, handle ties/out-of-order input, and link original evidence. Explain suspicious pattern versus confirmed compromise.
-6. Keep current CLI/browser workflows working. Do not claim rules exist until implemented and tested.
-7. Update guides, run relevant checks, and publish a verified commit.
+1. Read AGENTS.md, PROGRESS.md, DETECTION_RULES.md, ACCEPTANCE_CRITERIA.md, and DATABASE.md.
+2. Compare actual GitHub main with local files before editing. Preserve access controls and unrelated work.
+3. Day 1 and Day 5 exercises are complete. Day 2-4 and Day 6 answers are unrecorded. Review Day 6 questions as appropriate.
+4. Implement R2 distinct-account failures and R3 success after failures using the documented proposed policies. Confirm same-time exclusion for R3, distinct counting for R2, deterministic IDs, and original evidence references.
+5. Preserve R1 behavior and its version. Keep bounded read-only previews until explicit alert persistence/migration work; do not claim database deduplication is implemented for alerts.
+6. Test positive/negative cases, exact boundaries, same-time records, independent groups, duplicate imports, stable reruns, and combined rule output. Update samples and guide.
+7. Run relevant checks and publish a verified checkpoint. Keep browser and CLI workflows working.
 
-## Environment
+## Environment and current results
 
-MSYS2 Python 3.12.7, .venv/bin/python.exe, standard library only. Suite: 67 tests. Start browser: scripts/serve.py --database data/runtime/day05_demo.db, then http://127.0.0.1:8765. It is local-only with no analyst authentication. Preview may still be running; inspect before starting another. Day 5 main demo has 3 events/2 imports. Separate day05_ui_checks files contain synthetic browser QA; all runtime files are ignored.
+MSYS2 Python 3.12.7, .venv/bin/python.exe, standard library only. Full suite: 83 tests. R1 command: scripts/detect.py --database data/runtime/day06_demo.db --json. Day 6 demo has 6 events and 1 preview, with evidence IDs 2,5,4,6,1 for the supplied import order. Original Day 5 database has 3 events/2 imports and 0 R1 previews. Databases are ignored. Saved synthetic preview is reports/examples/day06_r1_preview.json.
+
+Browser: scripts/serve.py --database data/runtime/day05_demo.db at http://127.0.0.1:8765; may already be running. Browser does not execute detection. No analyst sign-in or persistent alerts yet.
 
 ## Git continuity
 
-Day 5 began with published Day 4 a80e711 and exact local file matches. Local HEAD/index remain at Day 2 because of Windows metadata write restrictions; do not confuse matching contents with reconciled history. Use the connected GitHub integration if staging remains blocked. Publication is verified and reported in the conversation. Before user-side reconciliation, compare all local changes with actual remote contents; never reset away work or alter deny ACLs.
+Day 6 began with Day 5 published commit 1199953 and matching local contents. Local HEAD/index remain behind at Day 2 due Windows metadata write restrictions. Use the GitHub connector if staging is unavailable; verify remote files and ref. Do not alter ACLs or reset away work. Publication outcome is confirmed in the conversation after verification.

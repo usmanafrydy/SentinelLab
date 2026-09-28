@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 5 learning session completed: local browser import/search/evidence workspace, SQLite persistence, duplicate/conflict handling, and 67 passing tests. Detection rules, investigations, analyst sign-in, and the full alert dashboard are not implemented yet. Target completion: October 17, 2026.
+Day 6 implementation completed: R1 repeated-failure detection as a read-only command-line preview, local browser import/search/evidence workspace, SQLite persistence, and 83 passing tests. R2/R3, persistent alerts, investigations, analyst sign-in, and the full alert dashboard are not implemented yet. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,7 +45,7 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 5 browser guide](docs/DAY_05_GUIDE.md), [web design and limits](docs/WEB.md), [Day 4 search guide](docs/DAY_04_GUIDE.md), [search contract](docs/SEARCH.md), [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
+Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 6 detection guide](docs/DAY_06_GUIDE.md), [rule contract](docs/DETECTION_RULES.md), [Day 5 browser guide](docs/DAY_05_GUIDE.md), [web design and limits](docs/WEB.md), [Day 4 search guide](docs/DAY_04_GUIDE.md), [search contract](docs/SEARCH.md), [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
 
 ## Development workflow
 
@@ -62,3 +62,12 @@ From the project folder on this laptop:
 ```
 
 Open http://127.0.0.1:8765 and keep the terminal running. Stop with Ctrl+C. Use synthetic sample files under data/samples. See SETUP.md for other Python environment layouts. No analyst authentication yet; the server accepts only its exact loopback address. Do not deploy or tunnel this development server.
+
+## Preview the first detection rule
+
+```powershell
+& ./.venv/bin/python.exe scripts/database.py import data/samples/day06_repeated_failures.jsonl --database data/runtime/day06_demo.db
+& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day06_demo.db --json
+```
+
+Expected: 6 stored events, 1 R1 preview with 5 failure references. Detection does not save alerts or run automatically in the browser. See the [synthetic example result](reports/examples/day06_r1_preview.json); its internal IDs refer to the sample database, not every installation.
