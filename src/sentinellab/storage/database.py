@@ -72,6 +72,23 @@ def _check_schema(connection: sqlite3.Connection, *, create: bool = False) -> No
                        "first_import_id, first_line_number FROM events LIMIT 0")
 
 
+def initialize_database(database_path: Path | str) -> None:
+    """Create an empty schema, or validate an existing one, without an import row."""
+    try:
+        database = Path(database_path).resolve()
+        database.parent.mkdir(parents=True, exist_ok=True)
+        with closing(sqlite3.connect(database, isolation_level=None, timeout=5)) as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            try:
+                _check_schema(connection, create=True)
+                connection.commit()
+            except BaseException:
+                connection.rollback()
+                raise
+    except (sqlite3.Error, OSError):
+        raise StorageError("Cannot initialize the database; check its location, permissions, and format.") from None
+
+
 def import_events(input_path: Path | str, database_path: Path | str) -> dict:
     """Validate first, then save one atomic batch. First accepted identity wins.
 

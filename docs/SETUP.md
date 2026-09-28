@@ -4,7 +4,7 @@
 
 Tested on September 26, 2026 with the existing MSYS2 UCRT Python 3.12.7 on Windows. Standard-library json, datetime, ipaddress, unittest, sqlite3, and venv are available. No third-party dependencies are required today. The Windows py launcher has no registered installations on this laptop; use the working python command below.
 
-The local environment is .venv/bin/python.exe on this installation. Standard Windows CPython normally uses .venv/Scripts/python.exe. Check which exists instead of assuming the layout. Before adding web dependencies, review interpreter/package compatibility; the current setup has only been verified for this standard-library checkpoint.
+The local environment is .venv/bin/python.exe on this installation. Standard Windows CPython normally uses .venv/Scripts/python.exe. Check which exists instead of assuming the layout. Before adding web dependencies, review interpreter/package compatibility; the current setup includes a standard-library local HTTP prototype; third-party web packages are not yet verified.
 
 ## 1. Open PowerShell in the project
 
@@ -62,7 +62,7 @@ Expected: Accepted: 2, Rejected: 1, Blank lines skipped: 1. Line 2 is rejected b
 & $projectPython scripts/run_tests.py
 ```
 
-Expected for Day 4: 57 passing tests for validation, database persistence, and command-line workflows. Dashboard and detection tests come later.
+Expected for Day 5: 67 passing tests for validation, storage, search, CLI, and the local HTTP interface. Detection and full dashboard tests come later.
 
 Add --json to check_events.py for a machine-readable summary. Exit code 0 means the file was checked without rejected records; 1 means some records were rejected; 2 means a fatal input/usage problem. An empty file is valid and produces zero counts. Summaries omit original event values.
 
@@ -92,3 +92,13 @@ check_events.py remains a format-only reader. database.py import explicitly save
 ## Day 4: search and original evidence
 
 Follow DAY_04_GUIDE.md for copyable commands and expected results. SEARCH.md defines filters, pagination, and exit codes. Search and get are read-only and require an existing database.
+
+## Day 5: local browser workspace
+
+After selecting $projectPython above:
+
+```powershell
+& $projectPython scripts/serve.py --database data/runtime/day05_demo.db
+```
+
+Open http://127.0.0.1:8765. Keep PowerShell open; Ctrl+C stops the server without deleting data. A fresh database starts with zero events/imports. This laptop's verified Day 5 demo has 3 events and 2 imports; importing the Day 1 sample again skips 3 duplicates. It is separate from the Day 3 database. If the port is busy, use the already running preview or add --port 8767 and use that port in the URL. No host override is supported. Follow DAY_05_GUIDE.md for browser practice and WEB.md for protocol and limitations. All runtime databases remain ignored by Git.

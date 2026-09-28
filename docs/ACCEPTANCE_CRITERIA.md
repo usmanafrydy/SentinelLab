@@ -41,3 +41,7 @@ AC-03 has storage coverage for original preservation, canonical duplicates, conf
 ## Day 4 evidence
 
 AC-04 event search now has combined-filter, UTC boundary, empty-result, and deterministic pagination coverage; investigation persistence remains pending. AC-12 search values are parameterized, output is escaped, and read-only operations leave database bytes unchanged in tests. Full suite: 57 passing tests. These remain component checks, not a completed release acceptance run.
+
+## Day 5 evidence
+
+Browser upload/search/evidence now exercises AC-01 through AC-04 for events. AC-12 has HTTP upload limits, origin/token checks, safe text rendering, asset allowlisting, and automated/browser checks. Analyst authentication, investigation persistence, cookie-session CSRF controls, and final release acceptance remain pending. Full suite: 67 passing tests. Browser UI is a local prototype, not a finished alert dashboard.

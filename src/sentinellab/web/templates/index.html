@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="request-token" content="__REQUEST_TOKEN__">
+  <title>SentinelLab | Event workspace</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 5</span></header>
+  <main>
+    <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1>Follow the evidence.</h1><p>Import login records, find relevant activity, and inspect the original evidence.</p></section>
+    <p class="notice">Learning prototype · No analyst sign-in or attack detection yet. Use synthetic lab data on this computer.</p>
+    <section class="stats" aria-label="Database overview"><article><span>Saved events</span><strong id="event-count">—</strong></article><article><span>Completed imports</span><strong id="import-count">—</strong></article><article><span>Evidence handling</span><strong class="small-stat">Original records retained</strong></article></section>
+    <section class="panel" aria-labelledby="import-title"><div class="section-heading"><div><p class="eyebrow">01 / COLLECT</p><h2 id="import-title">Import login records</h2></div><span class="muted">JSON Lines · up to 2 MiB</span></div>
+      <form id="upload-form"><label for="event-file">Choose a lab file</label><div class="upload-controls"><input id="event-file" type="file" accept=".jsonl,.ndjson" required><button id="upload-button" type="submit">Import records</button></div><p class="hint">One JSON event per line. Identical events are skipped; conflicting records never replace the original.</p></form>
+      <p id="upload-status" role="status" aria-live="polite"></p><details id="import-details" hidden><summary>View import counts and line errors</summary><pre id="import-report"></pre></details>
+    </section>
+    <section class="panel" aria-labelledby="search-title"><div class="section-heading"><div><p class="eyebrow">02 / EXPLORE</p><h2 id="search-title">Find login activity</h2></div><span class="muted">All filters must match</span></div>
+      <form id="search-form"><div class="filters">
+        <label>Username<input name="username" maxlength="128" placeholder="e.g. demo_user"></label>
+        <label>Source IP<input name="source_ip" maxlength="45" placeholder="e.g. 192.0.2.10"></label>
+        <label>Login result<select name="outcome"><option value="">All results</option><option value="failure">Failure</option><option value="success">Success</option></select></label>
+        <label>From (included)<input name="start" maxlength="32" placeholder="2026-09-24T09:00:00Z"></label>
+        <label>Until (excluded)<input name="end" maxlength="32" placeholder="2026-09-24T09:05:00Z"></label>
+        <label>Rows per page<select name="limit"><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="200">200</option></select></label>
+      </div><div class="actions"><button type="submit">Search events</button><button type="button" id="clear-filters" class="secondary">Clear filters</button><span class="hint">Times need seconds and Z (UTC) or a timezone such as +05:00.</span></div></form>
+      <p id="search-status" role="status" aria-live="polite">Loading records…</p>
+      <div class="table-wrap"><table><caption class="sr-only">Saved login events, oldest first</caption><thead><tr><th>Time (UTC)</th><th>Username</th><th>Source IP</th><th>Result</th><th>Evidence</th></tr></thead><tbody id="event-rows"></tbody></table></div>
+      <div class="pagination"><button id="previous" class="secondary" disabled>Previous</button><span id="page-description">No results yet</span><button id="next" class="secondary" disabled>Next</button></div>
+    </section>
+    <section class="panel" id="evidence-panel" aria-labelledby="evidence-title" hidden><div class="section-heading"><div><p class="eyebrow">03 / INSPECT</p><h2 id="evidence-title" tabindex="-1">Original evidence</h2></div><button id="close-evidence" class="secondary">Close evidence</button></div><p id="evidence-status" role="status"></p><pre id="evidence-content"></pre><p class="hint">The saved original and its first import location. A suspicious event alone does not confirm an attack.</p></section>
+    <noscript>This page needs JavaScript. You can also use scripts/database.py from PowerShell.</noscript>
+  </main><footer>SentinelLab · Learn, investigate, explain.</footer>
+</body>
+</html>

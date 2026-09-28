@@ -17,11 +17,11 @@ Created and published the scaffold to the private usmanafrydy/SentinelLab reposi
 
 ## Owner's next actions
 
-Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_04_GUIDE.md. Day 2 and Day 3 answers have not been recorded. Daily availability remains unconfirmed.
+Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Current exercise: docs/DAY_05_GUIDE.md. Day 2-4 answers have not been recorded. Daily availability remains unconfirmed.
 
 ## Next implementation checkpoint
 
-Day 5: begin the local browser upload/search workflow. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
+Day 6: specify detection grouping/window behavior and implement the first repeated-failure rule. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
 
 ## September 26, 2026 - Day 2
 
@@ -60,3 +60,15 @@ Day 5: begin the local browser upload/search workflow. See docs/NEXT_SESSION.md.
 - Added simple English/Roman Urdu Day 4 guide, search contract, and continuation notes.
 - Local Git metadata remains behind published content; connector publication outcome is confirmed in the conversation after verification.
 - Detection, browser interface, investigations, and analyst authentication remain pending. October 17 remains the target.
+
+## Day 5 learning session - September 28, 2026
+
+- Verified all published Day 4 files against local content before editing; local metadata still shows Day 2.
+- Built a loopback-only browser workspace for JSONL upload, counts, combined event filters, paging, and original-evidence lookup. Reused existing parsing/storage/search; no third-party dependencies.
+- Added explicit empty-schema initialization without fake import history. Uploads use bounded bodies and temporary files, preserving originals and duplicate/conflict behavior.
+- Added exact Host/Origin checks, per-process write token, allowlisted assets, safe text rendering, and restrictive response headers. No analyst authentication or production deployment claims.
+- Browser-tested good/mixed imports, 2-failure filtering, evidence, invalid IP errors, pagination with separate 27-event QA data, and literal HTML-like usernames without HTML execution. Checked desktop/narrow layouts.
+- Fixed malformed Failure option found through browser testing and added a regression test. Full suite: 67 passing tests.
+- Normal day05_demo.db has 3 events and 2 imports; Day 3 demo is unchanged. Separate ignored QA files retain only synthetic test data.
+- Added Day 5 learning guide and web contract. Detection/investigations/sign-in remain pending; target remains October 17.
+- Publish through the GitHub connector because local metadata writes remain restricted. Verify publication separately before claiming completion.
