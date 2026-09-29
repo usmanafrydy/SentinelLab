@@ -1,0 +1,226 @@
+{
+  "mode": "read_only_preview",
+  "rules_evaluated": [
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "events_scanned": 16,
+  "alert_count": 3,
+  "alerts": [
+    {
+      "alert_id": "R2-1e00bddb3cf95419277571382ac902cd9fc8b2229dd745bee81baa9b253d565e",
+      "rule_id": "R2",
+      "rule_version": "1.0.0",
+      "title": "Failed logins across multiple accounts",
+      "parameters": {
+        "threshold": 10,
+        "window_seconds": 600
+      },
+      "group": {
+        "source_ip": "192.0.2.70"
+      },
+      "distinct_account_count": 10,
+      "usernames": [
+        "account_1",
+        "account_10",
+        "account_2",
+        "account_3",
+        "account_4",
+        "account_5",
+        "account_6",
+        "account_7",
+        "account_8",
+        "account_9"
+      ],
+      "failure_count": 10,
+      "first_event_at": "2026-09-29T09:00:00.000000+00:00",
+      "triggered_at": "2026-09-29T09:09:00.000000+00:00",
+      "reason": "Failed logins for 10 distinct usernames from one source IP within an inclusive 600-second window. Investigate; this does not prove password spraying or compromise.",
+      "evidence": [
+        {
+          "internal_id": 1,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-1",
+          "timestamp_utc": "2026-09-29T09:00:00.000000+00:00",
+          "username": "account_1"
+        },
+        {
+          "internal_id": 2,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-2",
+          "timestamp_utc": "2026-09-29T09:01:00.000000+00:00",
+          "username": "account_2"
+        },
+        {
+          "internal_id": 3,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-3",
+          "timestamp_utc": "2026-09-29T09:02:00.000000+00:00",
+          "username": "account_3"
+        },
+        {
+          "internal_id": 4,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-4",
+          "timestamp_utc": "2026-09-29T09:03:00.000000+00:00",
+          "username": "account_4"
+        },
+        {
+          "internal_id": 5,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-5",
+          "timestamp_utc": "2026-09-29T09:04:00.000000+00:00",
+          "username": "account_5"
+        },
+        {
+          "internal_id": 6,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-6",
+          "timestamp_utc": "2026-09-29T09:05:00.000000+00:00",
+          "username": "account_6"
+        },
+        {
+          "internal_id": 7,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-7",
+          "timestamp_utc": "2026-09-29T09:06:00.000000+00:00",
+          "username": "account_7"
+        },
+        {
+          "internal_id": 8,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-8",
+          "timestamp_utc": "2026-09-29T09:07:00.000000+00:00",
+          "username": "account_8"
+        },
+        {
+          "internal_id": 9,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-9",
+          "timestamp_utc": "2026-09-29T09:08:00.000000+00:00",
+          "username": "account_9"
+        },
+        {
+          "internal_id": 10,
+          "source": "day07-local-lab",
+          "event_id": "day07-spray-10",
+          "timestamp_utc": "2026-09-29T09:09:00.000000+00:00",
+          "username": "account_10"
+        }
+      ]
+    },
+    {
+      "alert_id": "R1-87eaf6c421b7bc49f11a384bd4030db708d4a10533f858fbb2c2f8cbee80c5b5",
+      "rule_id": "R1",
+      "rule_version": "1.0.0",
+      "title": "Repeated failed logins",
+      "parameters": {
+        "threshold": 5,
+        "window_seconds": 300
+      },
+      "group": {
+        "username": "lab_user",
+        "source_ip": "192.0.2.71"
+      },
+      "failure_count": 5,
+      "first_event_at": "2026-09-29T09:20:00.000000+00:00",
+      "triggered_at": "2026-09-29T09:24:00.000000+00:00",
+      "reason": "5 failed logins for the same username and source IP within an inclusive 300-second window. Investigate; this does not confirm compromise.",
+      "evidence": [
+        {
+          "internal_id": 11,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-1",
+          "timestamp_utc": "2026-09-29T09:20:00.000000+00:00"
+        },
+        {
+          "internal_id": 12,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-2",
+          "timestamp_utc": "2026-09-29T09:21:00.000000+00:00"
+        },
+        {
+          "internal_id": 13,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-3",
+          "timestamp_utc": "2026-09-29T09:22:00.000000+00:00"
+        },
+        {
+          "internal_id": 14,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-4",
+          "timestamp_utc": "2026-09-29T09:23:00.000000+00:00"
+        },
+        {
+          "internal_id": 15,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-5",
+          "timestamp_utc": "2026-09-29T09:24:00.000000+00:00"
+        }
+      ]
+    },
+    {
+      "alert_id": "R3-6763cbdbf7d9b31660378a6e51ce167af82cf808e0b6626f99a5cc84748008da",
+      "rule_id": "R3",
+      "rule_version": "1.0.0",
+      "title": "Successful login after repeated failures",
+      "parameters": {
+        "threshold": 5,
+        "window_seconds": 300
+      },
+      "group": {
+        "username": "lab_user",
+        "source_ip": "192.0.2.71"
+      },
+      "failure_count": 5,
+      "first_event_at": "2026-09-29T09:20:00.000000+00:00",
+      "triggered_at": "2026-09-29T09:24:30.000000+00:00",
+      "reason": "A successful login followed 5 earlier failures for the same username and source IP within 300 seconds. Equal-time failures are excluded. Investigate; the user may simply have corrected a password.",
+      "evidence": [
+        {
+          "internal_id": 11,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-1",
+          "timestamp_utc": "2026-09-29T09:20:00.000000+00:00",
+          "role": "preceding_failure"
+        },
+        {
+          "internal_id": 12,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-2",
+          "timestamp_utc": "2026-09-29T09:21:00.000000+00:00",
+          "role": "preceding_failure"
+        },
+        {
+          "internal_id": 13,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-3",
+          "timestamp_utc": "2026-09-29T09:22:00.000000+00:00",
+          "role": "preceding_failure"
+        },
+        {
+          "internal_id": 14,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-4",
+          "timestamp_utc": "2026-09-29T09:23:00.000000+00:00",
+          "role": "preceding_failure"
+        },
+        {
+          "internal_id": 15,
+          "source": "day07-local-lab",
+          "event_id": "day07-burst-5",
+          "timestamp_utc": "2026-09-29T09:24:00.000000+00:00",
+          "role": "preceding_failure"
+        },
+        {
+          "internal_id": 16,
+          "source": "day07-local-lab",
+          "event_id": "day07-success",
+          "timestamp_utc": "2026-09-29T09:24:30.000000+00:00",
+          "role": "triggering_success"
+        }
+      ]
+    }
+  ]
+}

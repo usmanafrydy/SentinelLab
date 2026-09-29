@@ -17,11 +17,11 @@ Created and published the scaffold to the private usmanafrydy/SentinelLab reposi
 
 ## Owner's next actions
 
-Day 1 exercise completed: owner correctly explained that exceeding the failed-login threshold triggers investigation, not proof of compromise. Day 5 exercise completed: owner correctly identified frontend, duplicate skipping, and the need to investigate failed logins. Current exercise: docs/DAY_06_GUIDE.md. Day 2-4 answers have not been recorded. Daily availability remains unconfirmed.
+Day 1 and Day 5 exercises are complete. Day 6 threshold and exact-boundary answers were correct; the evidence-reference question was explained in easier English/Roman Urdu and has not been independently answered. Current exercise: docs/DAY_07_GUIDE.md. Day 2-4 answers have not been recorded. Daily availability remains unconfirmed. Use small examples and one learning question at a time.
 
 ## Next implementation checkpoint
 
-Day 7: implement R2 distinct-account failures and R3 success after failures, using the documented policies and meaningful tests. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
+Day 8: persist alerts and run history with safe schema evolution, deterministic deduplication, and evidence references. See docs/NEXT_SESSION.md. Publication status is confirmed in the conversation and GitHub history after verification.
 
 ## September 26, 2026 - Day 2
 
@@ -83,3 +83,14 @@ Day 7: implement R2 distinct-account failures and R3 success after failures, usi
 - Added Day 6 English/Roman Urdu guide and sanitized JSON example. UI notice distinguishes command-line R1 from the event browser.
 - Existing browser import/search/evidence stays available. R2/R3, persistent alerts, investigations, authentication, and final portfolio work remain pending. Deadline October 17.
 - GitHub checkpoint is published through the connector and verified separately; local Git metadata remains behind because of the previously observed Windows restrictions.
+
+## Day 7 implementation - September 29, 2026
+
+- Verified published Day 6 files exactly matched local contents before editing.
+- Added R2 distinct-account failures and R3 success-after-failures, both version 1.0.0. R3 includes earlier failure evidence and its triggering success with explicit roles.
+- Added a combined engine using one bounded read-only snapshot. Default CLI runs all rules; --rule selects one. Existing R1 behavior/version and saved Day 6 result are preserved.
+- Added a 100,000-reference output budget to bound overlapping R3 evidence; limit failures return no partial previews. Existing 10,000-event cap remains.
+- Full suite: 103 passing tests, including 20 new combined/R2/R3 cases. Corrected a test-fixture keyword collision during development; final suite passes.
+- Imported 16 synthetic events into separate day07_demo.db: exactly 3 previews, one per rule. Saved a reproducible sanitized JSON example. Existing demo databases are unchanged.
+- Added a detailed simple-English/Roman-Urdu guide, updated rule contract and continuation notes, and clarified the CLI default. No new dependencies or schema changes.
+- Permanent alerts, investigations, browser detection, and analyst sign-in remain pending; deadline October 17. Publish via connector and verify remote ref/content before reporting completion.

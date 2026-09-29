@@ -1,4 +1,4 @@
-"""Run R1 detection without installing a package."""
+"""Run selected detection rules without installing a package."""
 from pathlib import Path
 import sys
 

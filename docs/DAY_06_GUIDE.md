@@ -44,7 +44,7 @@ Expected on a fresh database: 6 inserted. On this laptop after today's demonstra
 ## 4. Run R1
 
 ```powershell
-& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day06_demo.db --json
+& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day06_demo.db --rule R1 --json
 ```
 
 Expected: events_scanned = 6, alert_count = 1, failure_count = 5. Only R1 is evaluated. The success is scanned but does not contribute to failure_count. All commands work without third-party packages or environment activation on this laptop. Follow SETUP.md for other Python layouts.
@@ -66,7 +66,7 @@ Expected: day06-failure-1 and its original accepted text. Your own database may 
 ## 6. Compare normal sample activity
 
 ```powershell
-& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day05_demo.db --json
+& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day05_demo.db --rule R1 --json
 ```
 
 Expected for the unchanged Day 5 demo: 3 scanned, 0 alerts. It contains only 2 failures. Zero R1 alerts means this particular pattern was not found; it does not prove the system is safe.

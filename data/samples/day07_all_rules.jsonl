@@ -1,0 +1,16 @@
+{"event_id":"day07-spray-1","source":"day07-local-lab","timestamp":"2026-09-29T09:00:00Z","source_ip":"192.0.2.70","username":"account_1","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-2","source":"day07-local-lab","timestamp":"2026-09-29T09:01:00Z","source_ip":"192.0.2.70","username":"account_2","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-3","source":"day07-local-lab","timestamp":"2026-09-29T09:02:00Z","source_ip":"192.0.2.70","username":"account_3","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-4","source":"day07-local-lab","timestamp":"2026-09-29T09:03:00Z","source_ip":"192.0.2.70","username":"account_4","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-5","source":"day07-local-lab","timestamp":"2026-09-29T09:04:00Z","source_ip":"192.0.2.70","username":"account_5","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-6","source":"day07-local-lab","timestamp":"2026-09-29T09:05:00Z","source_ip":"192.0.2.70","username":"account_6","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-7","source":"day07-local-lab","timestamp":"2026-09-29T09:06:00Z","source_ip":"192.0.2.70","username":"account_7","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-8","source":"day07-local-lab","timestamp":"2026-09-29T09:07:00Z","source_ip":"192.0.2.70","username":"account_8","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-9","source":"day07-local-lab","timestamp":"2026-09-29T09:08:00Z","source_ip":"192.0.2.70","username":"account_9","event_type":"login","outcome":"failure"}
+{"event_id":"day07-spray-10","source":"day07-local-lab","timestamp":"2026-09-29T09:09:00Z","source_ip":"192.0.2.70","username":"account_10","event_type":"login","outcome":"failure"}
+{"event_id":"day07-burst-1","source":"day07-local-lab","timestamp":"2026-09-29T09:20:00Z","source_ip":"192.0.2.71","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day07-burst-2","source":"day07-local-lab","timestamp":"2026-09-29T09:21:00Z","source_ip":"192.0.2.71","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day07-burst-3","source":"day07-local-lab","timestamp":"2026-09-29T09:22:00Z","source_ip":"192.0.2.71","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day07-burst-4","source":"day07-local-lab","timestamp":"2026-09-29T09:23:00Z","source_ip":"192.0.2.71","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day07-burst-5","source":"day07-local-lab","timestamp":"2026-09-29T09:24:00Z","source_ip":"192.0.2.71","username":"lab_user","event_type":"login","outcome":"failure"}
+{"event_id":"day07-success","source":"day07-local-lab","timestamp":"2026-09-29T09:24:30Z","source_ip":"192.0.2.71","username":"lab_user","event_type":"login","outcome":"success"}

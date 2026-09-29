@@ -1,4 +1,4 @@
-# Detection contract - Day 6
+# Detection contract - Day 7
 
 ## R1 version 1.0.0: repeated account failures
 
@@ -18,8 +18,22 @@ Read at most 10,001 rows from one database snapshot. A database containing more 
 
 False positives include forgotten passwords, misconfigured clients, and shared networks. Blind spots include fewer than five failures, activity spread across IPs/accounts, unavailable logs, and evidence outside the dataset. These thresholds are lab design choices, not measured real-world accuracy claims.
 
-## Planned R2 and R3 (not implemented)
+## R2 version 1.0.0: distinct-account failures
 
-R2 will count 10 distinct usernames with failures per source IP in [t-600 seconds, t], batching ties. Repeated failures by one username count once toward the threshold; evidence retains contributing events. Proposed grouping mirrors R1's rearm-below-threshold behavior using distinct-account counts. This can suggest password spraying but cannot prove which passwords were attempted.
+R2 counts 10 distinct usernames with failures per source IP in [t-600 seconds, t], batching ties. Repeated failures by one username count once toward the threshold; evidence retains every contributing failure and its username. Case and spaces remain significant. Successes do not contribute or reset the group. Source namespaces can contribute to the same IP group. This can suggest password spraying but cannot prove which passwords were attempted.
 
-R3 will evaluate each success independently, counting at least 5 matching username/IP failures in [t-300 seconds, t). Equal-time failures are excluded because logs do not establish their order relative to success. Proposed identity includes the success and failure evidence; no cross-success cooldown. Confirm these policies with tests when implementing each rule.
+Expire failures older than 600 seconds and remove a username only when no failures for it remain. If the pre-add distinct-account count is below 10, arm the group. Add the entire timestamp batch; emit once if armed and the count reaches 10, then disarm. There is no fixed cooldown. Evidence is frozen at trigger time. Alert identity includes rule/version/parameters/IP and ordered evidence identities/timestamps/usernames, excluding internal row IDs.
+
+## R3 version 1.0.0: success after failures
+
+R3 evaluates each success independently, counting at least 5 matching username/IP failures in [t-300 seconds, t). Equal-time failures are excluded because logs do not establish their order relative to success. Process all successes at a timestamp before adding failures at that timestamp. Successes never clear the failure window; each qualifying success gets its own alert, including multiple successes at the same instant.
+
+Evidence includes every contributing earlier failure plus the triggering success, with role preceding_failure or triggering_success. failure_count excludes that success. Alert identity includes rule/version/parameters/group and ordered evidence identities/timestamps/roles, excluding internal row IDs. Usernames are exact and IPs canonical; different source namespaces may contribute as for R1. A user correcting a password can trigger this rule legitimately.
+
+## Combined engine and CLI
+
+scripts/detect.py now evaluates all three rules by default. Select --rule R1, R2, R3, or all. All selected rules use one bounded read-only database snapshot ordered by normalized UTC time/source/event_id. Output sorts by trigger time, rule ID, then alert ID. Existing detect_r1 remains available, and its valid-input behavior, version, and saved Day 6 preview are preserved.
+
+Input is capped at 10,000 total events. Combined output is additionally capped at 100,000 evidence references across selected rules. Repeated successes can otherwise produce quadratic evidence output. Exceeding either bound fails the complete run with a safe error, with no partial report or writes. The evidence budget is checked before building R2/R3 alerts. Stored times are checked for canonical UTC formatting before evaluation.
+
+All results remain previews. No persistent alerts, run history, continuous monitoring, or browser detection yet. R1/R3 may both describe the same activity; alert counts are not incident counts. Late data can change recomputed results. Exit 0 means successful evaluation regardless of alert count; exit 2 indicates an error. The default rule selection changed in Day 7; historical R1-only examples should use --rule R1.

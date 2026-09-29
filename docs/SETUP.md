@@ -62,7 +62,7 @@ Expected: Accepted: 2, Rejected: 1, Blank lines skipped: 1. Line 2 is rejected b
 & $projectPython scripts/run_tests.py
 ```
 
-Expected for Day 6: 83 passing tests for validation, storage, search, CLI, local HTTP, and R1 detection. Remaining-rule and full dashboard tests come later.
+Expected for Day 7: 103 passing tests for validation, storage, search, CLI, local HTTP, and all three detection rules. Persistent alert and full dashboard tests come later.
 
 Add --json to check_events.py for a machine-readable summary. Exit code 0 means the file was checked without rejected records; 1 means some records were rejected; 2 means a fatal input/usage problem. An empty file is valid and produces zero counts. Summaries omit original event values.
 
@@ -105,4 +105,8 @@ Open http://127.0.0.1:8765. Keep PowerShell open; Ctrl+C stops the server withou
 
 ## Day 6: R1 detection preview
 
-Follow DAY_06_GUIDE.md for copyable sample import/detect/evidence commands. scripts/detect.py --database PATH [--json] evaluates only R1, without database writes. Exit 0 means success regardless of alert count; exit 2 means failure. Maximum dataset: 10,000 stored events. See DETECTION_RULES.md for exact window/grouping behavior. The existing browser does not automatically run this command.
+Follow DAY_06_GUIDE.md for R1 commands using --rule R1. Since Day 7, scripts/detect.py --database PATH [--json] defaults to all three rules. Exit 0 means success regardless of alert count; exit 2 means failure. Maximum dataset: 10,000 stored events. See DETECTION_RULES.md for exact window/grouping behavior. The existing browser does not automatically run this command.
+
+## Day 7: combined detection
+
+Follow DAY_07_GUIDE.md to import data/samples/day07_all_rules.jsonl into data/runtime/day07_demo.db, then run scripts/detect.py --database data/runtime/day07_demo.db --json. Expected: 16 scanned events and 3 previews. --rule accepts R1, R2, R3, or all (default). Combined output stops at 100,000 evidence references, returning an error rather than a partial preview. Alerts are not persisted. No new dependencies or schema migration required.

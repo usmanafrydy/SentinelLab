@@ -6,7 +6,7 @@ from itertools import groupby
 import json
 
 from sentinellab.storage.database import StorageError
-from sentinellab.storage.search import _reader
+from sentinellab.detection.common import load_snapshot
 
 RULE_ID = "R1"
 RULE_VERSION = "1.0.0"
@@ -39,14 +39,14 @@ def _alert(window, username, source_ip):
 
 def detect_r1(database_path):
     """Read one bounded snapshot; return previews without saving or modifying data."""
-    with _reader(database_path) as connection:
-        rows = connection.execute(
-            "SELECT id, source, event_id, timestamp_utc, username, source_ip, event_type, outcome "
-            "FROM events ORDER BY timestamp_utc, source, event_id LIMIT ?",
-            (MAX_DETECTION_EVENTS + 1,),
-        ).fetchall()
-    if len(rows) > MAX_DETECTION_EVENTS:
-        raise StorageError(f"Detection supports at most {MAX_DETECTION_EVENTS} stored events; no partial results were produced.")
+    rows = load_snapshot(database_path, MAX_DETECTION_EVENTS)
+    alerts = evaluate_r1(rows)
+    return {"mode": "read_only_preview", "rules_evaluated": [RULE_ID],
+            "events_scanned": len(rows), "alert_count": len(alerts), "alerts": alerts}
+
+
+def evaluate_r1(rows):
+    """Evaluate already normalized rows ordered by time/source/event_id."""
     groups = defaultdict(list)
     for row in rows:
         if row["event_type"] == "login" and row["outcome"] == "failure":
@@ -74,5 +74,4 @@ def detect_r1(database_path):
                 armed = False
     alerts.sort(key=lambda item: (item["triggered_at"], item["group"]["username"],
                                   item["group"]["source_ip"], item["alert_id"]))
-    return {"mode": "read_only_preview", "rules_evaluated": [RULE_ID],
-            "events_scanned": len(rows), "alert_count": len(alerts), "alerts": alerts}
+    return alerts

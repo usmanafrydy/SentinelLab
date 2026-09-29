@@ -38,3 +38,7 @@ Normal demo: data/runtime/day05_demo.db has 3 events and 2 imports after verific
 ## Day 6 scope note
 
 R1 now runs through scripts/detect.py as a read-only preview. This browser still provides event import/search/evidence only; no detection endpoint or automatic evaluation was added. The notice now makes that distinction explicit.
+
+## Day 7 scope note
+
+The command-line detector now runs R1/R2/R3 by default, with --rule for individual selection. Browser functionality remains event import/search/evidence; no detection endpoint was added. The page notice refers to detection generally. See DAY_07_GUIDE.md for the new sample and commands.

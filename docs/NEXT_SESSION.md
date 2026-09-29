@@ -1,21 +1,23 @@
-# Next session - Day 7
+# Next session - Day 8
 
 Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Simple English and Roman Urdu as needed.
 
 1. Read AGENTS.md, PROGRESS.md, DETECTION_RULES.md, ACCEPTANCE_CRITERIA.md, and DATABASE.md.
-2. Compare actual GitHub main with local files before editing. Preserve access controls and unrelated work.
-3. Day 1 and Day 5 exercises are complete. Day 2-4 and Day 6 answers are unrecorded. Review Day 6 questions as appropriate.
-4. Implement R2 distinct-account failures and R3 success after failures using the documented proposed policies. Confirm same-time exclusion for R3, distinct counting for R2, deterministic IDs, and original evidence references.
-5. Preserve R1 behavior and its version. Keep bounded read-only previews until explicit alert persistence/migration work; do not claim database deduplication is implemented for alerts.
-6. Test positive/negative cases, exact boundaries, same-time records, independent groups, duplicate imports, stable reruns, and combined rule output. Update samples and guide.
-7. Run relevant checks and publish a verified checkpoint. Keep browser and CLI workflows working.
+2. Compare GitHub main and local files before editing. Preserve unrelated work and access controls.
+3. Day 1 and Day 5 exercises are complete. Day 6 questions 1/2 were correct; question 3 was explained but not independently answered. Day 7 answers are pending. Use small examples and one question at a time.
+4. Implement permanent alert/run storage as a bounded checkpoint. Design explicit schema-version migration, preserving existing events/originals/imports and rolling back failures. Keep preview mode read-only.
+5. Deduplicate saved alerts using stable identity. Store evidence references, selected rules, and completed run summaries. Define late-import behavior without deleting evidence or silently changing analyst conclusions.
+6. Test repeat evaluation, migration of schema-v1 databases, preserved evidence, atomic failures, concurrent writes, and unsupported schemas. Keep CLI/browser/detector checks passing.
+7. Update guides and publish a verified checkpoint. Authentication, investigations, and the full dashboard remain pending.
 
 ## Environment and current results
 
-MSYS2 Python 3.12.7, .venv/bin/python.exe, standard library only. Full suite: 83 tests. R1 command: scripts/detect.py --database data/runtime/day06_demo.db --json. Day 6 demo has 6 events and 1 preview, with evidence IDs 2,5,4,6,1 for the supplied import order. Original Day 5 database has 3 events/2 imports and 0 R1 previews. Databases are ignored. Saved synthetic preview is reports/examples/day06_r1_preview.json.
+MSYS2 Python 3.12.7, .venv/bin/python.exe, standard library only. Full suite: 103 tests. scripts/detect.py --database data/runtime/day07_demo.db --json runs ALL rules by default; --rule R1/R2/R3 selects one. Day 7 demo has 16 events and 3 previews, one per rule. R3 references 5 failures plus 1 success. Sample output: reports/examples/day07_all_rules_preview.json. Day 6 R1 example remains unchanged when selected explicitly.
 
-Browser: scripts/serve.py --database data/runtime/day05_demo.db at http://127.0.0.1:8765; may already be running. Browser does not execute detection. No analyst sign-in or persistent alerts yet.
+All rules use one snapshot capped at 10,000 events; combined output is capped at 100,000 evidence references and fails without partial output. No persistent alerts or schema changes yet. Runtime databases are ignored.
+
+Browser: scripts/serve.py --database data/runtime/day05_demo.db at http://127.0.0.1:8765; check whether it is already running. It does not execute detection. No analyst sign-in yet.
 
 ## Git continuity
 
-Day 6 began with Day 5 published commit 1199953 and matching local contents. Local HEAD/index remain behind at Day 2 due Windows metadata write restrictions. Use the GitHub connector if staging is unavailable; verify remote files and ref. Do not alter ACLs or reset away work. Publication outcome is confirmed in the conversation after verification.
+Day 7 began with published Day 6 commit 302be1c and matching local file contents. Local HEAD/index remain behind at Day 2 due previously observed Windows metadata restrictions. Use GitHub connector publication if staging is unavailable; verify remote files/ref. Never alter deny ACLs or reset away work. Publication outcome is confirmed in the conversation after verification.

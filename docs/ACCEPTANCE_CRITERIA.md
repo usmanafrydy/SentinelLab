@@ -22,7 +22,7 @@ All criteria are pending as of September 24, 2026. These are future checks, not 
 
 ## Rule defaults and terminology
 
-Defaults are lab design choices, not universal security thresholds. Rules run on stored event time, not import time. Version 1 uses batch evaluation; out-of-order input is sorted for evaluation. Window boundaries are inclusive. R1 grouping is specified and tested in DETECTION_RULES.md. R2/R3 grouping remains proposed until those rules are implemented.
+Defaults are lab design choices, not universal security thresholds. Rules run on stored event time, not import time. Version 1 uses batch evaluation; out-of-order input is sorted for evaluation. R1/R2 include both window endpoints; R3 includes the start and excludes failures at the success timestamp. All three rules are specified and tested in DETECTION_RULES.md.
 
 R1: group by exact normalized username and source IP; count distinct failure events in [t - 5 minutes, t].
 R2: group by source IP; count distinct usernames with failure events in [t - 10 minutes, t]. This pattern can suggest spraying but does not establish which passwords were attempted.
@@ -49,3 +49,7 @@ Browser upload/search/evidence now exercises AC-01 through AC-04 for events. AC-
 ## Day 6 evidence
 
 AC-05 has R1 coverage for 4 versus 5 failures and the inclusive 300-second boundary. AC-08 has deterministic preview IDs, rule version/parameters, reasons, and resolvable evidence references; persistent alert deduplication remains pending. AC-13 includes ties, shuffled events, grouping isolation, successes, reimports/conflicts, and episode rearming. Full suite: 83 passing tests. These component results do not complete the remaining rules or release acceptance.
+
+## Day 7 evidence
+
+AC-06 now has R2 tests for distinct usernames, repeats, boundaries, expiration, ties, and independent IPs. AC-07 has R3 tests for preceding failures, exact start/end behavior, matching username/IP, and multiple successes. AC-08/13 cover stable combined IDs, repeated imports/conflicts, shuffled import order, supporting failure/success references, unchanged R1 example, and one snapshot per run. Output bounds fail without partial reports. Full suite: 103 passing tests. Persistent alert deduplication, investigations, authentication, evaluation, and final release acceptance remain pending.
