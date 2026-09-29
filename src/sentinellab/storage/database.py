@@ -62,7 +62,7 @@ def _check_schema(connection: sqlite3.Connection, *, create: bool = False) -> No
         for statement in SCHEMA:
             connection.execute(statement)
         connection.execute("PRAGMA user_version = 1")
-    elif version != SCHEMA_VERSION:
+    elif version not in (1, 2):
         raise StorageError("unsupported database schema; no automatic migration was attempted")
     # Fail before writing if a version label exists but required columns are absent.
     connection.execute("SELECT id, imported_at, validated, inserted, duplicates, conflicts, "
@@ -70,6 +70,9 @@ def _check_schema(connection: sqlite3.Connection, *, create: bool = False) -> No
     connection.execute("SELECT id, source, event_id, timestamp_utc, source_ip, username, "
                        "event_type, outcome, canonical_json, original_record, "
                        "first_import_id, first_line_number FROM events LIMIT 0")
+    if version == 2:
+        from sentinellab.storage.alert_schema import validate_alert_schema
+        validate_alert_schema(connection)
 
 
 def initialize_database(database_path: Path | str) -> None:
@@ -179,6 +182,7 @@ def database_summary(database_path: Path | str) -> dict:
             _check_schema(connection)
             events = connection.execute("SELECT COUNT(*) FROM events").fetchone()[0]
             imports = connection.execute("SELECT COUNT(*) FROM imports").fetchone()[0]
-            return {"schema_version": SCHEMA_VERSION, "total_events": events, "total_imports": imports}
+            return {"schema_version": connection.execute("PRAGMA user_version").fetchone()[0],
+                    "total_events": events, "total_imports": imports}
     except (sqlite3.Error, OSError):
         raise StorageError("could not read a SentinelLab database; check its location, access, and file format") from None

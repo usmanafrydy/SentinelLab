@@ -9,10 +9,18 @@ RULES = ("R1", "R2", "R3")
 
 
 def detect(database_path, rule="all"):
+    validate_rule(rule)
+    return evaluate_snapshot(load_snapshot(database_path), rule)
+
+
+def validate_rule(rule):
     if rule not in (*RULES, "all"):
         raise StorageError("rule must be R1, R2, R3, or all.")
+
+
+def evaluate_snapshot(rows, rule="all"):
+    validate_rule(rule)
     selected = RULES if rule == "all" else (rule,)
-    rows = load_snapshot(database_path)
     budget, alerts = EvidenceBudget(), []
     if "R1" in selected:
         first = evaluate_r1(rows)

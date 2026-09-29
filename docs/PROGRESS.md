@@ -84,6 +84,16 @@ Day 8: persist alerts and run history with safe schema evolution, deterministic 
 - Existing browser import/search/evidence stays available. R2/R3, persistent alerts, investigations, authentication, and final portfolio work remain pending. Deadline October 17.
 - GitHub checkpoint is published through the connector and verified separately; local Git metadata remains behind because of the previously observed Windows restrictions.
 
+## Day 8 implementation - September 29, 2026
+
+- Verified published Day 7 files against local hashes before editing. Implemented explicit --save with atomic v1-to-v2 migration, stable-ID deduplication, saved evidence links, run configurations/counts, and per-run alert membership. Default previews stay read-only.
+- Existing original events/imports remain unchanged. Late events may produce new alerts without deleting historical snapshots or assigning analyst conclusions. Missing/unsupported databases fail safely.
+- Added scripts/alerts.py for summary, bounded alert/run lists, and full alert evidence retrieval. No browser alert UI or save endpoint yet.
+- Full suite: 120 passing tests, including migration, repeat saves, rollback, simultaneous saves/imports, limits, separate-process persistence, and browser compatibility with schema v2. Corrected a new test's mistaken search-result key during development.
+- Separate ignored day08_demo.db: 16 synthetic events, 3 alerts, 2 runs. Verified first save adds 3 alerts; second adds 0 and recognizes 3 existing. Earlier demos unchanged. Default preview does not add history.
+- Added simple-English/Roman-Urdu Day 8 guide and alert storage contract. Day 8 learning answer is pending; prior incomplete exercises remain pending.
+- Deadline October 17. Browser alerts are planned for Day 9; investigations, sign-in, exports, evaluation, and portfolio release remain pending. Publish through GitHub connector because local metadata remains behind; verify remote content/ref separately.
+
 ## Day 7 implementation - September 29, 2026
 
 - Verified published Day 6 files exactly matched local contents before editing.

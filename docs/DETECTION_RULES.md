@@ -10,11 +10,11 @@ At each failure timestamp t, expire events strictly older than t minus 300 secon
 
 Evidence includes every matching failure in the inclusive window at the triggering timestamp. Alert fields contain rule ID/version, parameters, group, first evidence time, trigger time, count, reason, stable alert ID, and evidence references. Internal event IDs resolve with database.py get against the same database. Alert IDs hash the rule/version/parameters/group and ordered evidence identities/timestamps; internal SQLite row IDs are excluded so import order does not change the alert ID.
 
-This checkpoint is a read-only batch preview. It does not save alerts, monitor continuously, or run on browser upload. Rerunning unchanged events returns identical alert IDs; persistent alert deduplication and run history are future work. Late imported events can change the recomputed windows and preview IDs. Zero alerts only means R1 did not find this pattern; it does not establish safety.
+Default execution is a read-only batch preview. Day 8 adds explicit --save for persistent deduplicated alerts and run history (ALERT_STORAGE.md). It does not monitor continuously or run on browser upload. Rerunning unchanged events returns identical alert IDs. Late imported events can change recomputed windows and IDs; saved historical snapshots remain. Zero alerts only means R1 did not find this pattern; it does not establish safety.
 
 ## Limits
 
-Read at most 10,001 rows from one database snapshot. A database containing more than 10,000 events (including successes) fails the whole detection run with a clear error; no partial results. The cap bounds this learning implementation's memory/evidence output. No time-filtered partial detection is offered because preceding events matter to the window. No schema changes, dependencies, source record edits, or new database files are made by detection.
+Read at most 10,001 rows from one database snapshot. More than 10,000 events (including successes) fails the whole run without partial results. No time-filtered partial detection is offered because preceding events matter. Default preview makes no schema changes. Explicit --save upgrades existing v1 databases and saves results atomically; it never edits source events or creates a missing database. No extra dependencies.
 
 False positives include forgotten passwords, misconfigured clients, and shared networks. Blind spots include fewer than five failures, activity spread across IPs/accounts, unavailable logs, and evidence outside the dataset. These thresholds are lab design choices, not measured real-world accuracy claims.
 
@@ -32,8 +32,8 @@ Evidence includes every contributing earlier failure plus the triggering success
 
 ## Combined engine and CLI
 
-scripts/detect.py now evaluates all three rules by default. Select --rule R1, R2, R3, or all. All selected rules use one bounded read-only database snapshot ordered by normalized UTC time/source/event_id. Output sorts by trigger time, rule ID, then alert ID. Existing detect_r1 remains available, and its valid-input behavior, version, and saved Day 6 preview are preserved.
+scripts/detect.py evaluates all three rules by default. Select --rule R1, R2, R3, or all. All selected rules use one bounded snapshot ordered by normalized UTC time/source/event_id. Preview opens read-only; --save evaluates inside the saving transaction. Output sorts by trigger time, rule ID, then alert ID. Existing detect_r1 remains available, and its valid-input behavior, version, and saved Day 6 preview are preserved.
 
 Input is capped at 10,000 total events. Combined output is additionally capped at 100,000 evidence references across selected rules. Repeated successes can otherwise produce quadratic evidence output. Exceeding either bound fails the complete run with a safe error, with no partial report or writes. The evidence budget is checked before building R2/R3 alerts. Stored times are checked for canonical UTC formatting before evaluation.
 
-All results remain previews. No persistent alerts, run history, continuous monitoring, or browser detection yet. R1/R3 may both describe the same activity; alert counts are not incident counts. Late data can change recomputed results. Exit 0 means successful evaluation regardless of alert count; exit 2 indicates an error. The default rule selection changed in Day 7; historical R1-only examples should use --rule R1.
+Results are previews unless --save is supplied. Day 8 stores deduplicated alerts and run history; no continuous monitoring or browser detection yet. R1/R3 may describe the same activity; alert counts are not incident counts. Late data can change recomputed results while old saved snapshots remain. Exit 0 means successful evaluation regardless of alert count; exit 2 indicates an error. The default rule selection changed in Day 7; historical R1-only examples should use --rule R1.

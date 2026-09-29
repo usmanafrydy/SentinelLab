@@ -22,10 +22,15 @@ def utc_time(value):
 
 def load_snapshot(database_path, limit=MAX_DETECTION_EVENTS):
     with _reader(database_path) as connection:
-        rows = connection.execute(
-            "SELECT id, source, event_id, timestamp_utc, username, source_ip, event_type, outcome "
-            "FROM events ORDER BY timestamp_utc, source, event_id LIMIT ?", (limit + 1,),
-        ).fetchall()
+        return read_snapshot(connection, limit)
+
+
+def read_snapshot(connection, limit=MAX_DETECTION_EVENTS):
+    """Use the caller's transaction for a consistent evaluation and save."""
+    rows = connection.execute(
+        "SELECT id, source, event_id, timestamp_utc, username, source_ip, event_type, outcome "
+        "FROM events ORDER BY timestamp_utc, source, event_id LIMIT ?", (limit + 1,),
+    ).fetchall()
     if len(rows) > limit:
         raise StorageError(f"Detection supports at most {limit} stored events; no partial results were produced.")
     for row in rows:

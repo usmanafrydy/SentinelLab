@@ -78,6 +78,15 @@ class WebTests(unittest.TestCase):
         self.assertEqual(json.loads(evidence["original_record"]), event())
         self.assertEqual(self.request("GET", "/api/events/999")[0], 404)
 
+    def test_event_browser_still_reads_and_imports_after_alert_migration(self):
+        from sentinellab.storage.alerts import save_detection, alert_summary
+        self.assertEqual(self.upload(self.data(event()))[0], 200)
+        save_detection(self.db)
+        self.assertEqual(json.loads(self.request("GET", "/api/events")[2])["total_matches"], 1)
+        self.assertEqual(self.request("GET", "/api/events/1")[0], 200)
+        self.assertEqual(json.loads(self.upload(self.data(event()))[2])["duplicates"], 1)
+        self.assertEqual(alert_summary(self.db)["detection_runs"], 1)
+
     def test_browser_result_filter_contains_all_three_real_options(self):
         class Options(HTMLParser):
             def __init__(self):

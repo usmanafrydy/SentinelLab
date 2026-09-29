@@ -1,6 +1,6 @@
 # Acceptance criteria
 
-All criteria are pending as of September 24, 2026. These are future checks, not passed tests.
+These are release targets established September 24, 2026. Dated evidence below records component progress; the full release acceptance run remains pending.
 
 | ID | Requirement | Verification before release |
 | --- | --- | --- |
@@ -53,3 +53,7 @@ AC-05 has R1 coverage for 4 versus 5 failures and the inclusive 300-second bound
 ## Day 7 evidence
 
 AC-06 now has R2 tests for distinct usernames, repeats, boundaries, expiration, ties, and independent IPs. AC-07 has R3 tests for preceding failures, exact start/end behavior, matching username/IP, and multiple successes. AC-08/13 cover stable combined IDs, repeated imports/conflicts, shuffled import order, supporting failure/success references, unchanged R1 example, and one snapshot per run. Output bounds fail without partial reports. Full suite: 103 passing tests. Persistent alert deduplication, investigations, authentication, evaluation, and final release acceptance remain pending.
+
+## Day 8 evidence
+
+AC-08 now has persisted deduplication, immutable rule/evidence snapshots, run history, and linked originals with separate-process retrieval. Tests cover migration preservation, failed-write rollback, concurrent saves/imports, selected/empty runs, late data, and preview/history read-only behavior. AC-04 event/browser compatibility remains verified after migration; investigation persistence is pending. Full suite: 120 passing tests. AC-09 through AC-11 and final release evaluation remain unfinished.

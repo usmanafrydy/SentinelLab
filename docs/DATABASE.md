@@ -1,4 +1,4 @@
-# SQLite storage - schema version 1
+# SQLite event storage - schema versions 1 and 2
 
 Day 3 uses Python sqlite3 without extra packages. Reference: https://docs.python.org/3.12/library/sqlite3.html
 
@@ -27,4 +27,4 @@ Exit 0: completed successfully, including duplicates-only imports. Exit 1: compl
 
 ## Limits
 
-Reader limits remain 2 MiB/file, 10,000 physical lines, and 16 KiB/line. Lock timeout: five seconds. No total database retention limit yet. Read-only event search and evidence lookup are documented in SEARCH.md. All three rules have read-only previews (DETECTION_RULES.md); no alert tables or migrations yet. Combined detection caps input at 10,000 events and output at 100,000 evidence references. No encryption at rest, tamper-evident storage, or full forensic chain of custody yet. Generated databases are excluded from Git. Use synthetic or authorized local-lab data.
+Reader limits remain 2 MiB/file, 10,000 physical lines, and 16 KiB/line. Lock timeout: five seconds. No total database retention limit yet. Read-only search and evidence lookup are documented in SEARCH.md. All rules have read-only previews (DETECTION_RULES.md). Day 8 adds explicit --save with atomic v1-to-v2 migration and alert/run tables; see ALERT_STORAGE.md. Event imports initialize v1 and accept both versions. Detection caps input at 10,000 events and output at 100,000 evidence references. No encryption at rest, tamper-evident storage, or full forensic chain of custody yet. Generated databases are excluded from Git. Use synthetic or authorized local-lab data.
