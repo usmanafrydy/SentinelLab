@@ -11,6 +11,7 @@ from urllib.parse import parse_qs, urlsplit
 from sentinellab.ingestion.reader import InputFileError, MAX_FILE_BYTES
 from sentinellab.storage.database import StorageError, database_summary, import_events, initialize_database
 from sentinellab.storage.search import get_event, search_events
+from sentinellab.storage.alerts import alert_summary, list_history, get_alert_page, save_detection
 
 ASSETS = Path(__file__).resolve().parent
 
@@ -79,11 +80,22 @@ class Handler(BaseHTTPRequestHandler):
             if url.path == "/":
                 page = (ASSETS / "templates/index.html").read_text(encoding="utf-8")
                 self.reply(200, page.replace("__REQUEST_TOKEN__", self.server.token).encode(), "text/html; charset=utf-8")
-            elif url.path in ("/static/app.js", "/static/style.css"):
+            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/style.css", "/static/alerts.css"):
                 kind = "text/javascript" if url.path.endswith(".js") else "text/css"
                 self.reply(200, (ASSETS / url.path.lstrip("/")).read_bytes(), kind + "; charset=utf-8")
             elif url.path == "/api/summary":
                 self.reply(200, database_summary(self.server.database))
+            elif url.path == "/api/alerts/summary":
+                self.query_options(url.query, set())
+                self.reply(200, alert_summary(self.server.database))
+            elif url.path in ("/api/alerts", "/api/runs"):
+                runs = url.path == "/api/runs"
+                options = self.query_options(url.query, {"limit", "offset"} if runs else {"limit", "offset", "run_id"})
+                self.reply(200, list_history(self.server.database, runs=runs, **options))
+            elif url.path.startswith("/api/alerts/"):
+                options = self.query_options(url.query, {"limit", "offset"})
+                result = get_alert_page(self.server.database, url.path.removeprefix("/api/alerts/"), **options)
+                self.reply(200 if result else 404, result if result else {"error": "Saved alert not found."})
             elif url.path == "/api/events":
                 params = parse_qs(url.query, keep_blank_values=True, max_num_fields=10)
                 permitted = {"username", "source_ip", "outcome", "start", "end", "limit", "offset"}
@@ -102,37 +114,52 @@ class Handler(BaseHTTPRequestHandler):
         except StorageError as error:
             self.reply(400, {"error": str(error)})
         except ValueError:
-            self.reply(400, {"error": "Invalid search parameters or event ID."})
+            self.reply(400, {"error": "Invalid query parameters or record ID."})
         except OSError:
             self.reply(500, {"error": "Cannot read the application files."})
+
+    def query_options(self, query, permitted):
+        params = parse_qs(query, keep_blank_values=True, strict_parsing=True, max_num_fields=10)
+        if set(params) - permitted or any(len(values) != 1 for values in params.values()):
+            raise ValueError
+        return {key: int(values[0]) for key, values in params.items()}
 
     def do_POST(self):
         if not self.allowed():
             return
-        if self.path != "/api/import":
+        if self.path not in ("/api/import", "/api/detect"):
             self.reply(404, {"error": "Page not found."})
             return
         tokens = self.headers.get_all("X-SentinelLab-Token", [])
         if (self.headers.get_all("Origin", []) != [self.server.origin]
                 or len(tokens) != 1 or not tokens[0].isascii()
                 or not secrets.compare_digest(tokens[0], self.server.token)):
-            self.reply(403, {"error": "Refresh the local page before importing."})
+            self.reply(403, {"error": "Refresh the local page before saving changes."})
             return
         sizes = self.headers.get_all("Content-Length", [])
         if self.headers.get_all("Transfer-Encoding") or len(sizes) != 1 or not sizes[0].isascii() or not sizes[0].isdigit():
             self.reply(411, {"error": "A single Content-Length is required; streaming uploads are not supported."})
             return
-        if len(sizes[0]) > 10 or int(sizes[0]) > MAX_FILE_BYTES:
-            self.reply(413, {"error": "File exceeds the 2 MiB upload limit."})
+        detecting = self.path == "/api/detect"
+        maximum = 128 if detecting else MAX_FILE_BYTES
+        if len(sizes[0]) > 10 or int(sizes[0]) > maximum:
+            self.reply(413, {"error": "Detection request exceeds 128 bytes." if detecting else "File exceeds the 2 MiB upload limit."})
             return
-        if self.headers.get("Content-Type") != "application/x-ndjson":
-            self.reply(415, {"error": "Upload a JSON Lines file using the local page."})
+        content_type = "application/x-www-form-urlencoded" if detecting else "application/x-ndjson"
+        if self.headers.get_all("Content-Type", []) != [content_type]:
+            self.reply(415, {"error": "Use the local page with the expected content type."})
             return
         try:
             length = int(sizes[0])
             content = self.rfile.read(length)
             if len(content) != length:
-                self.reply(400, {"error": "Upload was incomplete; no records saved."})
+                self.reply(400, {"error": "Request was incomplete; no records saved."})
+                return
+            if detecting:
+                params = parse_qs(content.decode("ascii"), keep_blank_values=True, strict_parsing=True, max_num_fields=2)
+                if set(params) != {"rule"} or len(params["rule"]) != 1:
+                    raise ValueError
+                self.reply(200, save_detection(self.server.database, params["rule"][0]))
                 return
             # Never use a supplied filename or let clients choose a database path.
             with TemporaryDirectory(prefix="sentinellab-upload-") as temporary:
@@ -144,6 +171,8 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(400, {"error": str(error)})
         except StorageError as error:
             self.reply(400, {"error": str(error)})
+        except ValueError:
+            self.reply(400, {"error": "Select exactly one rule: R1, R2, R3, or all."})
         except TimeoutError:
             self.reply(408, {"error": "Upload timed out; no records saved."})
         except OSError:

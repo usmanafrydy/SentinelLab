@@ -57,3 +57,7 @@ AC-06 now has R2 tests for distinct usernames, repeats, boundaries, expiration, 
 ## Day 8 evidence
 
 AC-08 now has persisted deduplication, immutable rule/evidence snapshots, run history, and linked originals with separate-process retrieval. Tests cover migration preservation, failed-write rollback, concurrent saves/imports, selected/empty runs, late data, and preview/history read-only behavior. AC-04 event/browser compatibility remains verified after migration; investigation persistence is pending. Full suite: 120 passing tests. AC-09 through AC-11 and final release evaluation remain unfinished.
+
+## Day 9 evidence
+
+Browser access now covers explicit detection/save, bounded alert/run lists, per-run findings, paged alert evidence, and originals. AC-08 snapshots/deduplication are reused without rule changes. AC-12 checks protect the new write endpoint. Full suite: 133 tests, including invalid inputs, paging, read-only GETs, and rollback. Browser verified 3 new then 0 new/3 existing, run membership, R3-to-original success, reload persistence, and desktop/narrow layouts. Investigation persistence, authentication, exports, detection evaluation, and release acceptance remain unfinished.

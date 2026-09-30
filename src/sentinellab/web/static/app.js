@@ -2,7 +2,7 @@
 const $ = (id) => document.getElementById(id);
 const token = document.querySelector('meta[name="request-token"]').content;
 let currentParams = new URLSearchParams({limit: "25"});
-let currentOffset = 0, nextOffset = null, loading = false, importing = false, evidenceRequest = 0;
+let currentOffset = 0, nextOffset = null, loading = false, importing = false, detecting = false, evidenceRequest = 0;
 
 async function api(path, options = {}) {
   const response = await fetch(path, {cache: "no-store", ...options});
@@ -20,7 +20,9 @@ async function refreshCounts() {
   $("import-count").textContent = result.total_imports;
 }
 function toggleSearch(disabled) {
-  $("upload-button").disabled = disabled || importing;
+  $("upload-button").disabled = disabled || importing || detecting;
+  $("detect-button").disabled = disabled || importing || detecting;
+  $("detect-rule").disabled = disabled || importing || detecting;
   for (const control of $("search-form").elements) control.disabled = disabled;
   $("previous").disabled = disabled || currentOffset === 0;
   $("next").disabled = disabled || nextOffset === null;
@@ -36,6 +38,7 @@ async function showEvidence(id) {
   $("evidence-content").textContent = "";
   status("evidence-status", "Loading evidence…");
   $("evidence-title").focus();
+  $("evidence-panel").scrollIntoView({block: "start"});
   try {
     const result = await api(`/api/events/${id}`);
     if (request !== evidenceRequest) return;
@@ -95,6 +98,7 @@ $("next").addEventListener("click", () => { if (nextOffset !== null) search(next
 $("close-evidence").addEventListener("click", hideEvidence);
 $("upload-form").addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (importing || detecting || loading) return;
   const file = $("event-file").files[0];
   if (!file) return;
   $("import-details").hidden = true;

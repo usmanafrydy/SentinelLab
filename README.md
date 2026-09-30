@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 8 implementation completed: persistent deduplicated alerts, detection run history, explicit database migration, all three rules (R1, R2, R3), read-only previews, local browser import/search/evidence workspace, and 120 passing tests. Browser alert views, investigations, analyst sign-in, and the full dashboard remain pending. Target completion: October 17, 2026.
+Day 9 implementation completed: browser detection/save, paged saved alerts and run history, alert-to-original evidence navigation, persistent deduplicated alerts, all three rules (R1, R2, R3), read-only CLI previews, and 133 passing tests. Investigations, analyst sign-in, exports, and final portfolio evaluation remain pending. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,7 +45,7 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-Start with the [Day 8 guide](docs/DAY_08_GUIDE.md) for saved alerts/history, or the [Day 7 guide](docs/DAY_07_GUIDE.md) for all three rules. All rules run by default; use --rule R1 for R1 only. Saving requires explicit --save.
+Start with the [Day 9 guide](docs/DAY_09_GUIDE.md) for browser detection and alert evidence, the [Day 8 guide](docs/DAY_08_GUIDE.md) for command-line history, or the [Day 7 guide](docs/DAY_07_GUIDE.md) for all three rules. CLI saving requires explicit --save; browser saving requires Run detection and save. Uploading alone never runs detection.
 
 Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 6 detection guide](docs/DAY_06_GUIDE.md), [rule contract](docs/DETECTION_RULES.md), [Day 5 browser guide](docs/DAY_05_GUIDE.md), [web design and limits](docs/WEB.md), [Day 4 search guide](docs/DAY_04_GUIDE.md), [search contract](docs/SEARCH.md), [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
 

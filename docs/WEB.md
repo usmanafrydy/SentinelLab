@@ -1,4 +1,4 @@
-# Day 5 local browser prototype
+# Local browser prototype through Day 9
 
 Entry point: scripts/serve.py --database PATH [--port 8765]. Relative database paths use the current directory. Server assets resolve relative to server.py, so launching from another directory does not expose that directory. Startup creates/validates schema version 1 with no import-history row. It does not migrate unsupported databases.
 
@@ -13,11 +13,16 @@ The server binds only 127.0.0.1; there is no host argument. UI/API requests use 
 | Method/path | Behavior |
 | --- | --- |
 | GET / | Page with a random per-process request token in a meta tag |
-| GET /static/app.js or /static/style.css | Exact allowlisted assets |
+| GET /static/app.js, /static/alerts.js, /static/style.css, /static/alerts.css | Exact allowlisted assets |
 | GET /api/summary | Stored event/import counts |
 | GET /api/events | SEARCH.md filters using source_ip, limit, offset; unknown/repeated parameters rejected |
 | GET /api/events/ID | Original evidence; 404 if no such internal ID |
 | POST /api/import | Raw JSONL bytes; same schema and duplicate/conflict behavior as CLI |
+| GET /api/alerts/summary | Saved alert/run totals; no query parameters |
+| GET /api/alerts | Saved metadata list; limit, offset, optional run_id membership filter |
+| GET /api/runs | Completed runs and rule configurations/counts; limit and offset |
+| GET /api/alerts/ID | Saved metadata and bounded evidence page; limit and offset; missing alert 404 |
+| POST /api/detect | Explicit atomic save; one form field rule=all, R1, R2, or R3 |
 
 Import requires exact Origin and a matching X-SentinelLab-Token from the page, application/x-ndjson, one numeric Content-Length, no Transfer-Encoding, and at most 2 MiB. Input is written to a fixed name inside an isolated temporary directory and removed after processing. Upload filenames and raw rejected values are not logged or stored. Accepted original records remain in SQLite. Per-line rejection/conflict still returns HTTP 200 with explicit counts because valid records can commit. Fatal parsing/storage problems return 400; oversized input 413; unsupported content type 415; missing/ambiguous length 411; request-check failures 403. Incomplete/timed-out bodies do not import.
 
@@ -42,3 +47,15 @@ R1 now runs through scripts/detect.py as a read-only preview. This browser still
 ## Day 7 scope note
 
 The command-line detector now runs R1/R2/R3 by default, with --rule for individual selection. Browser functionality remains event import/search/evidence; no detection endpoint was added. The page notice refers to detection generally. See DAY_07_GUIDE.md for the new sample and commands.
+
+## Day 9 browser alerts and saving
+
+Day 6/7 notes above describe historical checkpoints. The browser now provides explicit detection/save, saved-alert details with linked originals, paged alert/run lists, and per-run findings. Uploading still does not run detection. Detection checks the complete database regardless of event-table filters. CLI preview remains read-only.
+
+POST /api/detect requires the same exact Host/Origin/token checks as import, exactly one Content-Type application/x-www-form-urlencoded, one numeric Content-Length, no Transfer-Encoding, and at most 128 body bytes. Exactly one rule field/value is required. Invalid input returns 400; over-limit 413; wrong content type 415; absent/ambiguous length 411; failed request checks 403. Success returns the existing save_detection report with run ID and scanned/matched/new/existing/total counts. Migration/evaluation/writes share one transaction; failed attempts leave no partial runs. Zero matches is successful. After a lost response, refresh history before retrying: a commit may have succeeded. There is no request-id idempotency.
+
+New history queries reject unknown/repeated/malformed values. Lists default to 50 rows, details to 25 evidence references; limit is 1..200, offset 0..1,000,000. Pages provide total/items/limit/offset/next_offset (under evidence for details). run_id is 1..2^63-1 and selects membership, including alerts saved earlier; a valid nonexistent run yields an empty list. Alert IDs use the existing R1/R2/R3 plus SHA-256 format. HTTP detail metadata omits full evidence and R2 username arrays. Storage internally decodes the existing JSON before slicing; this is bounded output, not streaming storage. CLI full detail is unchanged. Version 1 history is empty without migration.
+
+Browser pages show 10 alerts/runs or 25 evidence references. Concurrent saves may shift offsets across separate GETs. Refresh history restarts the lists. Detail requests guard against stale selections. Dynamic values use textContent. Busy controls prevent overlapping in-page import/detection. These controls are not authentication or complete resource-exhaustion protections.
+
+Verified September 30: 133 tests pass, including 13 new HTTP cases for paging, repeat/selected/empty saves, protections, invalid inputs, read-only history, originals, and rollback. Browser verified 3 new then 0 new/3 existing, run-2 membership, R3's 6 references and original successful event 16, reload persistence, and desktop/narrow layouts without page-level horizontal overflow. No console errors observed. Large paging is verified by HTTP tests. Ignored day09_demo.db has 16 events, 1 import, 3 alerts, 2 runs after verification; serve on port 8769. Sign-in, investigations, and production deployment remain unfinished.

@@ -1,5 +1,15 @@
 # Progress
 
+## Day 9 implementation - September 30, 2026
+
+- Verified all 83 published Day 8 blobs matched local files before editing. Added protected explicit browser detection/save using the existing atomic service; uploads never silently run detection.
+- Added paged alert/run lists, run-membership filtering including existing alerts, saved alert details, bounded evidence responses, and original-record navigation. Immutable snapshots, CLI previews, and rule behavior remain unchanged.
+- Full suite: 133 passing tests. Thirteen new HTTP integration cases cover repeated/selected/zero-match saves, protections, invalid inputs, paging, large evidence, original links, read-only requests, and rollback. Removed an imported TestCase alias that initially caused duplicate test discovery; final count is unique tests.
+- Browser verified first save 3 new, second save 0 new/3 existing, run-2 membership, six R3 references and original success event 16, persistence after reload, and desktop/narrow layouts without page-level horizontal overflow. No console errors observed. Large paging verified through HTTP tests.
+- Separate ignored day09_demo.db: 16 synthetic events, 1 import, 3 alerts, 2 runs. Server uses port 8769. Previous demonstrations remain separate. Further saves add runs.
+- Added English/Roman Urdu Day 9 lesson and updated API/storage contracts and continuity. Day 9 learning answer pending. Proposed Day 10 checkpoint begins investigation storage; authentication, exports, evaluation, and final portfolio work remain unfinished. Deadline October 17.
+- Publish and verify through the GitHub connector; local Git metadata remains behind due existing restrictions. Local Day 8 handbook/Word lock files are unrelated and excluded from this checkpoint.
+
 ## September 23, 2026 - Initial structure
 
 Created and published the scaffold to the private usmanafrydy/SentinelLab repository. Initial verified main commit: 3bf77df194b503dead7040d68073637ea3b3b326. Local and remote contents and history were aligned. Command-line Git authentication was unavailable; the connected GitHub integration was used.

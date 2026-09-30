@@ -6,13 +6,16 @@
   <meta name="request-token" content="__REQUEST_TOKEN__">
   <title>SentinelLab | Event workspace</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/alerts.css">
   <script src="/static/app.js" defer></script>
+  <script src="/static/alerts.js" defer></script>
 </head>
 <body>
-  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 7</span></header>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 9</span></header>
   <main>
     <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1>Follow the evidence.</h1><p>Import login records, find relevant activity, and inspect the original evidence.</p></section>
-    <p class="notice">Learning prototype · Detection runs separately from PowerShell. Analyst sign-in is pending. Use synthetic lab data.</p>
+    <p class="notice">Learning prototype · Alerts are suspicious patterns, not proof of compromise. Analyst sign-in is pending. Use synthetic lab data.</p>
+    <nav class="workspace-nav" aria-label="Workspace sections"><a href="#import-title">Import</a><a href="#search-title">Events</a><a href="#detect-title">Detection</a><a href="#alerts-title">Saved alerts</a><a href="#runs-title">Run history</a></nav>
     <section class="stats" aria-label="Database overview"><article><span>Saved events</span><strong id="event-count">—</strong></article><article><span>Completed imports</span><strong id="import-count">—</strong></article><article><span>Evidence handling</span><strong class="small-stat">Original records retained</strong></article></section>
     <section class="panel" aria-labelledby="import-title"><div class="section-heading"><div><p class="eyebrow">01 / COLLECT</p><h2 id="import-title">Import login records</h2></div><span class="muted">JSON Lines · up to 2 MiB</span></div>
       <form id="upload-form"><label for="event-file">Choose a lab file</label><div class="upload-controls"><input id="event-file" type="file" accept=".jsonl,.ndjson" required><button id="upload-button" type="submit">Import records</button></div><p class="hint">One JSON event per line. Identical events are skipped; conflicting records never replace the original.</p></form>
@@ -31,7 +34,35 @@
       <div class="table-wrap"><table><caption class="sr-only">Saved login events, oldest first</caption><thead><tr><th>Time (UTC)</th><th>Username</th><th>Source IP</th><th>Result</th><th>Evidence</th></tr></thead><tbody id="event-rows"></tbody></table></div>
       <div class="pagination"><button id="previous" class="secondary" disabled>Previous</button><span id="page-description">No results yet</span><button id="next" class="secondary" disabled>Next</button></div>
     </section>
-    <section class="panel" id="evidence-panel" aria-labelledby="evidence-title" hidden><div class="section-heading"><div><p class="eyebrow">03 / INSPECT</p><h2 id="evidence-title" tabindex="-1">Original evidence</h2></div><button id="close-evidence" class="secondary">Close evidence</button></div><p id="evidence-status" role="status"></p><pre id="evidence-content"></pre><p class="hint">The saved original and its first import location. A suspicious event alone does not confirm an attack.</p></section>
+    <section class="panel" aria-labelledby="detect-title">
+      <div class="section-heading"><div><p class="eyebrow">03 / DETECT</p><h2 id="detect-title">Check stored events</h2></div><span class="muted">Runs only when you choose</span></div>
+      <p>Evaluate the complete stored dataset and save the results. Repeated checks add a run without duplicating unchanged alerts.</p>
+      <form id="detect-form" class="detection-controls"><label>Rules<select id="detect-rule"><option value="all">All rules</option><option value="R1">R1 · Repeated account failures</option><option value="R2">R2 · Failures across accounts</option><option value="R3">R3 · Success after failures</option></select></label><button id="detect-button" type="submit">Run detection and save</button></form>
+      <p class="hint">This saves history and upgrades an older event database if needed. Importing a file does not run detection. Limits: 10,000 events and 100,000 evidence references.</p>
+      <p id="detect-status" role="status" aria-live="polite">Ready when you are.</p>
+      <div class="alert-totals"><span>Saved alerts: <strong id="alert-count">—</strong></span><span>Completed runs: <strong id="run-count">—</strong></span><button id="refresh-history" class="secondary" type="button">Refresh history</button></div>
+    </section>
+    <section class="panel" aria-labelledby="alerts-title">
+      <div class="section-heading"><div><p class="eyebrow">04 / REVIEW</p><h2 id="alerts-title" tabindex="-1">Saved alerts</h2></div><button id="all-alerts" class="secondary" type="button">Show all alerts</button></div>
+      <p id="alert-scope">All saved alerts, including historical findings. These are not confirmed incidents.</p>
+      <p id="alerts-status" role="status" aria-live="polite"></p>
+      <div class="table-wrap"><table><caption class="sr-only">Saved alerts newest trigger first</caption><thead><tr><th>Rule</th><th>Triggered at UTC</th><th>First saved run</th><th>Evidence</th></tr></thead><tbody id="alert-rows"></tbody></table></div>
+      <div class="pagination"><button id="alerts-previous" class="secondary" disabled>Previous alerts</button><span id="alerts-page"></span><button id="alerts-next" class="secondary" disabled>Next alerts</button></div>
+    </section>
+    <section class="panel" id="alert-detail" aria-labelledby="alert-detail-title" hidden>
+      <div class="section-heading"><h2 id="alert-detail-title" tabindex="-1">Alert evidence</h2><button id="close-alert" class="secondary">Close alert</button></div>
+      <p id="alert-detail-status" role="status" aria-live="polite"></p><p id="alert-reason"></p><dl id="alert-facts" class="alert-facts"></dl>
+      <p class="hint">This evidence is the saved snapshot at the alert trigger. Late imports do not rewrite it. Open a record to inspect its original text.</p>
+      <div class="table-wrap"><table><caption class="sr-only">Evidence linked to the selected alert</caption><thead><tr><th>Source event</th><th>Time UTC</th><th>Role</th><th>Original</th></tr></thead><tbody id="alert-evidence-rows"></tbody></table></div>
+      <div class="pagination"><button id="evidence-previous" class="secondary" disabled>Previous evidence</button><span id="alert-evidence-page"></span><button id="evidence-next" class="secondary" disabled>Next evidence</button></div>
+    </section>
+    <section class="panel" id="evidence-panel" aria-labelledby="evidence-title" hidden><div class="section-heading"><div><p class="eyebrow">INSPECT ORIGINAL</p><h2 id="evidence-title" tabindex="-1">Original evidence</h2></div><button id="close-evidence" class="secondary">Close evidence</button></div><p id="evidence-status" role="status"></p><pre id="evidence-content"></pre><p class="hint">The saved original and its first import location. A suspicious event alone does not confirm an attack.</p></section>
+    <section class="panel" aria-labelledby="runs-title">
+      <div class="section-heading"><div><p class="eyebrow">05 / HISTORY</p><h2 id="runs-title">Detection runs</h2></div><span class="muted">Newest run first</span></div>
+      <p>One row per completed check. Open a run's alerts to see the findings from that particular check, including alerts saved earlier.</p><p id="runs-status" role="status" aria-live="polite"></p>
+      <div class="table-wrap"><table><caption class="sr-only">Completed detection runs</caption><thead><tr><th>Run and completed time UTC</th><th>Rules and settings</th><th>Events</th><th>Matched</th><th>New</th><th>Existing</th><th>Findings</th></tr></thead><tbody id="run-rows"></tbody></table></div>
+      <div class="pagination"><button id="runs-previous" class="secondary" disabled>Previous runs</button><span id="runs-page"></span><button id="runs-next" class="secondary" disabled>Next runs</button></div>
+    </section>
     <noscript>This page needs JavaScript. You can also use scripts/database.py from PowerShell.</noscript>
   </main><footer>SentinelLab · Learn, investigate, explain.</footer>
 </body>

@@ -110,3 +110,15 @@ Follow DAY_06_GUIDE.md for R1 commands using --rule R1. Since Day 7, scripts/det
 ## Day 7: combined detection
 
 Follow DAY_07_GUIDE.md to import data/samples/day07_all_rules.jsonl into data/runtime/day07_demo.db, then run scripts/detect.py --database data/runtime/day07_demo.db --json. Expected: 16 scanned events and 3 previews. --rule accepts R1, R2, R3, or all (default). Combined output stops at 100,000 evidence references, returning an error rather than a partial preview. Alerts are not persisted. No new dependencies or schema migration required.
+
+## Days 8-9: saved alerts and browser history
+
+CLI detection with --save explicitly saves a run and deduplicated snapshots; omission remains a read-only preview. See DAY_08_GUIDE.md. Day 9 adds Run detection and save, paged alerts/runs, and evidence navigation. Uploads alone never trigger detection. See DAY_09_GUIDE.md for fresh-database steps. Full suite: 133 passing tests.
+
+From the project folder, start today's demo only if its server is not already running:
+
+```powershell
+& ./.venv/bin/python.exe scripts/serve.py --database data/runtime/day09_demo.db --port 8769
+```
+
+Open http://127.0.0.1:8769. Verification left 16 events, 3 alerts, 2 runs, and 1 import. Further saves add runs while unchanged alerts remain deduplicated. Restart after Python changes and refresh the page for the new token. Runtime databases are not published.

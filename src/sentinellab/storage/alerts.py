@@ -81,22 +81,30 @@ def alert_summary(database_path):
                 "detection_runs": conn.execute("SELECT COUNT(*) FROM detection_runs").fetchone()[0] if version == 2 else 0}
 
 
-def list_history(database_path, *, runs=False, limit=50, offset=0):
+def list_history(database_path, *, runs=False, limit=50, offset=0, run_id=None):
     _integer(limit, "limit", 1, MAX_LIMIT)
     _integer(offset, "offset", 0, MAX_OFFSET)
+    if run_id is not None:
+        _integer(run_id, "run_id", 1, 2**63 - 1)
+        if runs:
+            raise StorageError("run_id filters alerts, not the run list.")
     with _reader(database_path) as conn:
         if conn.execute("PRAGMA user_version").fetchone()[0] == 1:
-            return {"total": 0, "items": [], "limit": limit, "offset": offset}
+            return {"total": 0, "items": [], "limit": limit, "offset": offset, "next_offset": None}
         table = "detection_runs" if runs else "saved_alerts"
         columns = "*" if runs else "alert_id, rule_id, rule_version, triggered_at, first_run_id"
         order = "id DESC" if runs else "triggered_at DESC, alert_id"
-        total = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
+        where = " WHERE alert_id IN (SELECT alert_id FROM run_alerts WHERE run_id=?)" if run_id is not None else ""
+        values = [run_id] if run_id is not None else []
+        total = conn.execute(f"SELECT COUNT(*) FROM {table}" + where, values).fetchone()[0]
         items = [dict(row) for row in conn.execute(
-            f"SELECT {columns} FROM {table} ORDER BY {order} LIMIT ? OFFSET ?", (limit, offset))]
+            f"SELECT {columns} FROM {table}{where} ORDER BY {order} LIMIT ? OFFSET ?", [*values, limit, offset])]
         if runs:
             for item in items:
                 item["configurations"] = json.loads(item.pop("configurations_json"))
-        return {"total": total, "items": items, "limit": limit, "offset": offset}
+        following = offset + len(items)
+        return {"total": total, "items": items, "limit": limit, "offset": offset,
+                "next_offset": following if following < total and following <= MAX_OFFSET else None}
 
 
 def get_alert(database_path, alert_id):
@@ -109,3 +117,21 @@ def get_alert(database_path, alert_id):
         if row is None:
             return None
         return {"first_run_id": row[1], "alert": json.loads(row[0])}
+
+
+def get_alert_page(database_path, alert_id, *, limit=25, offset=0):
+    """Return a bounded evidence page from one immutable saved snapshot."""
+    _integer(limit, "limit", 1, MAX_LIMIT)
+    _integer(offset, "offset", 0, MAX_OFFSET)
+    result = get_alert(database_path, alert_id)
+    if result is None:
+        return None
+    alert = result["alert"]
+    evidence = alert.pop("evidence")
+    # R2 account names are available in paged evidence; avoid another unbounded list.
+    alert.pop("usernames", None)
+    items = evidence[offset:offset + limit]
+    following = offset + len(items)
+    result["evidence"] = {"total": len(evidence), "items": items, "limit": limit, "offset": offset,
+                          "next_offset": following if following < len(evidence) and following <= MAX_OFFSET else None}
+    return result
