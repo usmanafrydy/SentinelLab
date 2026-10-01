@@ -1,5 +1,9 @@
 # Acceptance criteria
 
+## Day 10 component evidence
+
+AC-04/09 now have local case persistence, notes, status/disposition, before/after history, immutable alert links, reasons, and stale-revision protection. Sixteen new tests cover complete lifecycle, reopen/correction, rollback including migration, concurrency, bounds, read-only behavior, and separate-process commands. Full suite: 149 passing tests. Existing event/alert web reads remain compatible with v3. Browser case controls, authenticated authors/access (AC-11), exports (AC-10), broader evaluation, and final release acceptance remain unfinished. Self-declared author labels and SQLite history are not tamper-proof auditing.
+
 These are release targets established September 24, 2026. Dated evidence below records component progress; the full release acceptance run remains pending.
 
 | ID | Requirement | Verification before release |

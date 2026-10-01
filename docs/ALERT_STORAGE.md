@@ -1,6 +1,6 @@
 # Saved alerts - schema version 2
 
-`scripts/detect.py` remains read-only by default. Explicit `--save` opens an existing database in SQLite `mode=rw`, enables foreign keys, acquires `BEGIN IMMEDIATE`, validates its schema, migrates version 1 if needed, evaluates one bounded snapshot, writes a completed run and alert links, then commits. It never creates a missing database. Imports/initialization still create version 1 and also accept version 2.
+`scripts/detect.py` remains read-only by default. Explicit `--save` opens an existing database in SQLite `mode=rw`, enables foreign keys, acquires `BEGIN IMMEDIATE`, validates its schema, migrates version 1 if needed, evaluates one bounded snapshot, writes a completed run and alert links, then commits. It never creates a missing database. Imports/initialization still create version 1 and also accept versions 2 and 3. Day 10 cases add version 3 independently; detection saving preserves it and reports the actual version. See INVESTIGATIONS.md.
 
 ## Records
 
@@ -15,7 +15,7 @@ Events and imports remain unchanged by detection. Evidence IDs resolve only in t
 
 Unchanged events/configurations create a new run, not another copy of each alert. An existing alert ID must have identical serialized content or the new run fails; historical results are never silently overwritten. A rule's ID/version/parameters and ordered evidence define identity, not its run ID.
 
-Late events can change a window, trigger time, evidence, and alert ID. New results are saved alongside previous results; nothing deletes the old snapshot or declares it resolved. Run membership records results of a particular evaluation. Alert counts are not incident counts; rules may describe overlapping activity. Analyst conclusions/investigation history are not implemented yet.
+Late events can change a window, trigger time, evidence, and alert ID. New results are saved alongside previous results; nothing deletes the old snapshot or declares it resolved. Run membership records results of a particular evaluation. Alert counts are not incident counts; rules may describe overlapping activity. Day 10 stores case conclusions/history separately without changing alert snapshots; author labels are not authenticated identities.
 
 ## Atomicity and compatibility
 

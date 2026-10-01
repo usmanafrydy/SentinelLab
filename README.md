@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 9 implementation completed: browser detection/save, paged saved alerts and run history, alert-to-original evidence navigation, persistent deduplicated alerts, all three rules (R1, R2, R3), read-only CLI previews, and 133 passing tests. Investigations, analyst sign-in, exports, and final portfolio evaluation remain pending. Target completion: October 17, 2026.
+Day 10 implementation completed: local investigation cases with notes, status/conclusion history, revision checks, and atomic schema v3 migration; browser detection/save and evidence navigation; all three rules; and 149 passing tests. Case controls are command-line only for now. Browser investigations, analyst sign-in, exports, frontend redesign, and final portfolio evaluation remain pending. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -44,6 +44,8 @@ reports/examples/  Sanitized demonstration reports
 Empty directories contain `.gitkeep` files because Git does not track empty directories.
 
 ## Getting started
+
+Start with the [Day 10 guide](docs/DAY_10_GUIDE.md) for cases, notes, and conclusions. The [investigation contract](docs/INVESTIGATIONS.md) explains states, revisions, migration, and limits. Use scripts/cases.py for case actions; the browser case workflow is the next planned checkpoint.
 
 The browser includes a Start here walkthrough and expandable explanations of rules, result counts, and evidence. The detailed [project handbook](docs/SENTINELLAB_HANDBOOK.md) preserves the Day 8 reference and adds Day 9 in chapters 23-25. Its [Word edition](docs/SentinelLab_Project_Handbook_Through_Day_9.docx) has verified content/structure; visual pagination review is pending because the bundled document renderer is unavailable.
 

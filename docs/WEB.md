@@ -1,5 +1,7 @@
 # Local browser prototype through Day 9
 
+Day 10 compatibility: after restarting with current Python code, the existing event/alert APIs accept schema v3 investigation databases and preserve case data. Case creation/notes/status/history currently use scripts/cases.py only. No case web routes or authenticated author identity have been added. Day 11 is planned to bring this workflow into the browser. The Day 9 interface guidance remains intact.
+
 Entry point: scripts/serve.py --database PATH [--port 8765]. Relative database paths use the current directory. Server assets resolve relative to server.py, so launching from another directory does not expose that directory. Startup creates/validates schema version 1 with no import-history row. It does not migrate unsupported databases.
 
 ## Architecture and implementation choice

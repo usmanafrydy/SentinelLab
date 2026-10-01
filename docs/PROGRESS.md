@@ -1,5 +1,15 @@
 # Progress
 
+## Day 10 implementation - October 1, 2026
+
+- Owner clarified that Start Day 5 meant the next checkpoint, Day 10. Verified all 89 published files from commit 731e924042b6c86979c39cb1947de2b84b4139cf matched local files before editing.
+- Defined INVESTIGATIONS.md before coding. Added one case per saved alert, notes, status/disposition changes with reasons, retained before/after action history, and expected-revision checks. Author labels are self-declared; no authenticated identity or tamper-proof history claim.
+- Added atomic explicit v2-to-v3 case migration, safe old-schema reads, bounded list/history commands, and scripts/cases.py. Existing originals/alerts remain unchanged. Imports, detection saves/previews, and event/alert web reads support v3 without downgrade.
+- Full suite: 149 passing tests including 16 new investigation cases. Verified migration/failed-write rollback, duplicate/concurrent creation, concurrent notes, stale-state rejection, corrected/reopened cases, bounds, read-only operations, process persistence, malformed schema rejection, and existing workflow compatibility.
+- Separate ignored day10_demo.db created from synthetic sample: 16 events, 3 alerts, 1 run, 1 case, 3 actions. Case 1 is in_progress/undecided at revision 3. Original Day 9 demo and handbook editions are preserved.
+- Added simple-English/Roman-Urdu lesson, setup/contract updates, and next-session notes. Day 10 controls are CLI only. Day 11 planned: protected browser case controls and usability, preserving existing guidance. Authentication, exports, broader evaluation, and final release remain pending; deadline October 17.
+- Publish through the GitHub connector and verify remote ref/file hashes; local Git metadata remains behind. Day 10 learning answer pending. Word handbook visual pagination remains a separate unresolved renderer limitation.
+
 ## Handbook and frontend guidance follow up - October 1, 2026
 
 - Extended the existing handbook into SentinelLab_Project_Handbook_Through_Day_9.docx, preserving the Day 8 edition as a backup. Added chapters 23-25 with Day 9 operation, concepts, file responsibilities, frontend guidance, and future design work. Earlier chapters are explicitly labeled as the Day 8 reference. Updated the Markdown companion.

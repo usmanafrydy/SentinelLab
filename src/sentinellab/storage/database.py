@@ -62,7 +62,7 @@ def _check_schema(connection: sqlite3.Connection, *, create: bool = False) -> No
         for statement in SCHEMA:
             connection.execute(statement)
         connection.execute("PRAGMA user_version = 1")
-    elif version not in (1, 2):
+    elif version not in (1, 2, 3):
         raise StorageError("unsupported database schema; no automatic migration was attempted")
     # Fail before writing if a version label exists but required columns are absent.
     connection.execute("SELECT id, imported_at, validated, inserted, duplicates, conflicts, "
@@ -70,9 +70,12 @@ def _check_schema(connection: sqlite3.Connection, *, create: bool = False) -> No
     connection.execute("SELECT id, source, event_id, timestamp_utc, source_ip, username, "
                        "event_type, outcome, canonical_json, original_record, "
                        "first_import_id, first_line_number FROM events LIMIT 0")
-    if version == 2:
+    if version in (2, 3):
         from sentinellab.storage.alert_schema import validate_alert_schema
         validate_alert_schema(connection)
+    if version == 3:
+        from sentinellab.storage.case_schema import validate_case_schema
+        validate_case_schema(connection)
 
 
 def initialize_database(database_path: Path | str) -> None:

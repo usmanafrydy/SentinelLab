@@ -113,6 +113,15 @@ Follow DAY_07_GUIDE.md to import data/samples/day07_all_rules.jsonl into data/ru
 
 ## Days 8-9: saved alerts and browser history
 
+Day 10 update: scripts/cases.py adds create/list/get/note/state/history. See DAY_10_GUIDE.md for copyable commands and INVESTIGATIONS.md for constraints. Full suite is now 149 tests. Read the prepared example with:
+
+```powershell
+& ./.venv/bin/python.exe scripts/cases.py get --database data/runtime/day10_demo.db --case-id 1
+& ./.venv/bin/python.exe scripts/cases.py history --database data/runtime/day10_demo.db --case-id 1
+```
+
+The separate demo case is in_progress/undecided, revision 3 after creation, one note, and a status change. Case creation explicitly migrates saved-alert databases from v2 to v3; reads never migrate. Existing event/alert commands support v3. Restart older Python servers before opening an upgraded database. The browser has no case controls yet.
+
 CLI detection with --save explicitly saves a run and deduplicated snapshots; omission remains a read-only preview. See DAY_08_GUIDE.md. Day 9 adds Run detection and save, paged alerts/runs, and evidence navigation. Uploads alone never trigger detection. See DAY_09_GUIDE.md for fresh-database steps. Full suite: 133 passing tests.
 
 From the project folder, start today's demo only if its server is not already running:

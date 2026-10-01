@@ -61,13 +61,14 @@ def save_detection(database_path, rule="all"):
                              (new_count, existing_count,
                               datetime.now(timezone.utc).isoformat(timespec="microseconds"), run_id))
                 total = conn.execute("SELECT COUNT(*) FROM saved_alerts").fetchone()[0]
+                version = conn.execute("PRAGMA user_version").fetchone()[0]
                 conn.commit()
             except BaseException:
                 conn.rollback()
                 raise
     except (sqlite3.Error, OSError):
         raise StorageError("Detection save failed; no run, alerts, or migration were saved. Check file access, locks, and schema.") from None
-    return {"mode": "saved", "schema_version": 2, "run_id": run_id,
+    return {"mode": "saved", "schema_version": version, "run_id": run_id,
             "rules_evaluated": report["rules_evaluated"], "events_scanned": report["events_scanned"],
             "alert_count": report["alert_count"], "new_alerts": new_count,
             "existing_alerts": existing_count, "total_saved_alerts": total}
@@ -77,8 +78,8 @@ def alert_summary(database_path):
     with _reader(database_path) as conn:
         version = conn.execute("PRAGMA user_version").fetchone()[0]
         return {"schema_version": version,
-                "saved_alerts": conn.execute("SELECT COUNT(*) FROM saved_alerts").fetchone()[0] if version == 2 else 0,
-                "detection_runs": conn.execute("SELECT COUNT(*) FROM detection_runs").fetchone()[0] if version == 2 else 0}
+                "saved_alerts": conn.execute("SELECT COUNT(*) FROM saved_alerts").fetchone()[0] if version in (2, 3) else 0,
+                "detection_runs": conn.execute("SELECT COUNT(*) FROM detection_runs").fetchone()[0] if version in (2, 3) else 0}
 
 
 def list_history(database_path, *, runs=False, limit=50, offset=0, run_id=None):
