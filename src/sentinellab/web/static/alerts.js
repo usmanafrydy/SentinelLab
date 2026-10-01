@@ -95,7 +95,8 @@ async function openAlert(id, offset = 0) {
     for (const reference of result.evidence.items) {
       const row = document.createElement("tr");
       textCell(row, `${reference.source} / ${reference.event_id}${reference.username === undefined ? "" : " · " + reference.username}`);
-      textCell(row, reference.timestamp_utc); textCell(row, reference.role ?? "failure");
+      textCell(row, reference.timestamp_utc);
+      textCell(row, ({failure: "Failed login", preceding_failure: "Earlier failure", triggering_success: "Successful login"})[reference.role ?? "failure"] ?? reference.role);
       actionCell(row, `Original #${reference.internal_id}`, () => showEvidence(reference.internal_id));
       $("alert-evidence-rows").append(row);
     }

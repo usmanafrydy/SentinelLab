@@ -1,4 +1,14 @@
 .workspace-nav{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.getting-started{padding:26px;border-radius:14px;background:#eaf4f2;border:1px solid #bdd8d2;margin:24px 0}
+.journey{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:24px}
+.journey li{padding-left:16px;border-left:3px solid #4a9386}
+.journey a{font-weight:700;color:#114e49;text-underline-offset:4px}
+.journey p{font-size:14px;line-height:1.65;margin:8px 0 0;color:#344f5a}
+.help{margin:16px 0;padding:14px 0;border-top:1px solid var(--line);font-size:14px;line-height:1.65}
+.help summary{font-weight:600;padding:4px 0;color:#155d56}
+.help p:last-child{margin-bottom:0}.section-help{color:var(--muted);font-size:14px;max-width:85ch}
+.journey a:focus-visible{outline:3px solid #327aad;outline-offset:4px}
+@media(max-width:700px){.journey{grid-template-columns:1fr;gap:18px}.getting-started{padding:18px}}
 .workspace-nav a{color:var(--accent);font-weight:600;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:white}
 .workspace-nav a:focus-visible{outline:3px solid #327aad;outline-offset:3px}
 .detection-controls{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}

@@ -45,6 +45,8 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
+The browser includes a Start here walkthrough and expandable explanations of rules, result counts, and evidence. The detailed [project handbook](docs/SENTINELLAB_HANDBOOK.md) preserves the Day 8 reference and adds Day 9 in chapters 23-25. Its [Word edition](docs/SentinelLab_Project_Handbook_Through_Day_9.docx) has verified content/structure; visual pagination review is pending because the bundled document renderer is unavailable.
+
 Start with the [Day 9 guide](docs/DAY_09_GUIDE.md) for browser detection and alert evidence, the [Day 8 guide](docs/DAY_08_GUIDE.md) for command-line history, or the [Day 7 guide](docs/DAY_07_GUIDE.md) for all three rules. CLI saving requires explicit --save; browser saving requires Run detection and save. Uploading alone never runs detection.
 
 Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 6 detection guide](docs/DAY_06_GUIDE.md), [rule contract](docs/DETECTION_RULES.md), [Day 5 browser guide](docs/DAY_05_GUIDE.md), [web design and limits](docs/WEB.md), [Day 4 search guide](docs/DAY_04_GUIDE.md), [search contract](docs/SEARCH.md), [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).

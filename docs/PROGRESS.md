@@ -1,5 +1,13 @@
 # Progress
 
+## Handbook and frontend guidance follow up - October 1, 2026
+
+- Extended the existing handbook into SentinelLab_Project_Handbook_Through_Day_9.docx, preserving the Day 8 edition as a backup. Added chapters 23-25 with Day 9 operation, concepts, file responsibilities, frontend guidance, and future design work. Earlier chapters are explicitly labeled as the Day 8 reference. Updated the Markdown companion.
+- Added a three-step Start here section, expandable English/Roman Urdu help, sample-file guidance, rule/count/time explanations, and plain-English evidence roles. Backend rule behavior is unchanged. A broader visual/navigation redesign remains planned, not completed.
+- Full suite remains 133 passing tests. Browser verified help expansion with keyboard, navigation, R3 evidence labels, and desktop/narrow layouts without page-level horizontal overflow or console errors. Existing demo data was retained; it now has 3 runs following a later user check.
+- DOCX content/structure checks confirmed preservation of original paragraphs and tables plus added chapters and contents links. Visual page verification remains pending: the bundled render_docx.py fails because LibreOffice soffice.exe is absent. Do not claim Word pagination or page images were verified.
+- Publish source changes and the updated handbook via the connector and verify hashes. Local Git metadata remains unsynchronized.
+
 ## Day 9 implementation - September 30, 2026
 
 - Verified all 83 published Day 8 blobs matched local files before editing. Added protected explicit browser detection/save using the existing atomic service; uploads never silently run detection.
