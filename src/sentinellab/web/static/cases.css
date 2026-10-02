@@ -1,0 +1,16 @@
+.case-workspace{border-top:4px solid #12665f}
+.badge-local{font-size:12px;padding:6px 10px;border-radius:20px;background:#e7f5f0;color:#235749}
+.case-controls{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}.case-controls label{min-width:200px}
+.case-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+.case-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.case-editor-grid fieldset{border:1px solid var(--line);border-radius:10px;padding:18px;height:100%;min-width:0}
+.case-editor-grid legend{font-size:18px;font-weight:650;padding:0 6px}.case-editor-grid button,#case-create-form button{margin-top:14px}
+textarea{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid #aebfc9;border-radius:6px;background:#fbfcfd;color:var(--ink);font:15px/1.6 'Segoe UI',Arial,sans-serif;resize:vertical;min-height:100px}
+textarea:focus-visible{outline:3px solid #327aad;outline-offset:3px}fieldset:disabled{opacity:.65}
+.case-author-label{max-width:380px;margin-top:20px}.record-id{overflow-wrap:anywhere;font:13px/1.6 Consolas,monospace}
+#case-rows td:first-child{white-space:normal}#case-rows td:nth-child(2){min-width:180px}
+.case-timeline{list-style:none;padding:0;margin:14px 0}.case-timeline li{border-left:3px solid #92bcb1;padding:2px 16px 16px;margin-bottom:18px;overflow-wrap:anywhere}
+.case-timeline h4{margin:0;font-size:15px}.case-timeline .action-text{white-space:pre-wrap;margin:10px 0}.case-timeline .action-meta{font-size:12px;color:var(--muted);margin:5px 0}
+#case-detail,#case-create-panel{scroll-margin-top:18px}
+@media(max-width:850px){.case-editor-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.case-fields{grid-template-columns:1fr}.case-editor-grid fieldset{padding:12px}.case-controls{align-items:stretch}.case-controls label,.case-controls button{width:100%}}

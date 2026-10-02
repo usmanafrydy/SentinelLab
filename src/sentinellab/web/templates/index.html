@@ -7,19 +7,22 @@
   <title>SentinelLab | Event workspace</title>
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/alerts.css">
+  <link rel="stylesheet" href="/static/cases.css">
   <script src="/static/app.js" defer></script>
   <script src="/static/alerts.js" defer></script>
+  <script src="/static/cases.js" defer></script>
 </head>
 <body>
-  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 9</span></header>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 11</span></header>
   <main>
     <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1>Follow the evidence.</h1><p>Import login records, find relevant activity, and inspect the original evidence.</p></section>
     <p class="notice">Learning prototype · Alerts are suspicious patterns, not proof of compromise. Analyst sign-in is pending. Use synthetic lab data.</p>
-    <nav class="workspace-nav" aria-label="Workspace sections"><a href="#start-title">Start here</a><a href="#import-title">Import</a><a href="#search-title">Events</a><a href="#detect-title">Detection</a><a href="#alerts-title">Saved alerts</a><a href="#runs-title">Run history</a></nav>
+    <nav class="workspace-nav" aria-label="Workspace sections"><a href="#start-title">Start here</a><a href="#cases-title">Investigations</a><a href="#import-title">Import</a><a href="#search-title">Events</a><a href="#detect-title">Detection</a><a href="#alerts-title">Saved alerts</a><a href="#runs-title">Run history</a></nav>
     <section class="getting-started" aria-labelledby="start-title">
       <div class="section-heading"><div><p class="eyebrow">YOUR FIRST INVESTIGATION</p><h2 id="start-title">Start with three simple steps</h2></div><span class="muted">No terminal needed for these steps</span></div>
       <ol class="journey"><li><a href="#import-title">1. Add login records</a><p>Choose a synthetic .jsonl sample and import it. If Saved events is above zero, you can check those records now.</p></li><li><a href="#detect-title">2. Check for patterns</a><p>Choose All rules, then Run detection and save. This checks every stored event, even if you have filtered the event table.</p></li><li><a href="#alerts-title">3. Review the evidence</a><p>Open an alert, read its explanation, then select an Original button to see the login record behind it.</p></li></ol>
       <details class="help"><summary>New to security monitoring? Read this first</summary><p><strong>Event:</strong> one login record. <strong>Alert:</strong> a suspicious pattern worth checking. <strong>Run:</strong> one completed detection check. An alert does not confirm that an account was hacked.</p><p>Roman Urdu: Pehle login records add karein, phir check chalayein. Alert ki wajah aur asal record dekhein. Sirf alert aane se hacking confirm nahi hoti.</p><p>For the prepared demonstration, open R3 and look for the record marked Successful login. Think about whether the user might simply have corrected a password.</p></details>
+      <p><strong>Ready to investigate?</strong> Open a saved alert and choose Investigate this alert to keep notes and a conclusion. Or <a href="#cases-title">continue an existing case</a>.</p>
     </section>
     <section class="stats" aria-label="Database overview"><article><span>Saved events</span><strong id="event-count">—</strong></article><article><span>Completed imports</span><strong id="import-count">—</strong></article><article><span>Evidence handling</span><strong class="small-stat">Original records retained</strong></article></section>
     <section class="panel" aria-labelledby="import-title"><div class="section-heading"><div><p class="eyebrow">01 / COLLECT</p><h2 id="import-title">Import login records</h2></div><span class="muted">JSON Lines · up to 2 MiB</span></div>
@@ -61,6 +64,7 @@
     <section class="panel" id="alert-detail" aria-labelledby="alert-detail-title" hidden>
       <div class="section-heading"><h2 id="alert-detail-title" tabindex="-1">Alert evidence</h2><button id="close-alert" class="secondary">Close alert</button></div>
       <p id="alert-detail-status" role="status" aria-live="polite"></p><p id="alert-reason"></p><dl id="alert-facts" class="alert-facts"></dl>
+      <div class="actions"><button id="investigate-alert" type="button" disabled>Investigate this alert</button><span class="hint">One case per alert. Existing cases keep their notes and history.</span></div>
       <p class="hint">These are the records saved with this alert. Earlier failure supports the pattern; Successful login is the success that triggered R3. Open Original to inspect a record. Later imports do not rewrite this evidence.</p>
       <div class="table-wrap"><table><caption class="sr-only">Evidence linked to the selected alert</caption><thead><tr><th>Source event</th><th>Time UTC</th><th>Role</th><th>Original</th></tr></thead><tbody id="alert-evidence-rows"></tbody></table></div>
       <div class="pagination"><button id="evidence-previous" class="secondary" disabled>Previous evidence</button><span id="alert-evidence-page"></span><button id="evidence-next" class="secondary" disabled>Next evidence</button></div>
@@ -72,7 +76,35 @@
       <div class="table-wrap"><table><caption class="sr-only">Completed detection runs</caption><thead><tr><th>Run and completed time UTC</th><th>Rules and settings</th><th>Events</th><th>Matched</th><th>New</th><th>Existing</th><th>Findings</th></tr></thead><tbody id="run-rows"></tbody></table></div>
       <div class="pagination"><button id="runs-previous" class="secondary" disabled>Previous runs</button><span id="runs-page"></span><button id="runs-next" class="secondary" disabled>Next runs</button></div>
     </section>
-    <noscript>This page needs JavaScript. You can also use scripts/database.py from PowerShell.</noscript>
+    <section class="panel case-workspace" aria-labelledby="cases-title">
+      <div class="section-heading"><div><p class="eyebrow">06 / INVESTIGATE</p><h2 id="cases-title" tabindex="-1">Your investigations</h2></div><span class="badge-local">Original evidence stays unchanged</span></div>
+      <p>Keep observations and decisions with an alert. Start from Investigate this alert in a saved alert, or open a case below.</p>
+      <form id="case-filter-form" class="case-controls"><label>Case status filter<select id="case-filter"><option value="">All cases</option><option value="open">Open</option><option value="in_progress">In progress</option><option value="closed">Closed</option></select></label><button type="submit">Refresh cases</button></form>
+      <p id="cases-status" role="status" aria-live="polite"></p>
+      <div class="table-wrap"><table><caption class="sr-only">Investigation cases newest first</caption><thead><tr><th>Case</th><th>Title</th><th>Status</th><th>Conclusion</th><th>Review</th></tr></thead><tbody id="case-rows"></tbody></table></div>
+      <div class="pagination"><button id="cases-previous" class="secondary" disabled>Previous cases</button><span id="cases-page"></span><button id="cases-next" class="secondary" disabled>Next cases</button></div>
+    </section>
+    <section class="panel" id="case-create-panel" aria-labelledby="case-create-heading" hidden>
+      <div class="section-heading"><h2 id="case-create-heading" tabindex="-1">Start or open a case</h2><button id="cancel-case-create" class="secondary" type="button">Hide case form</button></div>
+      <p id="case-create-source" class="record-id"></p><p>This saves a new open case if none exists. If this alert already has a case, it opens that case without changing its title or status.</p>
+      <form id="case-create-form"><div class="case-fields"><label>Case title<input id="case-create-title" maxlength="120" required></label><label>Author label for this case<input id="case-create-author" maxlength="80" required placeholder="e.g. lab_analyst"></label></div><p class="hint">Author labels are self-declared, not verified accounts. Use synthetic lab observations.</p><button type="submit">Create or open case</button></form>
+      <p id="case-create-status" role="status" aria-live="polite"></p>
+    </section>
+    <section class="panel case-workspace" id="case-detail" aria-labelledby="case-title" hidden>
+      <div class="section-heading"><div><p class="eyebrow">CASE REVIEW</p><h2 id="case-title" tabindex="-1">Investigation</h2></div><button id="reload-case" class="secondary" type="button">Refresh selected case</button></div>
+      <p id="case-detail-status" role="status" aria-live="polite"></p>
+      <dl id="case-facts" class="alert-facts"></dl><button id="case-open-alert" type="button" class="secondary" disabled>Open linked alert and evidence</button>
+      <p class="hint">Notes and reasons are kept when a save fails or you refresh this case. Unsaved drafts stay only in this page and are lost on browser reload.</p>
+      <label class="case-author-label">Author label for notes and decisions<input id="case-author" maxlength="80" required placeholder="e.g. lab_analyst"></label>
+      <div class="case-editor-grid">
+        <form id="case-note-form"><fieldset id="case-note-fields" disabled><legend>Add an observation</legend><p class="hint">Keep facts separate from assumptions. Corrections are new notes; old notes stay in history.</p><label>New note<textarea id="case-note" rows="5" maxlength="4000" required></textarea></label><button type="submit">Save note</button></fieldset></form>
+        <form id="case-state-form"><fieldset id="case-state-fields" disabled><legend>Update your decision</legend><div class="case-fields"><label>Investigation status<select id="case-state"><option value="open">Open</option><option value="in_progress">In progress</option><option value="closed">Closed</option></select></label><label>Conclusion<select id="case-disposition"><option value="undecided">Undecided</option><option value="benign">Benign</option><option value="suspicious">Suspicious</option><option value="confirmed_compromise">Confirmed compromise</option></select></label></div><label>Reason for this change<textarea id="case-reason" rows="3" maxlength="1000" required></textarea></label><p class="hint">Closing needs a conclusion. Reopen a closed case as In progress + Undecided. A changed conclusion never edits original evidence.</p><button type="submit">Save decision</button></fieldset></form>
+      </div>
+      <details class="help"><summary>Status, conclusion, and revision explained</summary><p>Status tells you where the work has reached. Conclusion records your judgment. Confirmed compromise needs supporting investigation, not just an alert. A closed case may still have a suspicious conclusion; closed does not mean safe.</p><p>Revision increases with every saved action. If another action changed the case, refresh and review the latest history before saving your decision again. Your reason stays in the box; the selectors reset to the latest saved values.</p><p>Roman Urdu: Notes aur faislay case mein save hotay hain. Asal login records nahi badalte. Nayi information aaye to pehle usay parhein, phir faisla karein.</p></details>
+      <h3>Case history</h3><p class="hint">Oldest action first. Author labels are unverified. Times are UTC. Stored history is not tamper-proof against direct database edits.</p><p id="case-history-status" role="status" aria-live="polite"></p><ol id="case-actions" class="case-timeline"></ol>
+      <div class="pagination"><button id="case-history-previous" class="secondary" disabled>Previous actions</button><span id="case-history-page"></span><button id="case-history-next" class="secondary" disabled>Next actions</button></div>
+    </section>
+    <noscript>This page needs JavaScript. You can also use scripts/database.py and scripts/cases.py from PowerShell.</noscript>
   </main><footer>SentinelLab · Learn, investigate, explain.</footer>
 </body>
 </html>

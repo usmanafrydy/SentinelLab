@@ -16,6 +16,10 @@ DISPOSITIONS = ('undecided', 'benign', 'suspicious', 'confirmed_compromise')
 MAX_ID = 2**63 - 1
 
 
+class CaseConflict(StorageError):
+    """A state update was based on an older case revision."""
+
+
 def _text(value, name, maximum, multiline=False):
     if (not isinstance(value, str) or not 1 <= len(value) <= maximum or not value.strip()
             or any(unicodedata.category(c) in ('Cc', 'Cf', 'Cs')
@@ -136,7 +140,7 @@ def change_state(path, case_id, status, disposition, reason, author, expected_re
     with _writer(path) as conn:
         case = _required_case(conn, case_id)
         if case['revision'] != expected_revision:
-            raise StorageError('Case changed since you read it. Refresh the case and use its current revision.')
+            raise CaseConflict('Case changed since you read it. Refresh the case and use its current revision.')
         if (status, disposition) == (case['status'], case['disposition']):
             raise StorageError('Status and disposition are unchanged; add a note instead.')
         if case['status'] == 'closed' and status != 'closed' and (status, disposition) != ('in_progress', 'undecided'):

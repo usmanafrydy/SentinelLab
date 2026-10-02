@@ -21,6 +21,7 @@ async function refreshAlertCounts() {
   $("run-count").textContent = result.detection_runs;
 }
 function closeAlert() {
+  clearCaseSource();
   alertRequest += 1; selectedAlert = null;
   $("alert-detail").hidden = true;
   $("alert-evidence-rows").replaceChildren(); hideEvidence();
@@ -67,6 +68,7 @@ function selectRun(id) {
   loadHistory("alerts"); $("alerts-title").focus(); $("alerts-title").scrollIntoView({block: "start"});
 }
 async function openAlert(id, offset = 0) {
+  clearCaseSource();
   const request = ++alertRequest;
   selectedAlert = id; hideEvidence();
   $("alert-detail").hidden = false; $("alert-detail-title").textContent = "Alert evidence";
@@ -80,6 +82,7 @@ async function openAlert(id, offset = 0) {
     const result = await api(`/api/alerts/${encodeURIComponent(id)}?limit=${evidenceSize}&offset=${offset}`);
     if (request !== alertRequest) return;
     const alert = result.alert;
+    prepareCaseSource(alert);
     $("alert-detail-title").textContent = `${alert.rule_id} · ${alert.title}`;
     $("alert-reason").textContent = alert.reason;
     const facts = {"Alert ID": alert.alert_id, "Rule version": alert.rule_version,

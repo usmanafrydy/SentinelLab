@@ -65,3 +65,7 @@ AC-08 now has persisted deduplication, immutable rule/evidence snapshots, run hi
 ## Day 9 evidence
 
 Browser access now covers explicit detection/save, bounded alert/run lists, per-run findings, paged alert evidence, and originals. AC-08 snapshots/deduplication are reused without rule changes. AC-12 checks protect the new write endpoint. Full suite: 133 tests, including invalid inputs, paging, read-only GETs, and rollback. Browser verified 3 new then 0 new/3 existing, run membership, R3-to-original success, reload persistence, and desktop/narrow layouts. Investigation persistence, authentication, exports, detection evaluation, and release acceptance remain unfinished.
+
+## Day 10 and Day 11 investigation evidence
+
+AC-04 investigation persistence and case history now have storage and HTTP coverage. Case actions preserve originals, duplicate creation returns the existing case, and stale decisions cannot overwrite newer revisions. Day 11 adds browser workflow, bounded lists/history and safe text rendering with the existing request protections. Full suite: 157 passing tests. Browser checked creation, notes, decisions, duplicate prevention, stale recovery, original navigation, reload persistence and responsive layouts. These are component/workflow results; analyst authentication, report export, final detection evaluation and release acceptance remain unfinished.

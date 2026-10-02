@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 10 implementation completed: local investigation cases with notes, status/conclusion history, revision checks, and atomic schema v3 migration; browser detection/save and evidence navigation; all three rules; and 149 passing tests. Case controls are command-line only for now. Browser investigations, analyst sign-in, exports, frontend redesign, and final portfolio evaluation remain pending. Target completion: October 17, 2026.
+Day 11 completed: browser investigation cases, notes, reasoned decisions, action history, duplicate prevention and revision-conflict recovery; saved alert/evidence navigation; all three rules; and 157 passing tests. Analyst sign-in, exports, broader frontend redesign and final portfolio evaluation remain pending. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,7 +45,7 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-Start with the [Day 10 guide](docs/DAY_10_GUIDE.md) for cases, notes, and conclusions. The [investigation contract](docs/INVESTIGATIONS.md) explains states, revisions, migration, and limits. Use scripts/cases.py for case actions; the browser case workflow is the next planned checkpoint.
+Start with the [Day 11 browser guide](docs/DAY_11_GUIDE.md) for investigations, notes, conclusions and refresh recovery. The [Day 10 guide](docs/DAY_10_GUIDE.md) covers the equivalent CLI. The [investigation contract](docs/INVESTIGATIONS.md) explains states, revisions, migration, and limits. Use the browser investigation workspace or scripts/cases.py for case actions.
 
 The browser includes a Start here walkthrough and expandable explanations of rules, result counts, and evidence. The detailed [project handbook](docs/SENTINELLAB_HANDBOOK.md) preserves the Day 8 reference and adds Day 9 in chapters 23-25. Its [Word edition](docs/SentinelLab_Project_Handbook_Through_Day_9.docx) has verified content/structure; visual pagination review is pending because the bundled document renderer is unavailable.
 

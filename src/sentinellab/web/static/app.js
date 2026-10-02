@@ -7,7 +7,10 @@ let currentOffset = 0, nextOffset = null, loading = false, importing = false, de
 async function api(path, options = {}) {
   const response = await fetch(path, {cache: "no-store", ...options});
   const result = await response.json();
-  if (!response.ok) throw new Error(result.error || `Request failed (${response.status}).`);
+  if (!response.ok) {
+    const error = new Error(result.error || `Request failed (${response.status}).`);
+    error.code = result.code; error.httpStatus = response.status; throw error;
+  }
   return result;
 }
 function status(id, message, error = false) {

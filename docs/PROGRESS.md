@@ -1,5 +1,15 @@
 # Progress
 
+## Day 11 implementation - October 2, 2026
+
+- Continued the saved Day 11 changes against verified parent 318a203381a9e1732c475911b20d5a9092b5cebd. Added browser case creation/opening, status-filtered list, notes, reasoned decisions, bounded history and linked original evidence.
+- Added strict bounded JSON adapters, string-safe 64-bit IDs/revisions and HTTP 409 stale-revision recovery. Reused Day 10 atomic services and existing Host/Origin/token checks. No authentication claim.
+- Full suite: 157 passing tests, eight new HTTP cases. Rejected malformed/oversized/untrusted writes leave data unchanged; duplicate creation preserves existing case; failed writes roll back; read-only routes do not migrate.
+- Browser verified create/note/state, duplicate prevention, outdated decision rejection, draft reason retention and refresh recovery, linked original success record, reload persistence and desktop/narrow layouts. Corrected narrow tables to scroll without crushing words. Final browser check had no console errors. Paging verified by HTTP tests.
+- Separate ignored day11_demo.db: 16 synthetic events, 1 import, 3 alerts, 1 run, 1 case, 5 actions. Case 1 in_progress/suspicious at revision 5 is an exercise conclusion, not proof of compromise. Server port 8771. Prior demos preserved.
+- Added detailed English/Roman Urdu lesson and updated contracts/continuity. Day 11 learning answer pending. Proposed next checkpoint: web-stack review and analyst sign-in/session protection. Exports, full design improvement, evaluation and final portfolio release remain pending; target October 17.
+- Publish through connector and verify all remote file hashes. Local Git metadata remains behind under existing restrictions. Historical Word handbook is unchanged; its visual pagination limitation remains unresolved.
+
 ## Day 10 implementation - October 1, 2026
 
 - Owner clarified that Start Day 5 meant the next checkpoint, Day 10. Verified all 89 published files from commit 731e924042b6c86979c39cb1947de2b84b4139cf matched local files before editing.

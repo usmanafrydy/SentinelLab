@@ -12,6 +12,8 @@ from sentinellab.ingestion.reader import InputFileError, MAX_FILE_BYTES
 from sentinellab.storage.database import StorageError, database_summary, import_events, initialize_database
 from sentinellab.storage.search import get_event, search_events
 from sentinellab.storage.alerts import alert_summary, list_history, get_alert_page, save_detection
+from sentinellab.storage.cases import CaseConflict
+from sentinellab.web.case_api import WRITE_PATH, read_case_request, write_case_request
 
 ASSETS = Path(__file__).resolve().parent
 
@@ -80,11 +82,14 @@ class Handler(BaseHTTPRequestHandler):
             if url.path == "/":
                 page = (ASSETS / "templates/index.html").read_text(encoding="utf-8")
                 self.reply(200, page.replace("__REQUEST_TOKEN__", self.server.token).encode(), "text/html; charset=utf-8")
-            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/style.css", "/static/alerts.css"):
+            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/cases.js", "/static/style.css", "/static/alerts.css", "/static/cases.css"):
                 kind = "text/javascript" if url.path.endswith(".js") else "text/css"
                 self.reply(200, (ASSETS / url.path.lstrip("/")).read_bytes(), kind + "; charset=utf-8")
             elif url.path == "/api/summary":
                 self.reply(200, database_summary(self.server.database))
+            elif url.path == "/api/cases" or url.path.startswith("/api/cases/"):
+                code, result = read_case_request(self.server.database, url.path, url.query)
+                self.reply(code, result)
             elif url.path == "/api/alerts/summary":
                 self.query_options(url.query, set())
                 self.reply(200, alert_summary(self.server.database))
@@ -127,7 +132,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self.allowed():
             return
-        if self.path not in ("/api/import", "/api/detect"):
+        case_write = self.path == "/api/cases" or WRITE_PATH.fullmatch(self.path) is not None
+        if self.path not in ("/api/import", "/api/detect") and not case_write:
             self.reply(404, {"error": "Page not found."})
             return
         tokens = self.headers.get_all("X-SentinelLab-Token", [])
@@ -141,11 +147,11 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(411, {"error": "A single Content-Length is required; streaming uploads are not supported."})
             return
         detecting = self.path == "/api/detect"
-        maximum = 128 if detecting else MAX_FILE_BYTES
+        maximum = 65536 if case_write else 128 if detecting else MAX_FILE_BYTES
         if len(sizes[0]) > 10 or int(sizes[0]) > maximum:
-            self.reply(413, {"error": "Detection request exceeds 128 bytes." if detecting else "File exceeds the 2 MiB upload limit."})
+            self.reply(413, {"error": "Case request exceeds 64 KiB." if case_write else "Detection request exceeds 128 bytes." if detecting else "File exceeds the 2 MiB upload limit."})
             return
-        content_type = "application/x-www-form-urlencoded" if detecting else "application/x-ndjson"
+        content_type = "application/json" if case_write else "application/x-www-form-urlencoded" if detecting else "application/x-ndjson"
         if self.headers.get_all("Content-Type", []) != [content_type]:
             self.reply(415, {"error": "Use the local page with the expected content type."})
             return
@@ -154,6 +160,9 @@ class Handler(BaseHTTPRequestHandler):
             content = self.rfile.read(length)
             if len(content) != length:
                 self.reply(400, {"error": "Request was incomplete; no records saved."})
+                return
+            if case_write:
+                self.reply(200, write_case_request(self.server.database, self.path, content))
                 return
             if detecting:
                 params = parse_qs(content.decode("ascii"), keep_blank_values=True, strict_parsing=True, max_num_fields=2)
@@ -169,14 +178,16 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(200, report)
         except InputFileError as error:
             self.reply(400, {"error": str(error)})
+        except CaseConflict as error:
+            self.reply(409, {"error": str(error), "code": "stale_revision"})
         except StorageError as error:
             self.reply(400, {"error": str(error)})
-        except ValueError:
-            self.reply(400, {"error": "Select exactly one rule: R1, R2, R3, or all."})
+        except (ValueError, RecursionError):
+            self.reply(400, {"error": "Use the case form with all required text fields." if case_write else "Select exactly one rule: R1, R2, R3, or all."})
         except TimeoutError:
-            self.reply(408, {"error": "Upload timed out; no records saved."})
+            self.reply(408, {"error": "Request timed out; refresh history before retrying."})
         except OSError:
-            self.reply(500, {"error": "Upload could not be processed."})
+            self.reply(500, {"error": "Request could not be processed; refresh history before retrying."})
 
 
 def main(argv=None):
