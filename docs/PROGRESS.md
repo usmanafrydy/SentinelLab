@@ -1,5 +1,15 @@
 # Progress
 
+## Day 14 - October 3, 2026
+
+- Compared all 114 Day 13 files with published parent af75e7e60b1cd041ec3c87a659df17dd7b05f0be before editing. Defined NAVIGATION.md, then added four focused workspaces, desktop side navigation, responsive grid, focused originals with return behavior, browser fragments/Back/Forward, useful keyboard focus, skip link and case shortcuts.
+- Existing forms are moved once and retained; hiding an area preserves drafts/filters but never saves them. Backend rules, database schema, sign-in and reports remain unchanged. Two new static assets are explicitly allowlisted. No third-party UI dependency or external asset.
+- Full regression suite: 184 tests pass. Existing static-asset test extended; JavaScript syntax passes. Browser verified draft note/reason and filter retention, six filtered events, case-alert-original return/focus, Back/Forward, keyboard navigation, note and decision saving, duplicate case recovery, report content, unknown-fragment/reload fallback and signed-out rejection with retained draft. Desktop/390px layout checked; no console errors observed in the checked flow.
+- Prepared day14_demo.db consistently from Day 13: 16 events, one import, three alerts, one run, one case at in_progress/suspicious revision 5 with five actions. Existing private account reused; current server port 8776, PID recorded in data/runtime/day14_server.pid. QA is separate on 8777/day14_qa.db. App/session restart during continuation required restarting local servers; saved data survived. Previous demo files retained.
+- Updated the easy-English cumulative handbook with chapter 31 and current completion map: 1231 paragraphs, 22 tables, prior lessons/tables retained, 2254 words added. Bundled Word rendering remains unavailable without LibreOffice; do not equate content checks with visual pagination QA.
+- Day 15 proposed: held-out labeled scenario evaluation with explicit scoring and honest false-positive/missed-scenario reporting. Clean setup, demo, portfolio material and final acceptance remain before October 17. Day 14 learning question: does keeping a draft while navigating mean it was saved?
+- Publish source/docs through connector and verify all remote/local file hashes. Existing local Git metadata restriction remains; exclude runtime data, credentials and private reports.
+
 ## Day 13 - October 3, 2026
 
 - Verified all 109 published Day 12 files against parent e8940b4a2f3a2b9836079dff84df6aed9c9f0c12 before editing. Defined REPORTS.md first.

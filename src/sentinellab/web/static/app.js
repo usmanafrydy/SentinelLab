@@ -35,10 +35,12 @@ function hideEvidence() {
   evidenceRequest += 1;
   $("evidence-panel").hidden = true;
   $("evidence-content").textContent = "";
+  leaveEvidenceWorkspace();
 }
 async function showEvidence(id) {
   const request = ++evidenceRequest;
   $("evidence-panel").hidden = false;
+  revealWorkspace("evidence-panel");
   $("evidence-content").textContent = "";
   status("evidence-status", "Loading evidence…");
   $("evidence-title").focus();

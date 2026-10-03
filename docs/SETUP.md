@@ -1,5 +1,16 @@
 # Run SentinelLab readers and storage commands
 
+## Current Day 14 workspace
+
+Existing account: do not recreate it. Use the Day 14 copy for continued work; earlier databases remain separate. Start only if this server is stopped:
+
+```powershell
+cd "C:\Users\Dell\Desktop\Projects\SentinelLab"
+.\.venv\bin\python.exe scripts/serve.py --database data/runtime/day14_demo.db --port 8776 --credentials secrets/analyst.json
+```
+
+Open http://127.0.0.1:8776/ and sign in. Overview explains the workflow; Events contains import/search; Detection contains checks/alerts/runs; Investigations contains cases and reports. See DAY_14_GUIDE.md. In-page navigation retains drafts but does not save them. A fresh checkout has no demo database: import the sample, explicitly save detection and create a case. Historical startup examples below refer to older separate demos.
+
 ## Current Day 13 continuation and reports
 
 Existing account: do not recreate it. Use the prepared Day 13 database for continued work. Start only if this server is not already running:

@@ -1,0 +1,32 @@
+/* Focused workspaces on top of the existing evidence and form styles. */
+.workspace-app{--accent:#176b60;--bg:#f4f6f9}
+.workspace-app>header{position:sticky;top:0;z-index:3;height:80px;padding:18px 28px;background:#112d3c}
+.workspace-app main{margin-left:238px;max-width:1440px;padding:28px 36px;min-height:calc(100vh - 130px)}
+.workspace-sidebar{position:absolute;left:0;top:80px;bottom:0;width:238px;min-height:calc(100vh - 80px);padding:26px 18px;background:#fff;border-right:1px solid var(--line)}
+.workspace-sidebar .eyebrow{padding:0 12px;color:var(--muted)}
+.workspace-nav{display:flex;flex-direction:column;gap:8px;margin:18px 0}
+.workspace-nav a{display:grid;grid-template-columns:28px 1fr;column-gap:8px;align-items:start;padding:13px 10px;border:1px solid transparent;background:transparent;text-decoration:none;color:#3d5261;border-radius:10px}
+.workspace-nav a span{grid-row:1 / 3;font-size:11px;letter-spacing:.06em;padding-top:3px;color:#607785}
+.workspace-nav a strong{font-size:14px}.workspace-nav a small{font-weight:400;font-size:12px;margin-top:3px;color:#526977}
+.workspace-nav a:hover{background:#f2f6f7}.workspace-nav a[aria-current]{background:#e8f4f0;border-color:#bddace;color:#125848}
+.sidebar-help{font-size:12px;color:var(--muted);padding:14px 12px;border-top:1px solid var(--line);margin-top:28px}
+.sidebar-help strong{display:block;color:var(--ink);margin-bottom:6px}
+.workspace-app .session-bar{font-size:13px;margin-bottom:26px}
+.workspace-app .intro{margin-bottom:20px}.workspace-app h1{font-size:clamp(28px,3vw,38px)}
+.workspace-app .notice{margin:16px 0 26px;font-size:12px;background:#fff9e9;border-radius:0 8px 8px 0}
+.workspace-app .panel{box-shadow:0 3px 12px #17354a05;border-radius:14px}
+.workspace-app .getting-started{background:#fff;border-color:var(--line);margin-top:20px}
+.workspace-app .stats{margin-top:0}.workspace-app .stats article{border-top:3px solid #82b7aa}
+.workspace-app .journey{gap:18px}.workspace-app .journey li{padding:18px;border:1px solid var(--line);border-radius:10px;background:#f7faf9}
+.next-step{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:18px 20px;background:#133e46;color:#fff;border-radius:10px;margin-top:24px}
+.next-step p{margin:4px 0;font-size:13px;color:#dcebea}.next-step a{color:#fff;font-weight:600;text-underline-offset:4px}
+.workspace-app [data-workspace]{min-width:0}.workspace-app footer{margin-left:238px}
+.workspace-app a:focus-visible{outline:3px solid #327aad;outline-offset:4px}
+.skip-link{position:absolute;left:20px;top:-100px;background:white;color:#173746;padding:10px 16px;z-index:10}.skip-link:focus{top:16px}
+.case-shortcuts{display:flex;gap:16px;flex-wrap:wrap;margin:18px 0;padding:12px 0;border-block:1px solid var(--line)}
+.case-shortcuts a{color:var(--accent);font-size:13px;font-weight:600;text-underline-offset:4px}
+.report-card{padding:20px;border:1px solid #bfd9d0;border-radius:10px;background:#f3faf6;margin:20px 0}.report-card h3{margin-top:0}
+#workspace-title,#case-reports,#case-note,#case-actions,.workspace-app h2,.workspace-app [data-workspace]{scroll-margin-top:100px}
+@media(min-width:1000px){.workspace-sidebar{position:fixed;overflow-y:auto}.workspace-app .filters{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:999px){.workspace-sidebar{position:static;width:auto;min-height:0;padding:14px 20px;border-right:0;border-bottom:1px solid var(--line)}.workspace-sidebar>.eyebrow,.sidebar-help{display:none}.workspace-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;gap:8px}.workspace-nav a{grid-template-columns:1fr;padding:10px}.workspace-nav a span{display:none}.workspace-nav a small{font-size:11px}.workspace-app main{margin-left:0;padding:24px}.workspace-app footer{margin-left:0}}
+@media(max-width:600px){.workspace-app>header{height:auto;padding:16px 18px}.workspace-sidebar{padding:12px}.workspace-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.workspace-nav a{padding:10px 12px;background:#f5f8f9}.workspace-app main{padding:20px 14px}.workspace-app .stats{grid-template-columns:1fr 1fr;gap:10px}.workspace-app .stats article:last-child{grid-column:1 / -1}.workspace-app .stats .small-stat{font-size:15px;padding-top:0}.workspace-app .journey{grid-template-columns:1fr}.workspace-app .getting-started{padding:18px}.report-card{padding:16px}.workspace-app .session-bar{margin-bottom:20px}.workspace-app .notice{margin-bottom:20px}}

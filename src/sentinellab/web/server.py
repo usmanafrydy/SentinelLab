@@ -125,7 +125,7 @@ class Handler(BaseHTTPRequestHandler):
             if url.path == "/":
                 page = (ASSETS / "templates/index.html").read_text(encoding="utf-8")
                 self.reply(200, page.replace("__REQUEST_TOKEN__", session["csrf"] if session else self.server.token).replace("__ACCOUNT_NAME__", escape(session["username"] if session else "test_analyst", quote=True)).encode(), "text/html; charset=utf-8")
-            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/cases.js", "/static/style.css", "/static/alerts.css", "/static/cases.css", "/static/auth.js"):
+            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/cases.js", "/static/style.css", "/static/alerts.css", "/static/cases.css", "/static/auth.js", "/static/workspace.js", "/static/workspace.css"):
                 kind = "text/javascript" if url.path.endswith(".js") else "text/css"
                 self.reply(200, (ASSETS / url.path.lstrip("/")).read_bytes(), kind + "; charset=utf-8")
             elif url.path == "/api/summary":

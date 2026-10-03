@@ -63,6 +63,7 @@ async function loadHistory(kind, offset = 0) {
   }
 }
 function selectRun(id) {
+  revealWorkspace("alerts-title");
   selectedRun = id; closeAlert();
   $("alert-scope").textContent = id === null ? "All saved alerts, including historical findings. These are not confirmed incidents." : `Findings matched by run #${id}. Some may have been saved in an earlier run.`;
   loadHistory("alerts"); $("alerts-title").focus(); $("alerts-title").scrollIntoView({block: "start"});
@@ -72,6 +73,7 @@ async function openAlert(id, offset = 0) {
   const request = ++alertRequest;
   selectedAlert = id; hideEvidence();
   $("alert-detail").hidden = false; $("alert-detail-title").textContent = "Alert evidence";
+  revealWorkspace("alert-detail");
   $("alert-detail-title").focus();
   if (offset === 0) $("alert-detail").scrollIntoView({block: "start"});
   $("evidence-previous").disabled = true; $("evidence-next").disabled = true;
@@ -119,7 +121,7 @@ for (const kind of ["alerts", "runs"]) {
   $(`${kind}-next`).addEventListener("click", () => { if (historyPages[kind].next !== null) loadHistory(kind, historyPages[kind].next); });
 }
 $("all-alerts").addEventListener("click", () => selectRun(null));
-$("close-alert").addEventListener("click", closeAlert);
+$("close-alert").addEventListener("click", () => { closeAlert(); focusWorkspaceTarget($("alerts-title")); });
 $("evidence-previous").addEventListener("click", () => { if (selectedAlert) openAlert(selectedAlert, Math.max(0, evidenceOffset - evidenceSize)); });
 $("evidence-next").addEventListener("click", () => { if (selectedAlert && evidenceNext !== null) openAlert(selectedAlert, evidenceNext); });
 $("refresh-history").addEventListener("click", () => refreshHistory().catch(error => status("detect-status", error.message, true)));

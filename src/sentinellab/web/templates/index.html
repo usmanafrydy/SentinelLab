@@ -9,24 +9,36 @@
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/alerts.css">
   <link rel="stylesheet" href="/static/cases.css">
+  <link rel="stylesheet" href="/static/workspace.css">
+  <script src="/static/workspace.js" defer></script>
   <script src="/static/app.js" defer></script>
   <script src="/static/alerts.js" defer></script>
   <script src="/static/cases.js" defer></script>
   <script src="/static/auth.js" defer></script>
 </head>
-<body>
-  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 13</span></header>
+<body class="workspace-app">
+  <a class="skip-link" href="#workspace-title">Skip to workspace</a>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 14</span></header>
+  <aside class="workspace-sidebar">
+    <p class="eyebrow">YOUR WORKSPACE</p>
+    <nav class="workspace-nav" aria-label="Workspace sections">
+      <a href="#workspace-overview" data-view="overview"><span>01</span><strong>Overview</strong><small>Start here &amp; learn</small></a>
+      <a href="#workspace-events" data-view="events"><span>02</span><strong>Events</strong><small>Import &amp; search records</small></a>
+      <a href="#workspace-detection" data-view="detection"><span>03</span><strong>Detection</strong><small>Rules, alerts &amp; runs</small></a>
+      <a href="#workspace-cases" data-view="cases"><span>04</span><strong>Investigations</strong><small>Notes, decisions &amp; reports</small></a>
+    </nav>
+    <div class="sidebar-help"><strong>Evidence before conclusions</strong>A finding is a reason to investigate, not proof of a hacked account.<p>Local lab · Times shown in UTC</p></div>
+  </aside>
   <main>
     <div class="session-bar"><span>Signed in as <strong>__ACCOUNT_NAME__</strong></span><button id="sign-out" type="button" class="secondary">Sign out</button></div>
     <p id="session-status" role="status"></p><p id="session-expired" hidden>Your session ended. <a href="/login" target="_blank" rel="noopener">Sign in in a new tab</a>, then reload this page. Copy any unsaved draft text first.</p>
-    <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1>Follow the evidence.</h1><p>Import login records, find relevant activity, and inspect the original evidence.</p></section>
+    <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1 id="workspace-title" tabindex="-1">Follow the evidence.</h1><p id="workspace-description">A clear path from login records to a documented investigation.</p></section>
     <p class="notice">Learning prototype · Alerts are suspicious patterns, not proof of compromise. Local account sign-in enabled. Use synthetic lab data.</p>
-    <nav class="workspace-nav" aria-label="Workspace sections"><a href="#start-title">Start here</a><a href="#cases-title">Investigations</a><a href="#import-title">Import</a><a href="#search-title">Events</a><a href="#detect-title">Detection</a><a href="#alerts-title">Saved alerts</a><a href="#runs-title">Run history</a></nav>
     <section class="getting-started" aria-labelledby="start-title">
       <div class="section-heading"><div><p class="eyebrow">YOUR FIRST INVESTIGATION</p><h2 id="start-title">Start with three simple steps</h2></div><span class="muted">No terminal needed for these steps</span></div>
       <ol class="journey"><li><a href="#import-title">1. Add login records</a><p>Choose a synthetic .jsonl sample and import it. If Saved events is above zero, you can check those records now.</p></li><li><a href="#detect-title">2. Check for patterns</a><p>Choose All rules, then Run detection and save. This checks every stored event, even if you have filtered the event table.</p></li><li><a href="#alerts-title">3. Review the evidence</a><p>Open an alert, read its explanation, then select an Original button to see the login record behind it.</p></li></ol>
       <details class="help"><summary>New to security monitoring? Read this first</summary><p><strong>Event:</strong> one login record. <strong>Alert:</strong> a suspicious pattern worth checking. <strong>Run:</strong> one completed detection check. An alert does not confirm that an account was hacked.</p><p>Roman Urdu: Pehle login records add karein, phir check chalayein. Alert ki wajah aur asal record dekhein. Sirf alert aane se hacking confirm nahi hoti.</p><p>For the prepared demonstration, open R3 and look for the record marked Successful login. Think about whether the user might simply have corrected a password.</p></details>
-      <p><strong>Ready to investigate?</strong> Open a saved alert and choose Investigate this alert to keep notes and a conclusion. Or <a href="#cases-title">continue an existing case</a>.</p>
+      <div class="next-step"><div><strong>Continue your investigation</strong><p>Open a saved case to add observations, review decisions or download a report.</p></div><a href="#cases-title">Go to investigations →</a></div>
     </section>
     <section class="stats" aria-label="Database overview"><article><span>Saved events</span><strong id="event-count">—</strong></article><article><span>Completed imports</span><strong id="import-count">—</strong></article><article><span>Evidence handling</span><strong class="small-stat">Original records retained</strong></article></section>
     <section class="panel" aria-labelledby="import-title"><div class="section-heading"><div><p class="eyebrow">01 / COLLECT</p><h2 id="import-title">Import login records</h2></div><span class="muted">JSON Lines · up to 2 MiB</span></div>
@@ -97,12 +109,15 @@
     <section class="panel case-workspace" id="case-detail" aria-labelledby="case-title" hidden>
       <div class="section-heading"><div><p class="eyebrow">CASE REVIEW</p><h2 id="case-title" tabindex="-1">Investigation</h2></div><button id="reload-case" class="secondary" type="button">Refresh selected case</button></div>
       <p id="case-detail-status" role="status" aria-live="polite"></p>
+      <nav class="case-shortcuts" aria-label="Selected case shortcuts"><a href="#case-note">Write a note</a><a href="#case-actions">Read history</a><a href="#case-reports">Download report</a></nav>
       <dl id="case-facts" class="alert-facts"></dl><button id="case-open-alert" type="button" class="secondary" disabled>Open linked alert and evidence</button>
-      <h3>Download this investigation</h3>
+      <section class="report-card" id="case-reports" aria-labelledby="report-title">
+      <h3 id="report-title">Download this investigation</h3>
       <p class="hint">Markdown is for reading; JSON is for software. Both include all saved notes, decisions and original evidence, not just the visible page. Save your draft first if you want it included. Downloads do not change or close the case.</p>
       <p class="hint">Reports may contain usernames, IP addresses and private notes. Review the file before sharing it. Sirf saved kaam report mein aayega.</p>
       <div class="actions"><button id="case-export-markdown" type="button" class="secondary" disabled>Download Markdown</button><button id="case-export-json" type="button" class="secondary" disabled>Download JSON</button></div>
       <p id="case-export-status" role="status" aria-live="polite"></p>
+      </section>
       <p class="hint">Notes and reasons are kept when a save fails or you refresh this case. Unsaved drafts stay only in this page and are lost on browser reload.</p>
       <label class="case-author-label">Author label for notes and decisions<input id="case-author" maxlength="80" required placeholder="e.g. lab_analyst"></label>
       <div class="case-editor-grid">

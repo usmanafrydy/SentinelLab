@@ -1,4 +1,12 @@
-# Local browser prototype through Day 13
+# Local browser prototype through Day 14
+
+## Day 14 focused workspaces
+
+workspace.js groups existing DOM sections into Overview, Events, Detection, Investigations and a temporary original-evidence view. Inactive containers are hidden without replacing forms, preserving draft/filter state. Known fragment links and Back/Forward reveal the target and restore useful focus; missing/unavailable targets fall back to Overview. Case/alert/original actions reveal their destination before focusing it. Close evidence returns to its origin. Current navigation uses aria-current, visible focus and a skip link. Navigation does not save drafts or undo writes.
+
+workspace.css adds desktop side navigation, compact narrow-screen navigation, a sticky header, overview cards and report styling. Case shortcuts reach notes, history and exports. Static workspace.js/css paths are explicitly allowlisted; backend data/authentication contracts remain unchanged. See NAVIGATION.md for scope and limitations.
+
+All 184 regression tests pass, including extended asset delivery coverage. Browser checks covered retained drafts/filters, Back/Forward, unknown/reloaded evidence fragments, keyboard focus, case/alert/evidence return, saves, duplicate case recovery, actual report content and signed-out rejection. Desktop and 390px report layout were inspected without page-level overflow. No claim of full accessibility certification or measured usability improvement. Current user demo: port 8776/day14_demo.db.
 
 ## Day 13 report downloads
 

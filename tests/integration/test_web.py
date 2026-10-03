@@ -58,7 +58,7 @@ class WebTests(unittest.TestCase):
         self.assertIsNotNone(re.search(rb'content="[0-9a-f]{64}"', body))
         self.assertIn("frame-ancestors 'none'", headers["Content-Security-Policy"])
         self.assertEqual(headers["Cache-Control"], "no-store")
-        for path in ("/static/app.js", "/static/style.css"):
+        for path in ("/static/app.js", "/static/style.css", "/static/workspace.js", "/static/workspace.css"):
             self.assertEqual(self.request("GET", path)[0], 200)
         for path in ("/AGENTS.md", "/static/../../storage/database.py", "/data/runtime/events.db"):
             self.assertEqual(self.request("GET", path)[0], 404)

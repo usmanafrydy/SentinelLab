@@ -98,6 +98,7 @@ async function openCase(id, message = "Review the linked evidence before choosin
   currentCase = null; caseLoading = true; needsCaseReview = false;
   const request = ++caseReadRequest; ++caseHistoryRequest;
   $("case-detail").hidden = false; $("case-title").textContent = `Case #${id}`;
+  revealWorkspace("case-detail");
   $("case-facts").replaceChildren(); $("case-actions").replaceChildren();
   $("case-history-previous").disabled = true; $("case-history-next").disabled = true;
   $("case-history-page").textContent = ""; status("case-history-status", "");
@@ -120,6 +121,7 @@ async function casePost(path, data) {
 $("investigate-alert").addEventListener("click", () => {
   if (!caseSource || caseBusy) return;
   creatingAlert = {...caseSource}; $("case-create-panel").hidden = false;
+  revealWorkspace("case-create-panel");
   $("case-create-source").textContent = `Linked alert: ${creatingAlert.id}`;
   $("case-create-title").value = creatingAlert.title.slice(0, 120);
   status("case-create-status", "Add a short title and author label. Existing cases open without changes.");

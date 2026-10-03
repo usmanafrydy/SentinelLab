@@ -1,0 +1,11 @@
+# Day 14 workspace navigation contract
+
+Four main areas: Overview (counts and beginner guide), Events (import/search), Detection (rules, alerts, run history), Investigations (case list, creation, notes, decisions, history and exports). Original evidence has a focused temporary view and Close evidence returns to the originating workspace/control. This is an interface checkpoint, not a new detection rule, database migration or permissions change.
+
+Move the existing DOM sections into view containers once. Hide inactive containers without rebuilding forms or reloading the page. Filters, selected case, note/reason drafts and current history pages remain in memory. Full reload still loses drafts; navigation does not save them. Explicit actions still control imports, detection, notes/decisions and exports. All existing API/auth/CSRF/revision checks remain.
+
+Use real links and URL fragments for main navigation, in-page shortcuts and Back/Forward. Known target IDs select their workspace and receive focus; unknown/unavailable targets fall back to Overview. Private event/case data is never inserted into URL fragments. Returning to an evidence URL after a reload cannot reconstruct a private record. Evidence close restores the originating control where possible. Main links use aria-current, visible focus and text descriptions; no fake ARIA tab semantics. Provide a skip link. On narrow screens the desktop side navigation becomes a compact grid; tables scroll within their wrapper.
+
+Programmatic alert/case/evidence opening reveals the destination before focus/scroll. Async loading must not rebuild hidden forms. Changing sections does not cancel already submitted writes; statuses remain in their relevant section. When a request reveals expiry, the global sign-in message stays visible. No localStorage, external UI libraries, analytics, images or network fonts.
+
+Verify keyboard navigation/focus, main links, legacy help links, Back/Forward, unknown fragment fallback, retained case drafts and search filters, case-to-alert-to-original-and-back, duplicate case prevention, note/decision save, report download, logout rejection, and desktop/narrow layouts. Run the existing regression suite and JavaScript syntax checks. Do not claim a full accessibility audit or real-world usability study.
