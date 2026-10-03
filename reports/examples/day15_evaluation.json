@@ -1,0 +1,252 @@
+{
+  "confusion": {
+    "FN": 3,
+    "FP": 3,
+    "TN": 3,
+    "TP": 3
+  },
+  "limitations": "Authored synthetic scenarios with known rules; not blinded or real-world accuracy.",
+  "manifest_sha256": "7c0149d5c282f6c7a558bdce00ade545086c3bb6880603e8f2b1876e4d49c306",
+  "metrics": {
+    "accuracy": {
+      "denominator": 12,
+      "numerator": 6,
+      "value": 0.5
+    },
+    "precision": {
+      "denominator": 6,
+      "numerator": 3,
+      "value": 0.5
+    },
+    "recall": {
+      "denominator": 6,
+      "numerator": 3,
+      "value": 0.5
+    },
+    "specificity": {
+      "denominator": 6,
+      "numerator": 3,
+      "value": 0.5
+    }
+  },
+  "report_version": 1,
+  "rule_agreement_count": 12,
+  "scenario_count": 12,
+  "scenarios": [
+    {
+      "alert_count": 0,
+      "classification": "TN",
+      "events_scanned": 8,
+      "events_sha256": "e966d50048ad11a103b0e18eb496938829d94995b9feb65b1740ce02fd5f9e76",
+      "expected_rules": [],
+      "file": "routine_success.jsonl",
+      "id": "routine_success",
+      "intent": "benign",
+      "observed_rules": [],
+      "rationale": "Normal daily sign-ins using the correct password.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 0,
+      "classification": "TN",
+      "events_scanned": 4,
+      "events_sha256": "2bf5eeeba6d09f356206784a9982b163271fca8bd08cefac342da9637e2205bc",
+      "expected_rules": [],
+      "file": "typing_errors.jsonl",
+      "id": "typing_errors",
+      "intent": "benign",
+      "observed_rules": [],
+      "rationale": "The owner mistypes three times, then signs in correctly.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 1,
+      "classification": "FP",
+      "events_scanned": 6,
+      "events_sha256": "2d408e05306270144575bb1fb8db61e08287dbc52924e37f128b8ed3e5403187",
+      "expected_rules": [
+        "R1"
+      ],
+      "file": "stale_client.jsonl",
+      "id": "stale_client",
+      "intent": "benign",
+      "observed_rules": [
+        "R1"
+      ],
+      "rationale": "A mail client retries an outdated password six times; no attacker exists in this story.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 1,
+      "classification": "FP",
+      "events_scanned": 10,
+      "events_sha256": "4793206d2618a3c8ce8072dac9dd1eed8e4015d4e7d91f2a889be862e80182d8",
+      "expected_rules": [
+        "R2"
+      ],
+      "file": "shared_gateway.jsonl",
+      "id": "shared_gateway",
+      "intent": "benign",
+      "observed_rules": [
+        "R2"
+      ],
+      "rationale": "Ten legitimate staff accounts each make one mistake behind the same shared gateway.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 2,
+      "classification": "FP",
+      "events_scanned": 7,
+      "events_sha256": "7bf55aa7f7cd911f6fef166908763b57d9fd21777a74a3a13303fea608e5c23c",
+      "expected_rules": [
+        "R1",
+        "R3"
+      ],
+      "file": "owner_recovery.jsonl",
+      "id": "owner_recovery",
+      "intent": "benign",
+      "observed_rules": [
+        "R1",
+        "R3"
+      ],
+      "rationale": "The owner forgets the password six times, then recalls it and signs in.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 0,
+      "classification": "TN",
+      "events_scanned": 4,
+      "events_sha256": "2e52cb62e9758cd77a20b48e8d0b97890f812e33b7266ade57c7a5b622bc5949",
+      "expected_rules": [],
+      "file": "occasional_errors.jsonl",
+      "id": "occasional_errors",
+      "intent": "benign",
+      "observed_rules": [],
+      "rationale": "A legitimate user makes four isolated mistakes over fifteen minutes.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 1,
+      "classification": "TP",
+      "events_scanned": 7,
+      "events_sha256": "1c152701f752dfd8c12080ef1a2385c1021022ba3d18e06f47b0da555f37bea6",
+      "expected_rules": [
+        "R1"
+      ],
+      "file": "rapid_guessing.jsonl",
+      "id": "rapid_guessing",
+      "intent": "malicious",
+      "observed_rules": [
+        "R1"
+      ],
+      "rationale": "An unauthorized actor guesses one account password seven times in two minutes.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 1,
+      "classification": "TP",
+      "events_scanned": 12,
+      "events_sha256": "1ff3c095cbd867b4f3c02579bf530761f43a44ebef5c748fd8631faefcaed60c",
+      "expected_rules": [
+        "R2"
+      ],
+      "file": "many_accounts.jsonl",
+      "id": "many_accounts",
+      "intent": "malicious",
+      "observed_rules": [
+        "R2"
+      ],
+      "rationale": "An unauthorized actor tries twelve different accounts from one address.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 2,
+      "classification": "TP",
+      "events_scanned": 7,
+      "events_sha256": "7bf55aa7f7cd911f6fef166908763b57d9fd21777a74a3a13303fea608e5c23c",
+      "expected_rules": [
+        "R1",
+        "R3"
+      ],
+      "file": "guess_then_success.jsonl",
+      "id": "guess_then_success",
+      "intent": "malicious",
+      "observed_rules": [
+        "R1",
+        "R3"
+      ],
+      "rationale": "In this authored story an attacker succeeds after six failed guesses.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 0,
+      "classification": "FN",
+      "events_scanned": 6,
+      "events_sha256": "644426e075594b82fbe0da79eadf12f824abc954406445cb6d1780e5d4ceaa1d",
+      "expected_rules": [],
+      "file": "slow_guessing.jsonl",
+      "id": "slow_guessing",
+      "intent": "malicious",
+      "observed_rules": [],
+      "rationale": "An attacker spaces six guesses ninety seconds apart, keeping each five-minute window below five.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 0,
+      "classification": "FN",
+      "events_scanned": 6,
+      "events_sha256": "6e17e74b0eb46fa201bc79f2dbdbc89ebe3ace5440c86754525a02982e0affab",
+      "expected_rules": [],
+      "file": "distributed_guessing.jsonl",
+      "id": "distributed_guessing",
+      "intent": "malicious",
+      "observed_rules": [],
+      "rationale": "An attacker sends six guesses for one account through six source addresses.",
+      "rule_agreement": true
+    },
+    {
+      "alert_count": 0,
+      "classification": "FN",
+      "events_scanned": 1,
+      "events_sha256": "e5aa81594c953d467ac367073d90c5100ca9a969d32eb923c27b3e8dcb3de092",
+      "expected_rules": [],
+      "file": "stolen_password.jsonl",
+      "id": "stolen_password",
+      "intent": "malicious",
+      "observed_rules": [],
+      "rationale": "An attacker already knows a stolen password and succeeds on the first observed attempt.",
+      "rule_agreement": true
+    }
+  ],
+  "scoring_unit": "one scenario; any alert is positive",
+  "source_sha256": {
+    "scripts/evaluate.py": "e06ff56d54a8815a55ae7a16789b59f3560b480314025c5e6ad2e5102ada3f7f",
+    "src/sentinellab/__init__.py": "6c67b955572f274eeed504c856cade54d68a952b8799ffa88a10e7d0d21ee0ba",
+    "src/sentinellab/alerts_cli.py": "c8f02b25660d9ec0e0895c0893aba0ef500ca2d9b6bfbc9b9fe0ae91372494a9",
+    "src/sentinellab/cases_cli.py": "ee3b752edb0ec0b64dcfe197de19cfe6af5eeed25d75a58b1118cc22c97dca0e",
+    "src/sentinellab/cli.py": "7b0c1db9500ca48a6be6b7c802c04499058102baa3702611b764a1d7a269a678",
+    "src/sentinellab/detection/__init__.py": "d531b55e2d5cdf7051421cd17579b5559d5aba63f41c7a4e9de166e5595478e6",
+    "src/sentinellab/detection/common.py": "0ff4fdc1a6cc1fd0609f41933b0e55634fbadfba3ba1e4211c3ae9ad58b5f914",
+    "src/sentinellab/detection/engine.py": "5198b0ca02c7fe6b74578b4b47d6a48ba861242c3146dfa5db844633a4131c0f",
+    "src/sentinellab/detection/r1.py": "a617c92928ad4fab51462f99d6cf045e2ec4245e07589309c5720f3088c48cd1",
+    "src/sentinellab/detection/r2.py": "24906e0618f2648a17fbfe6f318612b47bd278d71c0b6d663d49b3df7b5d41d1",
+    "src/sentinellab/detection/r3.py": "9fb44e6c2f54908f2dc467ce72c411f5423118c94071d5fffec02790212a4338",
+    "src/sentinellab/detection_cli.py": "ef1b61b2ca0325b55f190f8a79dc3ee05cc8f218acd2c1a090b0c4dced217ae0",
+    "src/sentinellab/evaluation.py": "478aaa9d78e23ba6209aaf549f171a183bbbfb938c0f33eb156c4844f3d34388",
+    "src/sentinellab/ingestion/__init__.py": "2538bc946fd8b382611827fc63f3206411490c1c812f429496197d5a6b148296",
+    "src/sentinellab/ingestion/reader.py": "1fed2448f5cae51473170d2ce8647f87d66e9802b542fdb78a1f07f5dcbaa28c",
+    "src/sentinellab/reports.py": "3b933dd89a16a3d4d37f29817ae8b42237a17570e9c3f81adb7f3277404b1f72",
+    "src/sentinellab/storage/__init__.py": "125acad60e4e442e0a1ecc2506e89851257ed4604ebcbbccba707e0b38874340",
+    "src/sentinellab/storage/alert_schema.py": "be6b573681a52c62b9336369afa408a2f765c281607e0ca9c900bc52adb1afb3",
+    "src/sentinellab/storage/alerts.py": "c6d627f0d36c266563b4ea1d44ae175185be82fe487118ca5e41882b47cd6829",
+    "src/sentinellab/storage/case_schema.py": "15f8ed6b6e45c37bdad4104286e90bbbc91dc39324ee4ad02e3501783e0ed14e",
+    "src/sentinellab/storage/cases.py": "ac0e4e305962741113ff594dd73ad46ffa5b55f51a6ad310e804fe459d0bb94e",
+    "src/sentinellab/storage/database.py": "da0a602fea23f2c03e9a34495ac12fd268fe6b33ccbdc495d57305e15e00b985",
+    "src/sentinellab/storage/search.py": "c893cd6e5e7eb18b7f4fa9cdc25626ff2734486c667b14a88d1d22291f2fd006",
+    "src/sentinellab/storage_cli.py": "2dea0c6d180af48171cc706c7afac65eae60687bc81b36ada0040e0ef492cbe2",
+    "src/sentinellab/web/__init__.py": "37bc36bfdd61970bdd0bcb5bcae6732bbe3e406f6d670a907b0869c2d6cf5bea",
+    "src/sentinellab/web/auth.py": "9c4f344202cbb3ee5345061430a8e976e178eabcae266fbf76142ddfe10de264",
+    "src/sentinellab/web/case_api.py": "ad1dc0587b8a5b588afcd9669d8eacd109518718a3c55326c1ce733557c639a2",
+    "src/sentinellab/web/server.py": "2c32af736bdeff1b4ee67d983232810928dfecfdca28c57212b8a8e57c257173"
+  }
+}

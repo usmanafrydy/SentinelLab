@@ -1,0 +1,17 @@
+# Day 15 evaluation contract
+
+Define this contract and the labeled scenario manifest before running the detector. Freeze the Day 14 rule implementation; do not tune it against these results.
+
+The scoring unit is one independent synthetic scenario. Its author-supplied intent is benign or malicious. A prediction is positive when any R1, R2 or R3 alert appears. Multiple alerts still count as one positive scenario. This measures scenario coverage, not per-event accuracy or proof of compromise. Separately compare the set of observed rule IDs with the expected rule set declared in the manifest. Expected rules describe implementation behavior; they are not the intent labels.
+
+TP means malicious with an alert; FN means malicious without an alert; FP means benign with an alert; TN means benign without an alert. Precision = TP/(TP+FP); recall = TP/(TP+FN); specificity = TN/(TN+FP); accuracy = (TP+TN)/total. Emit numerator, denominator and a fraction, with null for a zero denominator. Do not silently remove failed scenarios: invalid inputs abort the whole evaluation. Expected-rule mismatch returns a nonzero CLI exit status while preserving the complete report for diagnosis.
+
+Version 1 contains twelve authored scenarios: six benign and six malicious. Benign password mistakes, retrying software and shared gateways can meet rules. Slow attempts, distributed attempts and a single stolen-password success are deliberate blind spots. Narrative intent is known only because we wrote the stories; the logs themselves cannot establish it.
+
+Use a new temporary SQLite database for every scenario, import through the real validator/storage path, then call the read-only detector with all rules. Require all input records to be inserted without rejection, duplicates, conflicts or blank lines. Never open the user's demonstration database. Clean temporary databases on normal completion or failure. A process crash may leave OS temporary files.
+
+Read and hash the exact manifest and event bytes, then import a temporary copy of those bytes. Keep output deterministic: omit temporary paths, import timestamps and wall-clock runtime. Include event/manifest SHA-256 hashes and a hash for every Python source file under src/sentinellab plus the evaluator CLI. These identify the local implementation; they are not signatures. Report every scenario, its intent/rationale, observed and expected rule sets, alert count, confusion class and rule agreement.
+
+Manifest version is 1, with 1 to 100 scenarios, unique short IDs, simple JSONL filenames, at most 2 MiB per file and 10,000 events per scenario. Reject unknown fields, repeated JSON object keys, invalid labels, invalid rule IDs and missing/rerouted files outside the manifest directory. The bundled corpus has no private logs or credentials. The CLI accepts a manifest path and prints JSON to stdout; it never offers a user-database argument.
+
+These scenarios are held out from earlier implementation/test fixtures, but authored with knowledge of the rules. This is not blinded, independent or real-world evaluation. After today's run they are a reusable regression benchmark, not unseen data. The small deliberately balanced corpus does not represent attack prevalence. Report failures honestly and do not claim production accuracy, statistical confidence or complete security coverage. Future tuning requires a separately authored evaluation corpus.

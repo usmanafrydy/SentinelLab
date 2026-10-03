@@ -1,5 +1,10 @@
 # Acceptance criteria
 
+## Current Day 15 evaluation evidence
+
+The fixed labeled corpus exercises twelve scenarios through real import/storage/detection using isolated temporary databases. Intent scoring gives TP 3, FP 3, TN 3 and FN 3. Expected rule sets agree in all twelve cases; this is distinct from classification quality. Source/event/manifest fingerprints and deterministic JSON support reproduction. Nine new tests bring the full suite to 193 passing tests. One initial existing HTTP test hit Windows error 10053; its isolated rerun and a complete subsequent run passed. No rule was tuned on the corpus. Authored with knowledge of the rules, this is not blinded or real-world evaluation. Day 14 navigation is complete; clean setup, final demo and release acceptance remain pending. Older entries below are historical evidence.
+
+
 ## Day 13 report evidence
 
 AC-10 now has bounded Markdown and JSON exports containing case state, complete history, full saved rule/alert details, first run and linked original records/provenance from one read-only snapshot. Sixteen new tests bring the suite to 184. Tests cover fidelity, large IDs, full history beyond a page, unchanged database bytes, concurrent WAL updates, hostile markup, limits, missing links, old schemas, private exclusive CLI output and authenticated/stale/invalid/expired HTTP downloads. Both actual browser downloads were checked against the saved QA database; drafts remained excluded and retained. This is component evidence, not the complete final acceptance run. Broader interface improvement, held-out evaluation and clean-setup/release demonstration remain pending. The cumulative handbook includes Day 13; Word page layout remains unverified because bundled LibreOffice is absent.

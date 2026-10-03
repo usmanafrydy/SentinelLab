@@ -1,5 +1,16 @@
 # Progress
 
+## Day 15 - October 3, 2026
+
+- Verified all 118 Day 14 files against main 45d65162ced1d244df78c57f829dd6437cf6e72c before edits. Defined EVALUATION.md and froze twelve narrative labels/expected rule sets before the first detector run. Rule code unchanged.
+- Added isolated importer/detector evaluation, bounded manifest validation, honest scenario-level confusion metrics, expected-rule agreement, input/source SHA-256 fingerprints and deterministic JSON. Corpus is separate from prior samples but authored with knowledge of the rules; no independent or real-world accuracy claim.
+- Results: TP 3, FP 3, TN 3, FN 3; precision/recall/specificity/accuracy each 50 percent on this deliberately balanced corpus only. All twelve expected rule sets agreed. Repeated reports match. Published example contains only synthetic data. Existing demo databases and account untouched.
+- Nine new tests cover formulas, zero denominators, corpus repeatability, double counting, manifest rejection, dirty imports, bounds, cleanup and CLI exit codes. Full suite: 193 passing tests. Initial full run had Windows connection-aborted error 10053 in an existing login HTTP test; isolated rerun and complete rerun passed. Initial direct unittest invocation lacked src in PYTHONPATH; documented runner handles it.
+- Added detailed Day 15 lesson and cumulative Word/Markdown chapter 32 plus current map: 2533 words added, 1294 paragraphs and 24 tables, prior lessons/tables preserved. Updated README/setup/acceptance/continuity. Canonical renderer again fails because bundled LibreOffice soffice.exe is absent. Word visual pagination remains unverified.
+- Publish only explicit source/test/synthetic/document changes through connector and verify all tree hashes. Local Git metadata remains behind due existing restrictions. No credentials, private reports or runtime files published.
+- Day 16: clean-setup rehearsal from published source, synthetic account, complete import-to-report workflow, reproducible fixes, then portfolio/demo and final release acceptance by October 17. One learning question: do R1 and R3 on one benign scenario count as one or two false-positive scenarios?
+
+
 ## Day 14 - October 3, 2026
 
 - Compared all 114 Day 13 files with published parent af75e7e60b1cd041ec3c87a659df17dd7b05f0be before editing. Defined NAVIGATION.md, then added four focused workspaces, desktop side navigation, responsive grid, focused originals with return behavior, browser fragments/Back/Forward, useful keyboard focus, skip link and case shortcuts.

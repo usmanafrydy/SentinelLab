@@ -1,5 +1,10 @@
 # Run SentinelLab readers and storage commands
 
+## Current Day 15 evaluation
+
+From the project folder run `.\.venv\bin\python.exe scripts/evaluate.py` and inspect `$LASTEXITCODE`. The existing laptop uses bin; a fresh Windows venv usually uses Scripts. No sign-in or user database is needed. Expect twelve scenarios, twelve expected-rule agreements and three of each TP/FP/TN/FN. Exit 0 means rule agreement, not perfect detection. See DAY_15_GUIDE.md for simple-English steps. Run `scripts/run_tests.py` with the same Python for all 193 tests. Continue using the Day 14 demonstration database and account; evaluation does not modify them. Later sections describe historical checkpoints.
+
+
 ## Current Day 14 workspace
 
 Existing account: do not recreate it. Use the Day 14 copy for continued work; earlier databases remain separate. Start only if this server is stopped:

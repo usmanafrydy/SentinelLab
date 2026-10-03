@@ -1,0 +1,4 @@
+{"event_id": "e-001", "event_type": "login", "outcome": "failure", "source": "evaluation-day15", "source_ip": "192.0.2.20", "timestamp": "2026-10-03T12:00:00+00:00", "username": "lab_user_0"}
+{"event_id": "e-002", "event_type": "login", "outcome": "failure", "source": "evaluation-day15", "source_ip": "192.0.2.20", "timestamp": "2026-10-03T12:00:20+00:00", "username": "lab_user_0"}
+{"event_id": "e-003", "event_type": "login", "outcome": "failure", "source": "evaluation-day15", "source_ip": "192.0.2.20", "timestamp": "2026-10-03T12:00:40+00:00", "username": "lab_user_0"}
+{"event_id": "success-final", "event_type": "login", "outcome": "success", "source": "evaluation-day15", "source_ip": "192.0.2.20", "timestamp": "2026-10-03T12:01:00+00:00", "username": "lab_user_0"}

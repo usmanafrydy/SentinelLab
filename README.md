@@ -4,7 +4,9 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 14 completed: focused Overview, Events, Detection and Investigations workspaces, responsive navigation, focused original evidence with return navigation, case shortcuts and retained drafts/filters across section changes. Existing sign-in, case history, Markdown/JSON exports and three rules remain protected; 184 tests pass. Held-out evaluation, clean setup and portfolio release remain pending. Target completion: October 17, 2026.
+Day 15 completed: reproducible synthetic scenario evaluation of all three login rules. Twelve scenarios produced TP 3, FP 3, TN 3 and FN 3; all twelve expected rule sets agreed. These authored examples are not a real-world accuracy estimate. All 193 tests pass. Focused workspaces, local sign-in, cases, evidence and exports remain available. Clean setup and portfolio release remain pending. Target completion: October 17, 2026.
+
+Read [Day 15](docs/DAY_15_GUIDE.md), the [evaluation contract](docs/EVALUATION.md) and [published synthetic results](reports/examples/day15_evaluation.json). Run `.venv/bin/python.exe scripts/evaluate.py` from this laptop's project folder.
 
 ## Planned scope
 

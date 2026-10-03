@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "scenarios": [
+    {
+      "id": "routine_success",
+      "file": "routine_success.jsonl",
+      "intent": "benign",
+      "expected_rules": [],
+      "rationale": "Normal daily sign-ins using the correct password."
+    },
+    {
+      "id": "typing_errors",
+      "file": "typing_errors.jsonl",
+      "intent": "benign",
+      "expected_rules": [],
+      "rationale": "The owner mistypes three times, then signs in correctly."
+    },
+    {
+      "id": "stale_client",
+      "file": "stale_client.jsonl",
+      "intent": "benign",
+      "expected_rules": [
+        "R1"
+      ],
+      "rationale": "A mail client retries an outdated password six times; no attacker exists in this story."
+    },
+    {
+      "id": "shared_gateway",
+      "file": "shared_gateway.jsonl",
+      "intent": "benign",
+      "expected_rules": [
+        "R2"
+      ],
+      "rationale": "Ten legitimate staff accounts each make one mistake behind the same shared gateway."
+    },
+    {
+      "id": "owner_recovery",
+      "file": "owner_recovery.jsonl",
+      "intent": "benign",
+      "expected_rules": [
+        "R1",
+        "R3"
+      ],
+      "rationale": "The owner forgets the password six times, then recalls it and signs in."
+    },
+    {
+      "id": "occasional_errors",
+      "file": "occasional_errors.jsonl",
+      "intent": "benign",
+      "expected_rules": [],
+      "rationale": "A legitimate user makes four isolated mistakes over fifteen minutes."
+    },
+    {
+      "id": "rapid_guessing",
+      "file": "rapid_guessing.jsonl",
+      "intent": "malicious",
+      "expected_rules": [
+        "R1"
+      ],
+      "rationale": "An unauthorized actor guesses one account password seven times in two minutes."
+    },
+    {
+      "id": "many_accounts",
+      "file": "many_accounts.jsonl",
+      "intent": "malicious",
+      "expected_rules": [
+        "R2"
+      ],
+      "rationale": "An unauthorized actor tries twelve different accounts from one address."
+    },
+    {
+      "id": "guess_then_success",
+      "file": "guess_then_success.jsonl",
+      "intent": "malicious",
+      "expected_rules": [
+        "R1",
+        "R3"
+      ],
+      "rationale": "In this authored story an attacker succeeds after six failed guesses."
+    },
+    {
+      "id": "slow_guessing",
+      "file": "slow_guessing.jsonl",
+      "intent": "malicious",
+      "expected_rules": [],
+      "rationale": "An attacker spaces six guesses ninety seconds apart, keeping each five-minute window below five."
+    },
+    {
+      "id": "distributed_guessing",
+      "file": "distributed_guessing.jsonl",
+      "intent": "malicious",
+      "expected_rules": [],
+      "rationale": "An attacker sends six guesses for one account through six source addresses."
+    },
+    {
+      "id": "stolen_password",
+      "file": "stolen_password.jsonl",
+      "intent": "malicious",
+      "expected_rules": [],
+      "rationale": "An attacker already knows a stolen password and succeeds on the first observed attempt."
+    }
+  ]
+}

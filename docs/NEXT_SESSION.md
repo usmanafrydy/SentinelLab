@@ -1,15 +1,15 @@
-# Next session Day 15
+# Next session Day 16
 
-Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Use simple English and Roman Urdu when helpful.
+Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Use simple English and Roman Urdu where helpful.
 
-1. Read AGENTS.md, PROGRESS.md, NAVIGATION.md, REPORTS.md, AUTHENTICATION.md, DETECTION_RULES.md and DAY_14_GUIDE.md. Compare current published main with local files before editing. Preserve unrelated changes and existing access controls.
-2. Day 14 adds four focused workspaces, responsive navigation, original-evidence return, case shortcuts, fragment/Back/Forward routing and useful focus. Existing DOM forms stay in memory; switching areas preserves drafts/filters but does not save them. Reload still loses drafts. Rules, schema, report and access contracts are unchanged.
-3. All 184 regression tests passed; existing asset delivery test extended. Browser checks covered drafts/filters, case-alert-original return, Back/Forward, keyboard activation, unknown/reloaded evidence fragments, note/decision saves, duplicate case recovery, actual report content, narrow layout and signed-out rejection. No claim of full accessibility certification or usability-study results.
-4. Proposed Day 15: held-out labeled scenario evaluation. Define labels, unit of scoring, expected findings and evaluation procedure before implementing it. Include realistic benign alternatives, positive cases and deliberate blind spots; report false positives and misses honestly. Keep held-out evaluation separate from tuning/demo fixtures and make no real-world accuracy claim.
-5. Remaining release work: evaluation, clean setup rehearsal, fixes, known limits, demonstration material, portfolio case study/CV bullets, final acceptance. Target October 17. Public hosting and multiple roles are optional, not implied.
-6. Update docs/SentinelLab_Project_Handbook.docx AND docs/SENTINELLAB_HANDBOOK.md every checkpoint: concepts, all changed files, operating steps, tests, troubleshooting, limits and next work. Chapter 29 is the current completion map; chapter 31 teaches Day 14. Earlier chapters are historical. Update front matter/map/test count.
-7. Word content/structure verified: 1231 paragraphs, 22 tables, prior lessons/tables preserved; 2254 words added. Canonical render attempt fails because bundled LibreOffice soffice.exe is missing. Visual pagination is unverified; do not use desktop LibreOffice or claim code tests verify Word layout.
-8. One learning question at a time. Day 14 pending: does retaining a draft while switching sections mean the draft was saved to SQLite? Answers go in this chat.
+1. Read AGENTS.md, PROGRESS.md, EVALUATION.md, DAY_15_GUIDE.md and SETUP.md. Compare current published main with local files before edits; preserve unrelated work/access controls.
+2. Day 15 adds an isolated twelve-scenario evaluation. TP/FP/TN/FN are all 3, rule agreement 12/12. Scoring unit is one scenario with any alert positive. Intent is authored story context, not inferred truth. Corpus is separate from earlier fixtures but not blinded/independent; now a regression benchmark. Never present the 50 percent metrics as real-world accuracy. No rule tuning occurred.
+3. Run scripts/evaluate.py through the existing .venv/bin/python.exe; no user database or credentials. Complete JSON on stdout. Exit 0 rule agreement, 1 mismatch with report, 2 invalid run without partial stdout. Published report is reports/examples/day15_evaluation.json; fingerprints identify inputs and all package Python plus CLI. Keep source unchanged while evaluating.
+4. All 193 tests pass. An initial full run hit Windows error 10053 in an existing login HTTP test; isolated rerun and full rerun passed. New evaluation tests all passed. Repeated full evaluation reports match. Existing user demo/account unchanged; no browser changes today.
+5. Day 16 proposed: rehearse setup from the published source in a separate clean folder; follow setup instructions, use synthetic credentials and validate import, detection, case, notes/decision and export. Document/fix reproducible issues. Do not overwrite the user's environment, private account or database. Do not treat historical SETUP examples as current instructions.
+6. Update both cumulative Word and Markdown at every checkpoint. Chapter 29 is the current map; 31 covers navigation; 32 covers evaluation. Preserve historical chapters and update front matter. Bundled LibreOffice remains absent, so Word page layout is unverified despite content checks.
+7. Remaining release work: clean setup, fixes, known limits, demonstration material, portfolio case study/CV bullets and final acceptance by October 17. Public hosting/multiple roles are optional. No automatic start or reminder requested.
+8. Ask one learning question at a time. Day 15: if R1 and R3 both alert on one benign scenario, does our scoring count one false-positive scenario or two? Answers go in chat.
 
 ## Current demonstration
 
@@ -29,4 +29,4 @@ Rules: one snapshot, maximum 10000 events/100000 combined references. R1 five fa
 
 Reports: same read-only snapshot, 1000 actions/1000 originals, 8 MiB source/16 MiB encoded; fail whole export rather than truncate. Drafts excluded. CLI files restricted to ignored reports/generated, no overwrite. Historical/CLI authors remain self-declared; database history is not tamper-proof.
 
-Day 14 parent: af75e7e60b1cd041ec3c87a659df17dd7b05f0be. Inspect subsequent verified main before editing. Local HEAD/index remain at Day 2 due existing Windows metadata restrictions. Publish via connector; verify remote ref and all file hashes. Never reset work or change deny ACLs. Exclude credentials, cookies, runtime files, downloaded/private reports and Word lock files.
+Day 15 parent: 45d65162ced1d244df78c57f829dd6437cf6e72c. Inspect subsequent verified main before editing. Local HEAD/index remain at Day 2 due existing Windows metadata restrictions. Publish via connector; verify remote ref and all file hashes. Never reset work or change deny ACLs. Exclude credentials, cookies, runtime files, downloaded/private reports and Word lock files.
