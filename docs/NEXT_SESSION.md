@@ -1,29 +1,25 @@
-# Next session - Day 12
+# Next session Day 13
 
 Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Simple English and Roman Urdu as needed.
 
-1. Read AGENTS.md, PROGRESS.md, DETECTION_RULES.md, ALERT_STORAGE.md, ACCEPTANCE_CRITERIA.md, and WEB.md.
-2. Compare GitHub main and local files before editing. Preserve unrelated work and access controls.
-3. Day 1/5 exercises are complete. Day 6 questions 1/2 correct; question 3 explained but not independently answered. Day 7/8/9/10/11 answers pending. Use small examples and one question at a time.
-4. Day 10 case storage/CLI are implemented. Read DAY_10_GUIDE.md and INVESTIGATIONS.md before changing case behavior. One case per alert; immutable alert links; append-only notes/action history; revision-checked state changes. Self-declared author labels are not authentication.
-5. Day 11 browser investigations are complete. Read DAY_11_GUIDE.md and the updated INVESTIGATIONS.md/WEB.md. Proposed Day 12: review the web stack and implement appropriate analyst sign-in/session protection, defining limits and tests first; do not invent a custom password scheme. Read-only local prototype currently has no authenticated identities.
-6. Improve task navigation and clear wording while preserving the new Start here/expandable help. User finds the existing frontend basic; full design improvement remains planned. Test browser workflows, errors, keyboard/narrow layouts, safe rendering, paging, and existing regressions. No analyst authentication exists yet.
-7. Update guides and publish a verified checkpoint. Authentication, exports, final evaluation, and portfolio release remain pending. Review the dated roadmap; target October 17.
+1. Read AGENTS.md, PROGRESS.md, AUTHENTICATION.md, INVESTIGATIONS.md, WEB.md and DAY_12_GUIDE.md. Compare published main and local files before editing. Preserve unrelated work/access controls.
+2. Day 12 adds single-account local sign-in using scrypt, expiring server-side sessions/logout and session-bound browser case authors. CLI/historical labels remain self-declared; direct file access is outside this boundary. No public-deployment claim. Full suite: 168 tests.
+3. Proposed Day 13: faithful investigation report export. Specify content, snapshot consistency, escaping, bounds, private report handling and tests before implementation. Include alert identity, evidence references, notes, reasoned conclusions and limitations; preserve originals.
+4. Broader design improvement, evaluated scenarios, clean setup, demo recording and portfolio release remain pending. Preserve existing beginner help.
+5. Owner requires docs/SentinelLab_Project_Handbook.docx and docs/SENTINELLAB_HANDBOOK.md to be updated every checkpoint in easy English: concepts, file responsibilities, steps, tests, limits and next work. Chapters 26-29 add Days 10-12 and current completion map; older chapters are historical. Update the current map and test count as work progresses.
+6. Word content/structure verified: 1084 paragraphs, 18 tables, earlier paragraphs/tables preserved. Canonical rendering fails because bundled LibreOffice is absent. Do not claim page-layout QA passed. Preserve historical editions and Word lock files.
+7. Use one learning question at a time. Day 1/5 done; Day 6 questions 1/2 correct; later answers pending. Day 12 question: does signing out delete saved notes/original records?
 
-## Environment and current results
+## Environment and demonstration
 
-MSYS2 Python 3.12.7, .venv/bin/python.exe, standard library only. Full suite: 157 passing tests. scripts/cases.py offers create/list/get/note/state/history. Separate day10_demo.db: schema 3, 16 synthetic events, 1 import, 3 alerts, 1 detection run, 1 case, 3 actions. Case 1 is in_progress/undecided, revision 3. Read with get/history --case-id 1. Prior databases remain separate. CLI detection preview remains read-only; --save explicitly saves. Existing alert history commands are unchanged.
+MSYS2 Python 3.12.7, .venv/bin/python.exe; application standard library only. Owner privately created usman account in ignored secrets/analyst.json. Never print hashes or ask for the password in chat. Check if the server is already running before starting:
 
-All rules use one snapshot capped at 10,000 events; combined evidence is capped at 100,000 references. Explicit detection saving migrates v1 to v2, preserving v3 when already present. Explicit valid case creation migrates v2 to v3 atomically. Reads never migrate. Case changes preserve original events/alerts. Late changed evidence can add separate alerts; cases remain linked to their original saved alert. Runtime databases are ignored.
+scripts/serve.py --database data/runtime/day12_demo.db --port 8773 --credentials secrets/analyst.json
 
-Browser: scripts/serve.py --database data/runtime/day09_demo.db --port 8769 at http://127.0.0.1:8769; check whether it is already running. Verified repeat saves, run filtering, R3/original-success evidence, reload persistence, and desktop/narrow layouts. API tests cover larger paging. Restart after Python changes and refresh tokens. Uploads never run detection automatically. No analyst sign-in yet.
+The user signs in privately. PID saved in data/runtime/day12_server.pid. Restart invalidates sessions; do not stop unrelated processes. Day 12 database was copied from Day 11: 16 synthetic events, 1 import, 3 alerts, 1 run, case 1 in_progress/suspicious revision 5 with 5 actions at preparation. User activity may change counts. Prior demos are separate; old processes retain old Python behavior. Port 8772 and day12_qa.db/account.json are synthetic QA only.
 
-## Git continuity
+All rules use one snapshot capped at 10000 events/100000 combined references. Explicit detection save migrates v1 to v2, preserving v3; valid case creation migrates v2 to v3 atomically. Reads never migrate. Case changes preserve originals/alerts. Upload never automatically runs detection. Browser case IDs/revisions are decimal strings for 64-bit precision.
 
-Day 10 began with verified published handbook/guidance commit 731e924042b6c86979c39cb1947de2b84b4139cf and all 89 matching local files. Local HEAD/index remain behind at Day 2 due Windows metadata restrictions. Publish through the GitHub connector and verify remote files/ref. Never alter deny ACLs or reset away work. Do not claim local Git history is synchronized. Publication is confirmed in the conversation after verification.
+## Publication continuity
 
-The handbook follow-up adds chapters 23-25 to docs/SentinelLab_Project_Handbook_Through_Day_9.docx and its Markdown companion, retaining the older Day 8 Word edition locally. Content/structure verified; Word visual pagination review is still pending because bundled LibreOffice is unavailable. Preserve any Word lock file; never publish it. Frontend now includes Start here, expandable help, and readable evidence-role labels. Full redesign is still planned. Check the subsequent verified publication in the conversation.
-
-## Day 11 continuation
-
-Use data/runtime/day11_demo.db on port 8771; check if already running. Verified sample has 16 events, 1 import, 3 alerts, 1 run, case 1 in_progress/suspicious revision 5 with 5 actions. The conclusion is synthetic practice. Browser create/open, notes, state/history, duplicates, stale recovery, originals and reload are verified. Eight new HTTP tests bring total to 157; paging covered through API tests. Day 11 parent was 318a203381a9e1732c475911b20d5a9092b5cebd; consult the subsequent verified publication before editing. Local Git history remains behind; do not reset or alter ACLs. Word handbook untouched.
+Day 12 parent: 0167848e26cb73e2f5f24102a99e7e4434bcb6d8. Consult the subsequent verified main commit before editing. Local HEAD/index remain at Day 2 due existing Windows metadata restrictions. Publish through connector and verify remote ref and all file hashes; disclose local metadata remains unsynchronized. Never reset away work or change deny ACLs. Exclude secrets, cookies, runtime data/logs/reports and lock files.

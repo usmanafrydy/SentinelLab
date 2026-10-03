@@ -205,7 +205,7 @@ class CaseTests(unittest.TestCase):
         self.assertEqual(alert_summary(self.db)['saved_alerts'],3)
         self.assertEqual(import_events(ROOT/'data/samples/day07_all_rules.jsonl',self.db)['duplicates'],16)
         initialize_database(self.db)
-        with LocalServer(self.db,0) as server:
+        with LocalServer(self.db,0, testing_no_auth=True) as server:
             worker=threading.Thread(target=server.serve_forever,daemon=True);worker.start()
             try:
                 for path,key,value in (('/api/alerts/summary','saved_alerts',3),('/api/events','total_matches',16)):

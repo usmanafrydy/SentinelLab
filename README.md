@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 11 completed: browser investigation cases, notes, reasoned decisions, action history, duplicate prevention and revision-conflict recovery; saved alert/evidence navigation; all three rules; and 157 passing tests. Analyst sign-in, exports, broader frontend redesign and final portfolio evaluation remain pending. Target completion: October 17, 2026.
+Day 12 completed: single-account local browser sign-in, scrypt password hashing, expiring server-side sessions, logout and session-bound browser case authors; investigations, saved evidence and three detection rules; 168 passing tests. Reports, broader design improvement, final evaluation and portfolio release remain pending. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,9 +45,9 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-Start with the [Day 11 browser guide](docs/DAY_11_GUIDE.md) for investigations, notes, conclusions and refresh recovery. The [Day 10 guide](docs/DAY_10_GUIDE.md) covers the equivalent CLI. The [investigation contract](docs/INVESTIGATIONS.md) explains states, revisions, migration, and limits. Use the browser investigation workspace or scripts/cases.py for case actions.
+Start with the [Day 12 sign-in guide](docs/DAY_12_GUIDE.md) for account setup and the protected workspace. The [Day 11 browser guide](docs/DAY_11_GUIDE.md) covers investigations and the [Day 10 guide](docs/DAY_10_GUIDE.md) covers the equivalent CLI. See the [access contract](docs/AUTHENTICATION.md) and [investigation contract](docs/INVESTIGATIONS.md) for exact behavior and limits.
 
-The browser includes a Start here walkthrough and expandable explanations of rules, result counts, and evidence. The detailed [project handbook](docs/SENTINELLAB_HANDBOOK.md) preserves the Day 8 reference and adds Day 9 in chapters 23-25. Its [Word edition](docs/SentinelLab_Project_Handbook_Through_Day_9.docx) has verified content/structure; visual pagination review is pending because the bundled document renderer is unavailable.
+The browser includes a Start here walkthrough and expandable explanations. The cumulative [project handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word edition](docs/SentinelLab_Project_Handbook.docx) include explanations through Day 12, including the missing Day 10/11 chapters. Older editions remain historical references. Word content/structure checks pass; visual pagination review is pending because bundled LibreOffice is unavailable. Every future checkpoint must update both cumulative editions.
 
 Start with the [Day 9 guide](docs/DAY_09_GUIDE.md) for browser detection and alert evidence, the [Day 8 guide](docs/DAY_08_GUIDE.md) for command-line history, or the [Day 7 guide](docs/DAY_07_GUIDE.md) for all three rules. CLI saving requires explicit --save; browser saving requires Run detection and save. Uploading alone never runs detection.
 
@@ -64,10 +64,11 @@ Use synthetic or explicitly authorized local-lab data. Never commit credentials,
 From the project folder on this laptop:
 
 ```powershell
-& ./.venv/bin/python.exe scripts/serve.py --database data/runtime/day05_demo.db
+& ./.venv/bin/python.exe scripts/account.py --username usman
+& ./.venv/bin/python.exe scripts/serve.py --database data/runtime/day12_demo.db --port 8773 --credentials secrets/analyst.json
 ```
 
-Open http://127.0.0.1:8765 and keep the terminal running. Stop with Ctrl+C. Use synthetic sample files under data/samples. See SETUP.md for other Python environment layouts. No analyst authentication yet; the server accepts only its exact loopback address. Do not deploy or tunnel this development server.
+Create the account once with hidden password entry; skip setup if it already exists. Open http://127.0.0.1:8773 and sign in. Keep the server terminal running; stop with Ctrl+C. Use synthetic samples under data/samples. See SETUP.md for other Python environment layouts. Browser login does not restrict direct CLI/filesystem access. Do not deploy or tunnel this development server.
 
 ## Preview the first detection rule
 

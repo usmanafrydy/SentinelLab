@@ -1,5 +1,7 @@
 # Investigation storage contract
 
+Current Day 12: authenticated browser writes override the posted author with the session username. Storage/CLI contracts remain unchanged. Historical/CLI labels remain self-declared; the schema does not identify which mechanism wrote an item. Do not retrospectively call every action authenticated or tamper-proof. Browser controls were added on Day 11. Dated descriptions below are historical; see AUTHENTICATION.md for current access behavior.
+
 Day 10 is a local command-line checkpoint. Browser case controls and authenticated analyst identity are not implemented yet.
 
 ## Identity and evidence

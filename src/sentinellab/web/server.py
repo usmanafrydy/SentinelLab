@@ -2,6 +2,8 @@
 import argparse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+from html import escape
+import re
 from pathlib import Path
 import secrets
 import sys
@@ -13,7 +15,8 @@ from sentinellab.storage.database import StorageError, database_summary, import_
 from sentinellab.storage.search import get_event, search_events
 from sentinellab.storage.alerts import alert_summary, list_history, get_alert_page, save_detection
 from sentinellab.storage.cases import CaseConflict
-from sentinellab.web.case_api import WRITE_PATH, read_case_request, write_case_request
+from sentinellab.web.case_api import WRITE_PATH, read_case_request, write_case_request, _pairs, _invalid_constant
+from sentinellab.web.auth import Auth
 
 ASSETS = Path(__file__).resolve().parent
 
@@ -21,12 +24,16 @@ ASSETS = Path(__file__).resolve().parent
 class LocalServer(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, database, port=8765):
+    def __init__(self, database, port=8765, *, auth=None, testing_no_auth=False):
+        if auth is None and not testing_no_auth:
+            raise ValueError("An account is required. Use scripts/account.py first.")
+        self.auth = auth
         self.database = Path(database).resolve()
         self.token = secrets.token_hex(32)
         # No configurable network host: this prototype is local-only.
         super().__init__(("127.0.0.1", port), Handler)
         self.origin = f"http://127.0.0.1:{self.server_port}"
+        self.cookie_name = f"sentinellab_{self.server_port}"
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -41,7 +48,7 @@ class Handler(BaseHTTPRequestHandler):
         # Do not log search values, upload content, or the per-run request token.
         pass
 
-    def reply(self, status, payload, content_type="application/json; charset=utf-8"):
+    def reply(self, status, payload, content_type="application/json; charset=utf-8", *, cookie=None):
         data = json.dumps(payload, ensure_ascii=True).encode() if not isinstance(payload, bytes) else payload
         self.send_response(status)
         self.send_header("Content-Type", content_type)
@@ -50,6 +57,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
         self.send_header("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'")
+        if cookie is not None:
+            self.send_header("Set-Cookie", cookie)
         self.send_header("Connection", "close")
         self.end_headers()
         self.close_connection = True
@@ -71,6 +80,27 @@ class Handler(BaseHTTPRequestHandler):
             return False
         return True
 
+    def session_key(self):
+        values = self.headers.get_all("Cookie", [])
+        if len(values) != 1:
+            return None
+        found = []
+        for part in values[0].split(';'):
+            name, sep, value = part.strip().partition('=')
+            if name == self.server.cookie_name:
+                found.append(value if sep else '')
+        return found[0] if len(found) == 1 and re.fullmatch(r'[0-9a-f]{64}', found[0]) else None
+
+    def session(self):
+        return self.server.auth.get(self.session_key()) if self.server.auth else None
+
+    def session_cookie(self, key, *, clear=False):
+        return f"{self.server.cookie_name}={key}; Path=/; HttpOnly; SameSite=Strict" + ('; Max-Age=0' if clear else '')
+
+    def login_page(self):
+        page = (ASSETS / 'templates/login.html').read_text(encoding='utf-8')
+        self.reply(200, page.replace('__REQUEST_TOKEN__', self.server.token).encode(), 'text/html; charset=utf-8')
+
     def do_GET(self):
         if not self.allowed():
             return
@@ -79,10 +109,20 @@ class Handler(BaseHTTPRequestHandler):
             if url.scheme or url.netloc:
                 self.reply(400, {"error": "Use a local path."})
                 return
+            session = self.session()
+            if url.path == '/login':
+                self.login_page()
+                return
+            if self.server.auth and not session and not url.path.startswith('/static/'):
+                if url.path == '/':
+                    self.login_page()
+                else:
+                    self.reply(401, {'error': 'Your session ended. Sign in again; unsaved text stays in this page.', 'code': 'sign_in_required'})
+                return
             if url.path == "/":
                 page = (ASSETS / "templates/index.html").read_text(encoding="utf-8")
-                self.reply(200, page.replace("__REQUEST_TOKEN__", self.server.token).encode(), "text/html; charset=utf-8")
-            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/cases.js", "/static/style.css", "/static/alerts.css", "/static/cases.css"):
+                self.reply(200, page.replace("__REQUEST_TOKEN__", session["csrf"] if session else self.server.token).replace("__ACCOUNT_NAME__", escape(session["username"] if session else "test_analyst", quote=True)).encode(), "text/html; charset=utf-8")
+            elif url.path in ("/static/app.js", "/static/alerts.js", "/static/cases.js", "/static/style.css", "/static/alerts.css", "/static/cases.css", "/static/auth.js"):
                 kind = "text/javascript" if url.path.endswith(".js") else "text/css"
                 self.reply(200, (ASSETS / url.path.lstrip("/")).read_bytes(), kind + "; charset=utf-8")
             elif url.path == "/api/summary":
@@ -132,14 +172,23 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self.allowed():
             return
+        session = self.session()
+        login = self.path == '/api/login'
+        logout = self.path == '/api/logout'
+        if self.server.auth and not session and not login:
+            self.reply(401, {'error': 'Your session ended. Sign in again; unsaved text stays in this page.', 'code': 'sign_in_required'})
+            return
+        if (login or logout) and not self.server.auth:
+            self.reply(404, {'error': 'No account configured.'})
+            return
         case_write = self.path == "/api/cases" or WRITE_PATH.fullmatch(self.path) is not None
-        if self.path not in ("/api/import", "/api/detect") and not case_write:
+        if self.path not in ("/api/import", "/api/detect") and not case_write and not login and not logout:
             self.reply(404, {"error": "Page not found."})
             return
         tokens = self.headers.get_all("X-SentinelLab-Token", [])
         if (self.headers.get_all("Origin", []) != [self.server.origin]
                 or len(tokens) != 1 or not tokens[0].isascii()
-                or not secrets.compare_digest(tokens[0], self.server.token)):
+                or not secrets.compare_digest(tokens[0], self.server.token if login or not session else session["csrf"])):
             self.reply(403, {"error": "Refresh the local page before saving changes."})
             return
         sizes = self.headers.get_all("Content-Length", [])
@@ -147,11 +196,11 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(411, {"error": "A single Content-Length is required; streaming uploads are not supported."})
             return
         detecting = self.path == "/api/detect"
-        maximum = 65536 if case_write else 128 if detecting else MAX_FILE_BYTES
+        maximum = 4096 if login or logout else 65536 if case_write else 128 if detecting else MAX_FILE_BYTES
         if len(sizes[0]) > 10 or int(sizes[0]) > maximum:
-            self.reply(413, {"error": "Case request exceeds 64 KiB." if case_write else "Detection request exceeds 128 bytes." if detecting else "File exceeds the 2 MiB upload limit."})
+            self.reply(413, {"error": "Sign-in request exceeds 4 KiB." if login or logout else "Case request exceeds 64 KiB." if case_write else "Detection request exceeds 128 bytes." if detecting else "File exceeds the 2 MiB upload limit."})
             return
-        content_type = "application/json" if case_write else "application/x-www-form-urlencoded" if detecting else "application/x-ndjson"
+        content_type = "application/json" if case_write or login or logout else "application/x-www-form-urlencoded" if detecting else "application/x-ndjson"
         if self.headers.get_all("Content-Type", []) != [content_type]:
             self.reply(415, {"error": "Use the local page with the expected content type."})
             return
@@ -161,8 +210,24 @@ class Handler(BaseHTTPRequestHandler):
             if len(content) != length:
                 self.reply(400, {"error": "Request was incomplete; no records saved."})
                 return
+            if login or logout:
+                body = json.loads(content.decode('utf-8'), object_pairs_hook=_pairs, parse_constant=_invalid_constant)
+                if logout:
+                    if body != {} or type(body) is not dict:
+                        raise ValueError
+                    self.server.auth.logout(self.session_key())
+                    self.reply(200, {'signed_out': True}, cookie=self.session_cookie('', clear=True))
+                    return
+                if type(body) is not dict or set(body) != {'username','password'} or any(type(v) is not str for v in body.values()):
+                    raise ValueError
+                code, key = self.server.auth.login(body['username'], body['password'], self.session_key())
+                if code == 200:
+                    self.reply(200, {'signed_in': True}, cookie=self.session_cookie(key))
+                else:
+                    self.reply(code, {'error': 'Too many attempts or sign-in is busy. Wait one minute and try again.' if code == 429 else 'Username or password is incorrect.'})
+                return
             if case_write:
-                self.reply(200, write_case_request(self.server.database, self.path, content))
+                self.reply(200, write_case_request(self.server.database, self.path, content, author=session["username"] if session else None))
                 return
             if detecting:
                 params = parse_qs(content.decode("ascii"), keep_blank_values=True, strict_parsing=True, max_num_fields=2)
@@ -183,7 +248,7 @@ class Handler(BaseHTTPRequestHandler):
         except StorageError as error:
             self.reply(400, {"error": str(error)})
         except (ValueError, RecursionError):
-            self.reply(400, {"error": "Use the case form with all required text fields." if case_write else "Select exactly one rule: R1, R2, R3, or all."})
+            self.reply(400, {"error": "Invalid sign-in request." if login or logout else "Use the case form with all required text fields." if case_write else "Select exactly one rule: R1, R2, R3, or all."})
         except TimeoutError:
             self.reply(408, {"error": "Request timed out; refresh history before retrying."})
         except OSError:
@@ -194,17 +259,18 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Run the local SentinelLab browser prototype.")
     parser.add_argument("--database", type=Path, required=True)
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--credentials", type=Path, default=Path("secrets/analyst.json"))
     args = parser.parse_args(argv)
     if not 1024 <= args.port <= 65535:
         parser.error("port must be between 1024 and 65535")
     try:
-        with LocalServer(args.database, args.port) as server:
+        with LocalServer(args.database, args.port, auth=Auth(args.credentials)) as server:
             initialize_database(args.database)
             print(f"SentinelLab: {server.origin} | Local learning prototype. Stop with Ctrl+C.", flush=True)
             server.serve_forever()
     except KeyboardInterrupt:
         return 0
-    except (OSError, StorageError) as error:
-        print("Cannot start: check the database and whether the port is already in use.", file=sys.stderr)
+    except (OSError, StorageError, ValueError) as error:
+        print("Cannot start: check the account file, database, and port. Create an account with scripts/account.py first.", file=sys.stderr)
         return 2
     return 0

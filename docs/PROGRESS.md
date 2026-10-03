@@ -1,5 +1,15 @@
 # Progress
 
+## Day 12 implementation October 2 and finalization October 3 2026
+
+- Verified all 101 Day 11 files from parent 0167848e26cb73e2f5f24102a99e7e4434bcb6d8 before editing. Defined AUTHENTICATION.md and reviewed OWASP password/session guidance.
+- Added hidden-entry account setup, salted scrypt hashing, gated workspace/data APIs, per-session write tokens, bounded login attempts and sessions, idle/absolute expiry, rotation and logout. Startup requires credentials. New browser case authors come from the session; older/CLI labels stay self-declared. No public-deployment or tamper-proof identity claim.
+- Full suite: 168 passing tests, including eleven new access/session tests. Older fixtures explicitly disable authentication internally; no command-line bypass. Browser verified wrong/correct login, session authors, case/note, logout, other-tab rejection with retained draft and desktop/narrow login layouts. No console errors in the checked flow.
+- Owner privately created usman account. Protected continuation uses day12_demo.db on port 8773, copied consistently from Day 11: 16 events, 1 import, 3 alerts, 1 run, 1 case and 5 actions at preparation. Old demos preserved. Synthetic QA has separate ignored credentials/data. No private credentials published.
+- Owner requires easy-English cumulative Word updates every checkpoint; recorded in AGENTS.md. Added stable docs/SentinelLab_Project_Handbook.docx and updated Markdown companion with chapters 26-29 covering Days 10, 11, 12, completion map and future updates. Preserved prior paragraphs/tables; added 6430 words. Day 9 edition retained.
+- Word content/structure checks pass: 1084 paragraphs, 18 tables. Canonical rendering failed because bundled LibreOffice soffice.exe is unavailable. Visual pagination is unverified. No system installation or Word lock-file change.
+- Publish/verify through connector; local Git metadata remains behind. Day 12 learning answer pending. Proposed Day 13: faithful investigation exports; broader design, evaluation, setup rehearsal and portfolio release remain pending, target October 17.
+
 ## Day 11 implementation - October 2, 2026
 
 - Continued the saved Day 11 changes against verified parent 318a203381a9e1732c475911b20d5a9092b5cebd. Added browser case creation/opening, status-filtered list, notes, reasoned decisions, bounded history and linked original evidence.

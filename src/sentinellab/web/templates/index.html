@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="request-token" content="__REQUEST_TOKEN__">
+  <meta name="account-name" content="__ACCOUNT_NAME__">
   <title>SentinelLab | Event workspace</title>
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/alerts.css">
@@ -11,12 +12,15 @@
   <script src="/static/app.js" defer></script>
   <script src="/static/alerts.js" defer></script>
   <script src="/static/cases.js" defer></script>
+  <script src="/static/auth.js" defer></script>
 </head>
 <body>
-  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 11</span></header>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 12</span></header>
   <main>
+    <div class="session-bar"><span>Signed in as <strong>__ACCOUNT_NAME__</strong></span><button id="sign-out" type="button" class="secondary">Sign out</button></div>
+    <p id="session-status" role="status"></p><p id="session-expired" hidden>Your session ended. <a href="/login" target="_blank" rel="noopener">Sign in in a new tab</a>, then reload this page. Copy any unsaved draft text first.</p>
     <section class="intro"><p class="eyebrow">SECURITY EVENT WORKSPACE</p><h1>Follow the evidence.</h1><p>Import login records, find relevant activity, and inspect the original evidence.</p></section>
-    <p class="notice">Learning prototype · Alerts are suspicious patterns, not proof of compromise. Analyst sign-in is pending. Use synthetic lab data.</p>
+    <p class="notice">Learning prototype · Alerts are suspicious patterns, not proof of compromise. Local account sign-in enabled. Use synthetic lab data.</p>
     <nav class="workspace-nav" aria-label="Workspace sections"><a href="#start-title">Start here</a><a href="#cases-title">Investigations</a><a href="#import-title">Import</a><a href="#search-title">Events</a><a href="#detect-title">Detection</a><a href="#alerts-title">Saved alerts</a><a href="#runs-title">Run history</a></nav>
     <section class="getting-started" aria-labelledby="start-title">
       <div class="section-heading"><div><p class="eyebrow">YOUR FIRST INVESTIGATION</p><h2 id="start-title">Start with three simple steps</h2></div><span class="muted">No terminal needed for these steps</span></div>
@@ -87,7 +91,7 @@
     <section class="panel" id="case-create-panel" aria-labelledby="case-create-heading" hidden>
       <div class="section-heading"><h2 id="case-create-heading" tabindex="-1">Start or open a case</h2><button id="cancel-case-create" class="secondary" type="button">Hide case form</button></div>
       <p id="case-create-source" class="record-id"></p><p>This saves a new open case if none exists. If this alert already has a case, it opens that case without changing its title or status.</p>
-      <form id="case-create-form"><div class="case-fields"><label>Case title<input id="case-create-title" maxlength="120" required></label><label>Author label for this case<input id="case-create-author" maxlength="80" required placeholder="e.g. lab_analyst"></label></div><p class="hint">Author labels are self-declared, not verified accounts. Use synthetic lab observations.</p><button type="submit">Create or open case</button></form>
+      <form id="case-create-form"><div class="case-fields"><label>Case title<input id="case-create-title" maxlength="120" required></label><label>Author label for this case<input id="case-create-author" maxlength="80" required placeholder="e.g. lab_analyst"></label></div><p class="hint">New browser actions use your signed-in local account. Earlier and command-line author labels are self-declared. Use synthetic lab observations.</p><button type="submit">Create or open case</button></form>
       <p id="case-create-status" role="status" aria-live="polite"></p>
     </section>
     <section class="panel case-workspace" id="case-detail" aria-labelledby="case-title" hidden>
@@ -101,7 +105,7 @@
         <form id="case-state-form"><fieldset id="case-state-fields" disabled><legend>Update your decision</legend><div class="case-fields"><label>Investigation status<select id="case-state"><option value="open">Open</option><option value="in_progress">In progress</option><option value="closed">Closed</option></select></label><label>Conclusion<select id="case-disposition"><option value="undecided">Undecided</option><option value="benign">Benign</option><option value="suspicious">Suspicious</option><option value="confirmed_compromise">Confirmed compromise</option></select></label></div><label>Reason for this change<textarea id="case-reason" rows="3" maxlength="1000" required></textarea></label><p class="hint">Closing needs a conclusion. Reopen a closed case as In progress + Undecided. A changed conclusion never edits original evidence.</p><button type="submit">Save decision</button></fieldset></form>
       </div>
       <details class="help"><summary>Status, conclusion, and revision explained</summary><p>Status tells you where the work has reached. Conclusion records your judgment. Confirmed compromise needs supporting investigation, not just an alert. A closed case may still have a suspicious conclusion; closed does not mean safe.</p><p>Revision increases with every saved action. If another action changed the case, refresh and review the latest history before saving your decision again. Your reason stays in the box; the selectors reset to the latest saved values.</p><p>Roman Urdu: Notes aur faislay case mein save hotay hain. Asal login records nahi badalte. Nayi information aaye to pehle usay parhein, phir faisla karein.</p></details>
-      <h3>Case history</h3><p class="hint">Oldest action first. Author labels are unverified. Times are UTC. Stored history is not tamper-proof against direct database edits.</p><p id="case-history-status" role="status" aria-live="polite"></p><ol id="case-actions" class="case-timeline"></ol>
+      <h3>Case history</h3><p class="hint">Oldest action first. Earlier and command-line author labels are self-declared. New browser actions use the signed-in account. Times are UTC. Stored history is not tamper-proof against direct database edits.</p><p id="case-history-status" role="status" aria-live="polite"></p><ol id="case-actions" class="case-timeline"></ol>
       <div class="pagination"><button id="case-history-previous" class="secondary" disabled>Previous actions</button><span id="case-history-page"></span><button id="case-history-next" class="secondary" disabled>Next actions</button></div>
     </section>
     <noscript>This page needs JavaScript. You can also use scripts/database.py and scripts/cases.py from PowerShell.</noscript>

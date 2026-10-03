@@ -7,6 +7,7 @@ let currentOffset = 0, nextOffset = null, loading = false, importing = false, de
 async function api(path, options = {}) {
   const response = await fetch(path, {cache: "no-store", ...options});
   const result = await response.json();
+  if (response.status === 401) document.getElementById("session-expired").hidden = false;
   if (!response.ok) {
     const error = new Error(result.error || `Request failed (${response.status}).`);
     error.code = result.code; error.httpStatus = response.status; throw error;

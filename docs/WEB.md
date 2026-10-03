@@ -1,4 +1,10 @@
-# Local browser prototype through Day 9
+# Local browser prototype through Day 12
+
+## Current Day 12 access behavior
+
+Startup requires a credential file (default secrets/analyst.json), created interactively by scripts/account.py. Workspace HTML and every data API require a server-side session. Login HTML and allowlisted static assets are public. POST /api/login accepts strict bounded JSON username/password with the login-page token. POST /api/logout accepts {} with the session token. Anonymous data requests return 401 with sign_in_required. Browser case authors come from the session; earlier and CLI labels remain self-declared. See AUTHENTICATION.md for precise limits and threat model.
+
+168 tests pass, including eleven access/session tests. Browser checks covered wrong/correct login, session authors, case/note, logout, another tab's rejected save with retained draft, and desktop/390px login layouts without horizontal overflow. No console errors in the checked login flow. Protected continuation uses day12_demo.db on port 8773. Old running processes keep old behavior until restarted. Constructor testing_no_auth is restricted to explicit regression fixtures; no command-line bypass exists. Descriptions below are historical where dated.
 
 Day 10 compatibility: after restarting with current Python code, the existing event/alert APIs accept schema v3 investigation databases and preserve case data. Case creation/notes/status/history currently use scripts/cases.py only. No case web routes or authenticated author identity have been added. Day 11 is planned to bring this workflow into the browser. The Day 9 interface guidance remains intact.
 

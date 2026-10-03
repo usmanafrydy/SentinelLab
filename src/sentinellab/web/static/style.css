@@ -2,3 +2,5 @@
 
 /* Keep narrow-screen tables readable; their wrapper provides horizontal scrolling. */
 .table-wrap table{min-width:680px}
+
+.login-main{max-width:620px;padding-top:60px}.login-main label{margin-top:18px}.session-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}#session-expired{padding:14px;background:#fcf7e9}#session-expired a{color:var(--accent);font-weight:600}

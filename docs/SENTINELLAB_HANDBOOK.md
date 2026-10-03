@@ -1,3 +1,7 @@
+# Current cumulative update through Day 12
+
+Updated 2 October 2026. The project now has browser investigations and local sign in with 168 passing tests. Chapters 26 to 29 add Days 10 to 12 and the current completion map. Earlier chapters are historical; the latest chapter supersedes older startup, authentication and author-label statements. Continue updating docs/SentinelLab_Project_Handbook.docx and this companion every checkpoint.
+
 # SentinelLab Project Handbook
 
 ## A detailed guide to the system through Day 9
@@ -1684,3 +1688,469 @@ The demonstration has 16 synthetic events, 1 import, 3 alerts, and 2 runs at tha
 Day 10 is planned to begin investigation storage with alert links, notes, and status history kept separate from immutable evidence. Design validation and transaction behavior first, then test a small complete workflow. Analyst authentication, report exports, broader detection evaluation, and portfolio presentation remain unfinished. A more polished frontend is part of the remaining plan; no final design or production readiness is claimed here. The target remains 17 October 2026.
 
 The local Git metadata remains behind the published branch because of the previously encountered Windows restriction. Connector publication must be verified independently and does not synchronize the local index. Do not reset the working folder to hide that difference.
+
+
+# 26 Investigation storage and case concepts
+
+This chapter records the Day 10 checkpoint. Later chapters describe subsequent changes. Browser startup now requires the Day 12 account setup, and new browser author labels come from the signed-in account.
+
+Completed October 1, 2026. Target completion remains October 17, 2026.
+
+## What we built today
+
+We added a complete local case workflow: create a case from a saved alert, add notes, change its status and conclusion with a reason, and read the history later. The data survives closing PowerShell and reopening it. Cases are available through scripts/cases.py today. Browser case controls are planned for Day 11; the existing browser still handles events, alerts, and detection history.
+
+Roman Urdu: Alert shak wali activity dikhata hai. Case mein hum us alert ki investigation ke notes aur progress save karte hain. Aaj yeh kaam commands se hota hai; browser ke buttons aglay checkpoint mein banane hain.
+
+No new packages were needed. We continue to use Python, SQLite, and the standard library. The prepared example uses invented login records, not a real attack or a real account investigation.
+
+## Understand the new concepts
+
+| Concept | Simple meaning | Example |
+| --- | --- | --- |
+| Case | A place to organize review of one saved alert | Review synthetic success after failures |
+| Status | Where the work has reached | open, in_progress, closed |
+| Disposition | Your current conclusion about the activity | undecided, benign, suspicious, confirmed_compromise |
+| Note | An observation or question kept with the case | Need more context about this success |
+| Action history | The sequence of creation, notes, and changes | Created, note added, review started |
+| Revision | A number that increases after each saved action | 1 after creation, 2 after a note, 3 after a change |
+
+Status and conclusion answer different questions. In progress says someone is working on the case. Undecided says there is not yet a conclusion. A closed case must have a chosen conclusion, but closing it does not make that conclusion objectively correct. The software stores the analyst's assertion; it does not independently verify a compromise.
+
+Benign means the analyst considers the activity harmless. Suspicious means a concern remains. Confirmed compromise is a strong analyst conclusion requiring evidence beyond a threshold match. Do not select it merely because R1 or R3 triggered. Today we leave the demonstration undecided.
+
+Roman Urdu: Status batata hai kaam kahan tak pohncha. Disposition batati hai aap ka nateeja kya hai. In progress aur undecided aik saath bilkul theek hain.
+
+## Step 1 Open the project folder
+
+In PowerShell:
+
+```powershell
+Set-Location 'C:\Users\Dell\Desktop\Projects\SentinelLab'
+```
+
+The assistant has already created the code, tests, documents, and demonstration. You do not need to create any folders. Commands below refer to the local Python environment already in this project.
+
+## Step 2 Read the prepared case
+
+```powershell
+& ./.venv/bin/python.exe scripts/cases.py get --database data/runtime/day10_demo.db --case-id 1
+```
+
+Expected current demonstration: title Review synthetic success after failures, status in_progress, disposition undecided, revision 3. The alert_id starts with R3. The separate database has 16 events, 3 saved alerts, 1 detection run, and 1 case. It does not replace your Day 9 database.
+
+This get command only reads. It does not add a note, increase the revision, or migrate the database. All case commands output JSON, which is a structured set of field names and values. The optional --json flag is accepted for consistency but is not required.
+
+## Step 3 Read what happened
+
+```powershell
+& ./.venv/bin/python.exe scripts/cases.py history --database data/runtime/day10_demo.db --case-id 1
+```
+
+Expected: three history items. Revision 1 created the case. Revision 2 added a note saying the synthetic pattern alone does not prove compromise. Revision 3 changed status from open to in_progress and retained undecided. Each action contains a UTC time and a self-declared author label.
+
+The before and after objects show the state around each action. A note changes the revision but leaves status and conclusion unchanged. Creation has no before-state because the case did not exist. Order is determined by revision, so a computer clock adjustment does not change action order.
+
+## Step 4 Follow the link to evidence
+
+```powershell
+$demoCase = (& ./.venv/bin/python.exe scripts/cases.py get --database data/runtime/day10_demo.db --case-id 1) | ConvertFrom-Json
+& ./.venv/bin/python.exe scripts/alerts.py get --database data/runtime/day10_demo.db --alert-id $demoCase.alert_id --json
+```
+
+ConvertFrom-Json lets PowerShell read a field by name. The command uses the case's alert_id to open the exact saved alert. Its evidence still contains five earlier failures and one successful login. Editing a case never changes those records, the alert reason, the rule version, or the original login text.
+
+If you want to inspect these events through the existing browser, start a separate instance with the new database after stopping any instance on the chosen port:
+
+```powershell
+& ./.venv/bin/python.exe scripts/serve.py --database data/runtime/day10_demo.db --port 8770
+```
+
+Open http://127.0.0.1:8770. This shows events and alerts; it does not yet show case controls. Restart old servers after Python code changes before pointing them at a version 3 database. Keep the existing Day 9 preview on its own database.
+
+## Step 5 Add a practice note only if you want to change the demo
+
+Reading Steps 2-4 is enough for today's first exercise. The following command writes another note:
+
+```powershell
+& ./.venv/bin/python.exe scripts/cases.py note --database data/runtime/day10_demo.db --case-id 1 --text 'Practice note: I reviewed the sample original records. More context would be needed for a real conclusion.' --author lab_analyst
+```
+
+If you have not changed the demonstration earlier, the revision becomes 4. Running it twice adds two notes; notes are deliberately separate actions and do not use alert deduplication. Corrections are new notes. Existing notes cannot be edited or removed by these commands.
+
+The author label explains what label was entered. It is not a login or verified identity. Authentication is a later requirement. Anyone with local file access could also edit SQLite outside the application, so this history is not a tamper-proof forensic record.
+
+## Step 6 Understand changing a conclusion
+
+A state change requires the status, conclusion, reason, author label, and the revision you just read. The software compares that revision with the stored one. If another note or change has arrived, it rejects the stale update and asks you to refresh.
+
+Example: you read revision 3. Someone adds a note, creating revision 4. A state change claiming revision 3 fails. Read the case again, review the new information, then make a deliberate decision. Do not automatically retry with a newer number without reviewing what changed.
+
+Roman Urdu: Revision purani ho to software aap ki change save nahi karta. Pehle nayi information dekhein, phir faisla karein. Is se kisi aur ki nayi mehnat purani screen ki wajah se overwrite nahi hoti.
+
+Open and in_progress cases can move between those states or close with a conclusion. A closed case can revise its conclusion while staying closed, with a new reason. To reopen it, use in_progress and undecided. Closed to open is rejected. An unchanged status/conclusion pair is also rejected; use a note if you only want to add commentary.
+
+Notes can be added to closed cases for clarification. Reopening or correcting a conclusion keeps every earlier action in history. No state change deletes old evidence.
+
+## Reproduce the workflow on a fresh checkout
+
+Runtime databases are not in GitHub. The following sequence creates a new practice database. Choose a new filename if this one already has unrelated practice work. Run each command successfully before continuing.
+
+```powershell
+& ./.venv/bin/python.exe scripts/database.py import data/samples/day07_all_rules.jsonl --database data/runtime/day10_practice.db --json
+& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day10_practice.db --save --json
+$practiceAlerts = (& ./.venv/bin/python.exe scripts/alerts.py list --database data/runtime/day10_practice.db --json) | ConvertFrom-Json
+$practiceAlertId = ($practiceAlerts.items | Where-Object rule_id -eq 'R3').alert_id
+$creation = (& ./.venv/bin/python.exe scripts/cases.py create --database data/runtime/day10_practice.db --alert-id $practiceAlertId --title 'Review synthetic success after failures' --author lab_analyst) | ConvertFrom-Json
+$practiceCaseId = $creation.case.id
+& ./.venv/bin/python.exe scripts/cases.py note --database data/runtime/day10_practice.db --case-id $practiceCaseId --text 'Synthetic exercise: inspect originals before reaching a conclusion.' --author lab_analyst
+$currentCase = (& ./.venv/bin/python.exe scripts/cases.py get --database data/runtime/day10_practice.db --case-id $practiceCaseId) | ConvertFrom-Json
+& ./.venv/bin/python.exe scripts/cases.py state --database data/runtime/day10_practice.db --case-id $practiceCaseId --status in_progress --disposition undecided --reason 'Begin reviewing synthetic evidence.' --expected-revision $currentCase.revision --author lab_analyst
+& ./.venv/bin/python.exe scripts/cases.py history --database data/runtime/day10_practice.db --case-id $practiceCaseId
+```
+
+On a fresh database, the result is a case at revision 3 with three actions. Creating a case again for the same saved alert returns created=false and the existing case; it does not replace its title or add another creation action. Repeating the entire sequence is not a no-op: imports, runs, and notes have their own histories. Read existing state before repeating write commands.
+
+## Files and their responsibilities
+
+| File | Responsibility |
+| --- | --- |
+| src/sentinellab/storage/case_schema.py | Defines and validates the two new tables; creates them inside the case transaction |
+| src/sentinellab/storage/cases.py | Validates input, creates cases, appends notes, applies state rules, checks revisions, reads bounded lists/history |
+| src/sentinellab/cases_cli.py | Parses each command and calls the corresponding service; formats JSON and exit codes |
+| scripts/cases.py | Finds the source package and starts the command-line program |
+| src/sentinellab/storage/database.py | Accepts schema version 3 and validates required case columns while retaining older versions |
+| src/sentinellab/storage/alerts.py | Reads saved alerts on version 3 and reports the actual version when saving detection |
+| tests/integration/test_cases.py | Sixteen integration tests for the complete workflow, failures, concurrency, persistence, and compatibility |
+| docs/INVESTIGATIONS.md | Exact state, input, migration, command, and history contract |
+| docs/DAY_10_GUIDE.md | This lesson and reproducible examples |
+
+README, setup, database/alert/web contracts, acceptance evidence, progress, and next-session notes are also updated. The Day 9 Word handbook remains a historical edition through Day 9; this new guide is the current Day 10 reference.
+
+## Database changes explained
+
+Schema means the database's table structure. Version 1 holds events/imports. Version 2 adds alerts and detection runs. Version 3 adds investigations and investigation_actions. A valid first case creation upgrades version 2 inside one transaction. A database without a saved alert cannot create a case. Merely reading old databases never upgrades them.
+
+The investigations row holds the current state and permanent link to its alert. The action rows preserve how the current state was reached. Foreign keys require valid links. A unique alert_id enforces one case per saved alert. This initial scope does not group several alerts into one incident.
+
+BEGIN IMMEDIATE makes simultaneous writers wait their turn. A transaction saves the current state and its history action together. If either write fails, both roll back. Tests force failures to verify this. Concurrent case creation produces one case; concurrent notes are both retained; competing updates based on the same revision allow only one to succeed.
+
+## Limits and troubleshooting
+
+Titles allow 120 characters, author labels 80, notes 4000, and reasons 1000. Blank values and unsupported control characters are rejected. Notes/reasons allow newline and tab. Lists/history default to 50 items; --limit accepts 1..200 and --offset 0..1000000. List filters accept --status. History runs oldest revision first; case lists show newest case ID first.
+
+- Saved alert not found: save detection first and use its full alert ID in the same database.
+- Case not found: use list with the same --database and copy the correct case ID.
+- Refresh instruction: a newer action changed the revision. Read get and history before deciding again.
+- Close error: a closed case needs a conclusion other than undecided.
+- Write error: check file access, locks, and schema. A failed operation does not partly save a case action.
+- Exit code 0 means success; 1 means a missing case on get/history; 2 means a validation/storage/usage error.
+
+## What we checked
+
+The full suite passes 149 tests: the previous 133 plus 16 investigation cases. Coverage includes migration preservation, duplicate creation, complete state history, reopened/corrected conclusions, input limits, read-only access, pagination, forced failure rollback, simultaneous actions, separate-process commands, malformed schemas, and version 3 compatibility with existing detection/import/browser reads.
+
+These are component checks. They do not establish authenticated authors, tamper-proof storage, real-world detection accuracy, exports, or completed release acceptance.
+
+## Your part and the next checkpoint
+
+Run the two read-only commands for get and history, or ask me to walk through their output. Answer in this chat: if you change a case's conclusion, should its original login records change too? Explain why in your own words.
+
+Next: Start SentinelLab Day 11. Add browser investigation controls and explain each step in simple English and Roman Urdu. Preserve the current evidence behavior and beginner guidance while making the case workflow easier to use.
+
+# 27 Investigations in the browser
+
+This chapter records the Day 11 checkpoint. Later chapters describe subsequent changes. Browser startup now requires the Day 12 account setup, and new browser author labels come from the signed-in account.
+
+Completed October 2, 2026. Project: C:\Users\Dell\Desktop\Projects\SentinelLab.
+
+## What you can do today
+
+You can open a saved alert, create its investigation case, write observations, record a decision with a reason, and read the history in your browser. Day 10 built the storage and commands; Day 11 connects those same rules to buttons and forms. No detection thresholds have changed.
+
+Roman Urdu: Alert humein shak wali activity dikhata hai. Case mein hum us activity ki jaanch, notes aur faisla record karte hain. Sirf alert aane ka matlab hacking confirm hona nahi hai.
+
+## Step 1 - Open the demonstration
+
+Open http://127.0.0.1:8771/ while the Day 11 server is running. This uses data/runtime/day11_demo.db, separate from older demonstrations. It contains 16 synthetic login records, one import, three saved alerts and one detection run. Browser verification created case 1 with five actions, ending In progress / Suspicious at revision 5. Your later actions will change those case counts and revisions.
+
+If the page does not open, run these commands in PowerShell:
+
+```powershell
+Set-Location "C:\Users\Dell\Desktop\Projects\SentinelLab"
+& ./.venv/bin/python.exe scripts/serve.py --database data/runtime/day11_demo.db --port 8771
+```
+
+Keep that terminal running. Ctrl+C stops a server started in that terminal. If the port is already in use, open the existing page first. Do not stop unrelated programs. A restart changes the page's request token, so reload the browser before saving again.
+
+On a new checkout, the database is not downloaded from GitHub. Import data/samples/day07_all_rules.jsonl through the browser and press Run detection and save once. Importing alone does not run detection.
+
+## Step 2 - Read the alert and originals
+
+Use Saved alerts in the navigation. Choose Open R3 alert. Read its explanation: five earlier failures were followed by a success for the same username and IP within the configured time window. Review its six evidence references. Original #16 opens the successful login in this demonstration; record IDs can differ in other databases.
+
+Purpose: understand why the detector matched before writing an opinion. The rule cannot tell whether someone corrected their own password or an attacker succeeded. Other context would be needed. An original record is retained evidence; an investigation note is your interpretation.
+
+Expected result: the saved alert and original event can be viewed without changing either one.
+
+## Step 3 - Start or open the investigation
+
+Choose Investigate this alert. The form shows the exact linked alert. Keep or edit the proposed short title, enter an author label such as lab_analyst, and choose Create or open case.
+
+A new case starts Open / Undecided at revision 1. If that alert already has a case, the existing case opens with its previous title, status and notes. This does not reopen a closed case or create another copy. The demonstration's R3 case already exists, so you should see case 1.
+
+The author label is just text supplied by the person using the application. It is not a verified account or a login. Do not describe it as authenticated identity in an interview.
+
+## Step 4 - Add an observation
+
+Enter an Author label for notes and decisions. In New note write a specific observation, for example:
+
+> The alert links five failures and one successful login for lab_user from 192.0.2.71. These are synthetic records. More context is needed before confirming compromise.
+
+Press Save note once. The note appears in Case history and the revision increases. Original events and the saved alert do not change. Notes can also be added to closed cases. You cannot edit or delete old notes through the application; add a correction as another note.
+
+Roman Urdu: Jo cheez evidence mein nazar aati hai woh likhein. Andaza aur haqeeqat alag rakhein. Ghalti ho to naya correction note likhein; purani history rehti hai.
+
+## Step 5 - Understand status and conclusion
+
+| Field | Value | Meaning |
+|---|---|---|
+| Status | Open | A case exists and work can begin. |
+| Status | In progress | Someone is investigating. |
+| Status | Closed | The current review has ended with a conclusion. |
+| Conclusion | Undecided | There is not enough information to decide. |
+| Conclusion | Benign | The reviewer considers the activity harmless, with supporting context. |
+| Conclusion | Suspicious | The activity needs concern or further investigation; compromise is not confirmed. |
+| Conclusion | Confirmed compromise | The reviewer asserts compromise based on supporting evidence. Detection never selects this automatically. |
+
+Status answers "Where is the work?" Conclusion answers "What do we currently think?" They are different. A suspicious case can remain In progress. Closing requires a conclusion other than Undecided. Reopening a closed case requires In progress and Undecided. Every change requires a reason. Saving the same status and conclusion again is rejected; use a note to add observations instead.
+
+To practise a decision on synthetic data, choose a different valid status/conclusion, explain why in Reason for this change, and choose Save decision. Do not label compromise merely to make the portfolio look impressive. The history shows the before and after values and the supplied author label.
+
+## Step 6 - Learn revisions and conflict recovery
+
+A revision is a case version number. Creation is revision 1. Every saved note or decision adds one. If your page read revision 3 and another action created revision 4, saving a decision based on revision 3 must not overwrite newer work.
+
+The browser says the case changed elsewhere and disables Save decision. Your reason is kept. Choose Refresh selected case, read the latest history, choose the appropriate status and conclusion again, then save. Refresh restores the saved dropdown values but keeps your draft note/reason. The warning itself creates no action.
+
+Roman Urdu: Aap ke paas purana version ho to pehle taza information dekhein. System aap ka likha hua reason sambhal kar rakhta hai, lekin naya faisla karne se pehle latest history dekhni hoti hai.
+
+Notes do not require an expected revision: two submitted notes can both be appended. Decisions do require one because an old decision can contradict newer work.
+
+## Step 7 - Find cases and read history
+
+Use Investigations in the navigation. Choose All cases or a status, then Refresh cases. Open case 1 to continue the demonstration. Case lists show newest case first, ten at a time. Previous cases and Next cases move between pages when available.
+
+Inside a case, history is oldest action first, ten at a time. Next actions shows later entries. Each entry has a revision, action type, UTC time, author label, text and resulting state. Open linked alert and evidence returns to the original saved alert. All saved information survives browser reload.
+
+Draft text is different: it exists only in the current page. Switching between cases or refreshing a selected case preserves its draft. Reloading or closing the browser loses unsaved drafts. Save observations you need to retain.
+
+## Step 8 - Handle errors
+
+- Empty/too-long fields: correct the field. Titles allow 120 characters, author labels 80, notes 4000, reasons 1000. Unsupported control characters are rejected.
+- Case changed elsewhere: refresh the selected case and review the latest history before saving the decision again.
+- Lost connection while saving: refresh and inspect history before retrying. The server may have saved the action even if the reply was lost. Notes do not have automatic retry deduplication.
+- No cases match: switch to All cases and refresh. The selected case can still be visible even when it no longer matches a list filter.
+- No saved alerts: import the sample and explicitly run detection/save first.
+- Narrow display: tables scroll horizontally inside their own boxes. The editor stacks vertically.
+
+## What changed in the code
+
+| File | Responsibility |
+|---|---|
+| src/sentinellab/storage/cases.py | Existing transaction/state rules; adds a distinct stale-revision error that the web layer can identify. |
+| src/sentinellab/web/case_api.py | Validates exact JSON fields and case query parameters, calls the existing services, and sends IDs/revisions as decimal strings to avoid JavaScript number rounding. |
+| src/sentinellab/web/server.py | Routes case requests, enforces existing Host/Origin/token checks and body limits, and returns a conflict response for outdated decisions. |
+| src/sentinellab/web/templates/index.html | Accessible labels, case forms, help, list and history containers. |
+| src/sentinellab/web/static/cases.js | Loads cases/history, saves explicit actions, retains page drafts, and handles refresh conflicts. |
+| src/sentinellab/web/static/cases.css | Case layout, editor spacing, timeline and narrow-screen adjustments. |
+| src/sentinellab/web/static/alerts.js | Connects an opened saved alert to the investigation form. |
+| src/sentinellab/web/static/app.js | Carries structured API error codes to the browser controls. |
+| src/sentinellab/web/static/style.css | Gives tables a readable minimum width within scrollable wrappers. |
+| tests/integration/test_web_cases.py | Real local HTTP tests for workflow, duplicate prevention, conflicts, rejected writes, paging, read-only requests and rollback. |
+
+Flow: button/form -> JavaScript -> protected local HTTP request -> input validation -> case storage transaction -> SQLite -> JSON response -> updated case and history. A failed transaction rolls back its changes together. Text is displayed as text, never treated as HTML.
+
+## Verification and limits
+
+157 automated tests pass. Day 11 adds eight HTTP tests; earlier storage tests cover concurrent operations, state transitions, migration and process persistence. Browser verification covered creation, notes, decisions, duplicate creation, outdated-decision recovery, preserved draft reasons, linked original evidence, reload persistence, and desktop/narrow layouts. Pagination boundaries are covered by HTTP tests. No browser console errors were observed in the final check.
+
+This remains a local learning prototype. Request tokens are cross-site request protection, not analyst authentication. History is append-only through the application, but a person directly editing the database can tamper with it. No authenticated users, roles, export workflow or final detection evaluation is complete. Runtime databases/logs stay out of GitHub.
+
+## What comes next
+
+Day 12 should review the web stack and define/implement appropriate analyst sign-in and session protection for this local prototype, with tests and clear limits. Reports, broader interface improvements, detection evaluation, portfolio screenshots and final release remain planned. Target completion is October 17, 2026. These are future tasks, not features already delivered.
+
+## Your small exercise
+
+Open case 1 and read its history. Tell me here: if your page shows revision 5 but another note has already created revision 6, what should you do before saving a decision? You can answer in simple English or Roman Urdu.
+
+# 28 Local sign in and session protection
+
+This chapter records the Day 12 checkpoint. Later chapters describe subsequent changes. This chapter describes the current browser access behavior.
+
+Completed October 2, 2026. Project folder: C:\Users\Dell\Desktop\Projects\SentinelLab.
+
+## What we built and why
+
+The browser now asks you to sign in before it shows saved login events, alerts, detection runs or investigation cases. Signing out removes the session on the server. New browser case actions use the signed-in account name; changing a form value cannot impersonate a different author.
+
+Before today, the request token stopped unwanted cross-site writes, but anyone who could open the local page could read data and obtain that token. Authentication adds a separate check: the browser must have a valid session created after password verification. The existing request protections still apply.
+
+Roman Urdu: Pehle page kholne se data nazar aa jata tha. Ab pehle local account se login karna hota hai. Login aap ko pehchanta hai; request token doosri website se aane wali unwanted request ko rokne mein madad karta hai.
+
+This is a one-account, local learning prototype. It is not ready for public hosting. Browser sign-in does not encrypt SQLite or stop someone who already has access to the project files. Command-line tools rely on local filesystem access and do not ask for this browser password.
+
+## Step 1 Open PowerShell
+
+Press the Windows key, type PowerShell, and open it. You do not need an Administrator window. Enter:
+
+```powershell
+cd "C:\Users\Dell\Desktop\Projects\SentinelLab"
+```
+
+This changes the terminal's working folder. The next commands can now find this project's scripts and Python environment.
+
+## Step 2 Create your private local account once
+
+```powershell
+.\.venv\bin\python.exe scripts/account.py --username usman
+```
+
+Choose a password containing 15 to 128 characters. A long phrase that you can remember is easier than trying to satisfy arbitrary punctuation rules. Enter the same password twice. Nothing appears while typing; that is intentional hidden entry. Do not paste the password into chat or include it in a command argument. Success says Local account created.
+
+Roman Urdu: Password screen par nazar nahi aayega, lekin type ho raha hota hai. Dono dafa bilkul aik jaisa password likhein. Password kisi ko chat mein na bhejein.
+
+The account is saved in secrets/analyst.json. This file is ignored by Git and must stay private. It holds your username, a salt and a password hash, not the original password. The setup command refuses to overwrite an existing file. There is no browser password-reset feature. If you later need a new account file, stop the server and use a different --file path deliberately, then restart with that --credentials path. Do not delete evidence to recover an account.
+
+For this checkpoint, the owner created the usman account privately. No password is recorded in this guide or in GitHub.
+
+## Step 3 Start the Day 12 server
+
+The prepared Day 12 workspace is http://127.0.0.1:8773/. It uses a separate data/runtime/day12_demo.db created from the Day 11 demonstration. The original Day 11 database is preserved. At preparation time it contained 16 synthetic events, one import, three alerts, one detection run, one investigation case and five actions. Later practice changes those counts.
+
+If the server is not running, enter:
+
+```powershell
+.\.venv\bin\python.exe scripts/serve.py --database data/runtime/day12_demo.db --port 8773 --credentials secrets/analyst.json
+```
+
+Keep the terminal open. Ctrl+C stops a foreground server. If the port is busy, try opening the existing workspace before starting another process. Missing or malformed credentials prevent startup; the program does not silently run without sign-in.
+
+On a fresh checkout, runtime databases and credentials are absent. Create your own account, start the server, sign in, upload data/samples/day07_all_rules.jsonl and explicitly run detection/save. No private account file or generated database is downloaded from GitHub.
+
+## Step 4 Sign in and investigate
+
+Open the workspace. Enter your username and password, then choose Sign in. The server checks the password and creates a temporary session. You should see Signed in as usman and the existing workspace. A wrong username or password gives the same generic error, so the page does not identify which half was correct.
+
+Use Saved alerts, open R3 and choose Investigate this alert. Its existing case opens without duplicating it. Author fields are filled automatically and are read-only. New notes and decisions submitted from this browser are assigned to the session account by the Python server, even if someone modifies a browser field manually.
+
+The older case history still contains its original labels. Those labels were entered before authentication, and the CLI can still supply its own labels. The stored schema does not mark their origin. Therefore, do not claim that every historical action has authenticated identity or that a username proves a person's real-world identity.
+
+## Step 5 Sign out
+
+Save any work you want to retain, then choose Sign out. The server removes that session and clears the cookie. A page open in another tab may still display data it already loaded, but new API requests using the revoked session fail. Logging out cannot erase information already shown on a screen.
+
+If you try to save from another tab after logout, a sign-in message appears and the draft text stays in that page. Open the sign-in link in a new tab, sign in, copy any unsaved draft you need, then reload the original tab to obtain a fresh request token. A full reload discards page-only drafts. Always review case history before retrying after a lost response.
+
+## Step 6 Understand the new concepts
+
+Authentication means checking that the supplied password matches this local account. Authorization means checking whether a request is allowed to access a resource. Our one-account prototype gives its signed-in account access to the whole local workspace. It does not yet have administrator/read-only roles or separate access per case.
+
+A password hash is a one-way derived value used for comparison. A salt is random data used alongside a password so that two equal passwords do not produce the same stored value. We use Python's established scrypt function with fixed settings: N 131072, r 8, p 1, a 16-byte random salt and a 64-byte result. Hashing deliberately costs memory and processing time, making offline guessing more expensive. It is not a guarantee against weak passwords or a stolen computer.
+
+A session is the server's temporary memory of a successful login. The browser receives a random 256-bit identifier in a cookie, while the server keeps the account and expiry information in memory. The cookie does not contain the password. Signing in again rotates the identifier and invalidates the presented previous session. Restarting the server loses all sessions and requires another sign-in.
+
+HttpOnly means browser JavaScript cannot directly read the session cookie. SameSite Strict restricts when the browser sends it from another site's context. The cookie is host-only with Path / and a name containing the server's port. Cookies are not isolated by port: the naming helps avoid accidental demo collisions, but does not protect against a malicious local service. This HTTP loopback demo does not use the Secure cookie flag; a hosted version needs HTTPS and deployment changes.
+
+CSRF is an attempt to make your browser perform an unwanted action from another website. Each signed-in session has a separate random request token, and writes require the exact local Origin and Host. This is why knowing the address or the login-page token is insufficient to save changes as a signed-in user.
+
+Roman Urdu: Session login ke baad server ki temporary yaad hoti hai. Cookie us session ki pehchan hai. Logout ya expiry ke baad purani pehchan se naya data access nahi hota.
+
+## Step 7 Understand expiry and login limits
+
+A session expires after 15 minutes without a request, or after eight hours regardless of activity. The server checks these limits using a monotonic clock, which measures elapsed time. Typing into a form alone does not contact the server and does not extend the session.
+
+The app allows up to ten live sessions. It admits at most ten password-verification attempts in a rolling minute and temporarily blocks attempts after five failures in that window. Only one password hash is checked at a time; simultaneous attempts receive a retry message. Wait one minute rather than repeatedly clicking. These are bounded local protections, not a complete internet-scale denial-of-service defense. Restart resets these in-memory limits.
+
+## What each new or changed file does
+
+| File | Purpose |
+| --- | --- |
+| scripts/account.py | Gets a password privately twice, validates it and creates a new account file without overwriting one. |
+| src/sentinellab/web/auth.py | Uses scrypt to check passwords; controls login limits, session creation, expiry and revocation. |
+| src/sentinellab/web/server.py | Requires account configuration, gates workspace/data requests, handles login/logout, verifies session request tokens and supplies the real session author to case services. |
+| src/sentinellab/web/case_api.py | Accepts a server-supplied author override for authenticated browser case actions. |
+| src/sentinellab/web/templates/login.html | Contains the sign-in fields, messages and first-time help. |
+| src/sentinellab/web/static/auth.js | Sends login/logout requests and fills read-only author fields. |
+| src/sentinellab/web/templates/index.html | Shows the signed-in account, sign-out button, expiry recovery and historical-author explanation. |
+| src/sentinellab/web/static/app.js | Recognizes a 401 response and displays the sign-in recovery link while keeping the page open. |
+| src/sentinellab/web/static/style.css | Styles the login panel and session controls for desktop and narrow displays. |
+| tests/integration/test_auth.py | Exercises real HTTP requests and credential/session invariants. |
+| tests/integration/test_web.py and test_cases.py | Explicitly isolate the older non-authentication fixtures; production startup has no unauthenticated command-line option. |
+| docs/AUTHENTICATION.md | Records the exact access contract, stack decision, limits and references. |
+| docs/SentinelLab_Project_Handbook.docx | The cumulative Word explanation through Day 12, including previously missing Days 10 and 11. |
+| docs/SENTINELLAB_HANDBOOK.md | The readable text companion to the cumulative handbook. |
+| AGENTS.md | Now requires a Word and Markdown handbook update at every future checkpoint. |
+
+The flow is: login form -> bounded JSON request -> request checks -> password verification -> new session cookie -> protected workspace. A case write adds the session check and per-session request token before calling the existing case service. Original evidence and detection rules are unchanged.
+
+## What we tested
+
+The full suite passes 168 tests: the previous 157 plus eleven authentication tests. New coverage includes anonymous read/write denial, wrong credentials, rate limits, malformed login bodies, cookie flags, session rotation/logout, idle/absolute expiry, duplicate cookies, bounded sessions and hashing, salted storage, fail-closed startup and spoofed-author rejection. Existing ingestion, detection, storage and investigation tests still pass.
+
+Browser checks used a separate synthetic QA account and database. We checked wrong-password feedback, successful sign-in, read-only account fields, case creation/note author, logout, another tab's rejected save with retained draft, and desktop/390-pixel login layout. No console errors were observed in the checked login flow. The private user account is separate from QA credentials.
+
+## Common problems and their meaning
+
+- Account file already exists: setup preserved it. Sign in with that account rather than repeatedly creating it.
+- No characters appear when entering a terminal password: normal hidden entry.
+- Username or password is incorrect: check both values; the app deliberately gives one message.
+- Too many attempts or busy: wait a minute and retry once.
+- Cannot start: confirm the credential path, database access and whether the selected port is already in use.
+- Session ended: sign in again and obtain a new page token. Preserve unsaved drafts before a full reload.
+- An older demo still opens without login: it is an older running process. Use the new Day 12 address; old processes do not automatically reload Python code.
+
+## What remains and how to explain this in an interview
+
+A fair description is: I built a local security monitoring prototype with deterministic rules, retained original evidence, investigation history and a single-account browser login using scrypt and expiring server-side sessions. I tested access checks and recovery behavior. Do not call it a production SIEM, tamper-proof forensic system, multi-user platform or proven attack detector.
+
+Day 13 is proposed to add faithful investigation report exports: include source alert identity, evidence references, notes, conclusions and limitations without changing the originals. Broader visual improvements, detection evaluation, clean-setup rehearsal, demo recording and final portfolio/CV material remain planned. Target completion is October 17, 2026.
+
+From now on, every checkpoint must update this Word handbook and its Markdown companion with completed work, easy explanations, file responsibilities, usage steps, tests, limits and next steps. Earlier chapters remain historical and the newest chapter explains current behavior.
+
+## Sources for the access design
+
+OWASP Password Storage Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+
+OWASP Session Management Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+
+## One small learning question
+
+If signing out removes your session, does it delete your saved case notes or original login records? Explain your answer in this chat, in English or Roman Urdu.
+
+# 29 Completion map and continuing this handbook
+
+## What is completed through Day 12
+
+Event validation and normalization reject malformed records and preserve valid originals. SQLite stores imports and events with duplicate and conflict handling. Searches filter stored records and original evidence is available from the browser. The detector implements R1 repeated account failures, R2 failures across accounts and R3 success after preceding failures, with tested grouping and time-window boundaries.
+
+Explicit detection saving records runs and immutable alerts. Repeated checks do not duplicate unchanged alerts. Each alert links to its original evidence. Cases retain notes and reasoned decisions separately from evidence, with a revision number to reject outdated decisions. Browser forms connect these pieces into a review workflow.
+
+Day 12 adds a single local account, scrypt password verification, bounded sign-in attempts, expiring server-side sessions and logout. New browser case actions use the session account. Older and CLI labels remain self-declared; direct database access is outside browser access protection. The system is a learning prototype, not a production monitoring service.
+
+## How the pieces work together
+
+First the account gates access to the browser workspace. Then the user imports a synthetic file. The parser validates each line and normalizes supported values. The storage service saves accepted records and retains their originals. The user deliberately runs detection; the rules examine one consistent set of events and the save transaction records alerts and evidence links. The user opens a finding, reads its originals and creates or continues a case. Case notes and decisions append history without rewriting the finding. Signing out ends access to new browser requests, not the saved investigation.
+
+The frontend communicates using local HTTP requests. The backend validates requests and permissions, then calls focused services. SQLite transactions keep related writes together. Unit and integration tests check the behaviors; browser checks confirm that visible controls actually connect to them. The cumulative handbook explains each checkpoint and its remaining limits.
+
+## What remains before the portfolio release
+
+Day 13 is proposed to add investigation report export with faithful evidence references and clear limits. We still need a broader interface improvement, evaluated positive and negative scenarios, a fresh-setup rehearsal, known-limit documentation, demonstration screenshots or video, an accurate case study and CV bullets, and final release checks. Optional public hosting and multiple roles are not required to claim this local prototype works. Target completion remains 17 October 2026.
+
+## Rules for future updates
+
+At each meaningful checkpoint, append the easy-English explanation to the Word file and Markdown companion. Explain the purpose, concepts, actual code changes, every new or changed file's responsibility, operating steps, expected results, tests, troubleshooting, remaining limitations and next planned step. Update this current completion map and test count when behavior changes. Keep historical chapters readable and label them by day so old plans are not confused with present capabilities.
+
+Never include passwords, hashes, session cookies, request tokens or private login records in the handbook or published repository. Demonstrations use synthetic data. A successful code test does not automatically mean the Word layout has been visually checked; report document verification separately.

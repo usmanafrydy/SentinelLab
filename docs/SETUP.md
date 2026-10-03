@@ -1,5 +1,17 @@
 # Run SentinelLab readers and storage commands
 
+## Day 12 account required for browser startup
+
+Before the older browser examples below, create a private local account once. Existing users skip creation.
+
+```powershell
+cd "C:\Users\Dell\Desktop\Projects\SentinelLab"
+.\.venv\bin\python.exe scripts/account.py --username usman
+.\.venv\bin\python.exe scripts/serve.py --database data/runtime/day12_demo.db --port 8773 --credentials secrets/analyst.json
+```
+
+Enter matching 15..128 character passwords at the hidden prompts. Never put a password in chat, command arguments or tracked files. Setup refuses overwrite. Open http://127.0.0.1:8773 and sign in. Missing/invalid credentials prevent startup. A fresh database starts empty: import the synthetic sample and explicitly save detection. Prepared Day 12 data was copied consistently from Day 11, preserving the older file. CLI/database access is outside browser sign-in protection. See DAY_12_GUIDE.md for concepts and recovery.
+
 ## Requirements and current environment
 
 Tested on September 26, 2026 with the existing MSYS2 UCRT Python 3.12.7 on Windows. Standard-library json, datetime, ipaddress, unittest, sqlite3, and venv are available. No third-party dependencies are required today. The Windows py launcher has no registered installations on this laptop; use the working python command below.

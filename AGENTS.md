@@ -24,3 +24,5 @@ Build a focused security monitoring and incident investigation prototype. Preser
 ## Continuity
 
 Read docs/NEXT_SESSION.md and docs/PROGRESS.md before continuing. Keep documentation aligned with actual implementation. Clearly label proposed features and unmeasured claims.
+
+- At every checkpoint, update docs/SentinelLab_Project_Handbook.docx and docs/SENTINELLAB_HANDBOOK.md in easy English. Include work completed, concepts, file responsibilities, how to use and verify it, limitations, and next steps. Preserve earlier explanations and clearly separate historical checkpoints from current behavior. Never mark a checkpoint documented until the Word file is updated; report any rendering limitation explicitly.

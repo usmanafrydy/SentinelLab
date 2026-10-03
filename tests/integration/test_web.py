@@ -21,7 +21,7 @@ class WebTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.db = Path(self.temp.name) / "new" / "events.db"
         initialize_database(self.db)
-        self.server = LocalServer(self.db, port=0)
+        self.server = LocalServer(self.db, port=0, testing_no_auth=True)
         self.worker = Thread(target=self.server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True)
         self.worker.start()
         self.addCleanup(self.cleanup)

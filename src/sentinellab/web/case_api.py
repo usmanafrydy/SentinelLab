@@ -50,7 +50,7 @@ def _invalid_constant(value):
     raise ValueError
 
 
-def write_case_request(database, path, content):
+def write_case_request(database, path, content, *, author=None):
     body = json.loads(content.decode('utf-8'), object_pairs_hook=_pairs, parse_constant=_invalid_constant)
     match = WRITE_PATH.fullmatch(path)
     action = 'create' if path == '/api/cases' else match[2]
@@ -58,6 +58,8 @@ def write_case_request(database, path, content):
         {'text', 'author'} if action == 'notes' else {'status', 'disposition', 'reason', 'author', 'expected_revision'})
     if type(body) is not dict or set(body) != expected or any(type(v) is not str for v in body.values()):
         raise ValueError
+    if author is not None:
+        body['author'] = author
     if action == 'create':
         result = create_case(database, **body)
     elif action == 'notes':

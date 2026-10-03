@@ -1,5 +1,9 @@
 # Acceptance criteria
 
+## Day 12 local access evidence
+
+Single-account browser access uses scrypt, expiring server-side sessions, logout, per-session write tokens and server-assigned browser case authors. Eleven new tests bring the suite to 168: anonymous gates, author spoofing, cookies, invalid input, limiting, rotation, expiry, salted storage and fail-closed startup. Browser workflows and narrow login layout were checked. This does not establish public-deployment security, authenticated historical provenance, encrypted storage, multiple roles or completed release acceptance. Reports/evaluation remain pending. The cumulative Word/Markdown handbook includes Days 10-12; Word page layout remains unverified because bundled LibreOffice is missing.
+
 ## Day 10 component evidence
 
 AC-04/09 now have local case persistence, notes, status/disposition, before/after history, immutable alert links, reasons, and stale-revision protection. Sixteen new tests cover complete lifecycle, reopen/correction, rollback including migration, concurrency, bounds, read-only behavior, and separate-process commands. Full suite: 149 passing tests. Existing event/alert web reads remain compatible with v3. Browser case controls, authenticated authors/access (AC-11), exports (AC-10), broader evaluation, and final release acceptance remain unfinished. Self-declared author labels and SQLite history are not tamper-proof auditing.
