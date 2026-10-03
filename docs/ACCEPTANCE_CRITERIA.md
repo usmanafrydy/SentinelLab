@@ -1,5 +1,9 @@
 # Acceptance criteria
 
+## Day 13 report evidence
+
+AC-10 now has bounded Markdown and JSON exports containing case state, complete history, full saved rule/alert details, first run and linked original records/provenance from one read-only snapshot. Sixteen new tests bring the suite to 184. Tests cover fidelity, large IDs, full history beyond a page, unchanged database bytes, concurrent WAL updates, hostile markup, limits, missing links, old schemas, private exclusive CLI output and authenticated/stale/invalid/expired HTTP downloads. Both actual browser downloads were checked against the saved QA database; drafts remained excluded and retained. This is component evidence, not the complete final acceptance run. Broader interface improvement, held-out evaluation and clean-setup/release demonstration remain pending. The cumulative handbook includes Day 13; Word page layout remains unverified because bundled LibreOffice is absent.
+
 ## Day 12 local access evidence
 
 Single-account browser access uses scrypt, expiring server-side sessions, logout, per-session write tokens and server-assigned browser case authors. Eleven new tests bring the suite to 168: anonymous gates, author spoofing, cookies, invalid input, limiting, rotation, expiry, salted storage and fail-closed startup. Browser workflows and narrow login layout were checked. This does not establish public-deployment security, authenticated historical provenance, encrypted storage, multiple roles or completed release acceptance. Reports/evaluation remain pending. The cumulative Word/Markdown handbook includes Days 10-12; Word page layout remains unverified because bundled LibreOffice is missing.

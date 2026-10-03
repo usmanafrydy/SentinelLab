@@ -1,5 +1,15 @@
 # Progress
 
+## Day 13 - October 3, 2026
+
+- Verified all 109 published Day 12 files against parent e8940b4a2f3a2b9836079dff84df6aed9c9f0c12 before editing. Defined REPORTS.md first.
+- Added one-snapshot, read-only JSON/Markdown reports: current case, complete action history, immutable alert/rule details, first detection run, linked originals and import provenance. Limits reject whole exports rather than truncate; database-local IDs/revisions serialize as strings. Markdown uses dynamically sized fenced JSON blocks. No migration or evidence edit.
+- Added authenticated downloads, fixed numeric attachment names, stale-revision rejection, draft-preserving error recovery and easy-English report help. CLI restricts output to ignored reports/generated, refuses overwrite and removes newly created files after normal write/close failure. No credentials/private reports published.
+- Full suite: 184 passing tests, sixteen new report cases. JavaScript syntax passes. Actual browser JSON/Markdown downloads matched stored QA records and excluded unsaved drafts. Stale case refresh and signed-out rejection preserved drafts. Desktop/390px layout checked; no console errors observed in the checked flow. Browser download-event helper timed out, but actual Downloads files were found and validated.
+- Prepared day13_demo.db with SQLite backup from Day 12: 16 events, one import, three alerts, one run, case 1 in_progress/suspicious revision 5 with five actions. Working server uses port 8774 and existing private secrets/analyst.json. Older demos retained; later changes are independent. Port 8775/day13_qa.db use synthetic QA credentials only.
+- Added detailed Day 13 guide and cumulative handbook chapter 30; updated the current completion map. Prior lessons/tables retained. Bundled Word rendering remains blocked by missing LibreOffice; content/structure verification does not establish pagination quality.
+- Publish through connector, verify the remote tree/ref against local files, and preserve the existing Git metadata restriction. Proposed Day 14: interface/navigation improvement, followed by held-out evaluation, clean setup and portfolio release by October 17. Day 13 learning question concerns unsaved notes in exports.
+
 ## Day 12 implementation October 2 and finalization October 3 2026
 
 - Verified all 101 Day 11 files from parent 0167848e26cb73e2f5f24102a99e7e4434bcb6d8 before editing. Defined AUTHENTICATION.md and reviewed OWASP password/session guidance.

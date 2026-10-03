@@ -4,7 +4,7 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 12 completed: single-account local browser sign-in, scrypt password hashing, expiring server-side sessions, logout and session-bound browser case authors; investigations, saved evidence and three detection rules; 168 passing tests. Reports, broader design improvement, final evaluation and portfolio release remain pending. Target completion: October 17, 2026.
+Day 13 completed: faithful Markdown/JSON investigation exports through authenticated browser downloads and a private CLI output path, alongside local sign-in, investigations, saved evidence and three detection rules; 184 passing tests. Reports preserve complete bounded case history and linked original records from one read-only snapshot. Broader design improvement, final evaluation and portfolio release remain pending. Target completion: October 17, 2026.
 
 ## Planned scope
 
@@ -45,9 +45,9 @@ Empty directories contain `.gitkeep` files because Git does not track empty dire
 
 ## Getting started
 
-Start with the [Day 12 sign-in guide](docs/DAY_12_GUIDE.md) for account setup and the protected workspace. The [Day 11 browser guide](docs/DAY_11_GUIDE.md) covers investigations and the [Day 10 guide](docs/DAY_10_GUIDE.md) covers the equivalent CLI. See the [access contract](docs/AUTHENTICATION.md) and [investigation contract](docs/INVESTIGATIONS.md) for exact behavior and limits.
+Start with the [Day 13 report guide](docs/DAY_13_GUIDE.md) for the current workspace and exports, and the [report contract](docs/REPORTS.md) for content and limits. The [Day 12 sign-in guide](docs/DAY_12_GUIDE.md) covers account setup. The [Day 11 browser guide](docs/DAY_11_GUIDE.md) covers investigations and the [Day 10 guide](docs/DAY_10_GUIDE.md) covers the equivalent CLI. See the [access contract](docs/AUTHENTICATION.md) and [investigation contract](docs/INVESTIGATIONS.md) for exact behavior and limits.
 
-The browser includes a Start here walkthrough and expandable explanations. The cumulative [project handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word edition](docs/SentinelLab_Project_Handbook.docx) include explanations through Day 12, including the missing Day 10/11 chapters. Older editions remain historical references. Word content/structure checks pass; visual pagination review is pending because bundled LibreOffice is unavailable. Every future checkpoint must update both cumulative editions.
+The browser includes a Start here walkthrough and expandable explanations. The cumulative [project handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word edition](docs/SentinelLab_Project_Handbook.docx) include explanations through Day 13; chapter 30 teaches report concepts, every changed file, usage, tests and remaining work. Older editions remain historical references. Word content/structure checks pass; visual pagination review is pending because bundled LibreOffice is unavailable. Every future checkpoint must update both cumulative editions.
 
 Start with the [Day 9 guide](docs/DAY_09_GUIDE.md) for browser detection and alert evidence, the [Day 8 guide](docs/DAY_08_GUIDE.md) for command-line history, or the [Day 7 guide](docs/DAY_07_GUIDE.md) for all three rules. CLI saving requires explicit --save; browser saving requires Run detection and save. Uploading alone never runs detection.
 

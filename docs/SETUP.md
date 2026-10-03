@@ -1,5 +1,18 @@
 # Run SentinelLab readers and storage commands
 
+## Current Day 13 continuation and reports
+
+Existing account: do not recreate it. Use the prepared Day 13 database for continued work. Start only if this server is not already running:
+
+```powershell
+cd "C:\Users\Dell\Desktop\Projects\SentinelLab"
+.\.venv\bin\python.exe scripts/serve.py --database data/runtime/day13_demo.db --port 8774 --credentials secrets/analyst.json
+```
+
+Open http://127.0.0.1:8774/ and sign in. Open a case, then choose Download Markdown or Download JSON. Only saved work is included; refresh if the case revision changed. Reports contain original evidence: review them before sharing.
+
+Optional CLI: .\.venv\bin\python.exe scripts/export_report.py --database data/runtime/day13_demo.db --case-id 1 --format json. Output is restricted to ignored reports/generated and never overwrites files. Use --output reports/generated/another-name.json for another copy. See DAY_13_GUIDE.md and REPORTS.md for complete steps and limits. A fresh checkout has no runtime data; import a sample, explicitly save detection and create a case before exporting. Historical examples below use separate databases and do not automatically synchronize with Day 13.
+
 ## Day 12 account required for browser startup
 
 Before the older browser examples below, create a private local account once. Existing users skip creation.

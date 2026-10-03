@@ -1,4 +1,12 @@
-# Local browser prototype through Day 12
+# Local browser prototype through Day 13
+
+## Day 13 report downloads
+
+GET /api/cases/ID/report?format=json|markdown&revision=N requires a signed-in session, exactly one format and revision, and the existing local Host/Origin checks. It returns a no-store/nosniff attachment from one bounded read-only snapshot. Missing case: 404; stale revision: 409/stale_revision; invalid query or export limit/inconsistency: 400; absent/expired session: 401. Filenames use fixed text plus numeric ID/revision. No report files are written by the server. See REPORTS.md for complete format/size/privacy behavior.
+
+Case detail now has Markdown/JSON buttons, saved-only/private-data explanations and status messages. The browser checks errors before creating a download, keeps drafts, and exposes the sign-in recovery link on 401. Actual downloaded JSON and Markdown were compared against stored QA history/originals. Stale refresh and signed-out rejection retained draft text; desktop and 390px layout checks passed. Full suite: 184 tests (sixteen new report tests). The current checkpoint badge is Day 13.
+
+The older sections below record implementation history. Current startup requires the Day 12 account; all data APIs, including downloads, require authentication. The earlier per-process write-token description is superseded by per-session tokens in AUTHENTICATION.md.
 
 ## Current Day 12 access behavior
 

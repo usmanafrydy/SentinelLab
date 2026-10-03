@@ -15,7 +15,7 @@
   <script src="/static/auth.js" defer></script>
 </head>
 <body>
-  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 12</span></header>
+  <header><div class="brand"><span class="mark" aria-hidden="true">S</span> SentinelLab</div><span class="badge">LOCAL LAB · DAY 13</span></header>
   <main>
     <div class="session-bar"><span>Signed in as <strong>__ACCOUNT_NAME__</strong></span><button id="sign-out" type="button" class="secondary">Sign out</button></div>
     <p id="session-status" role="status"></p><p id="session-expired" hidden>Your session ended. <a href="/login" target="_blank" rel="noopener">Sign in in a new tab</a>, then reload this page. Copy any unsaved draft text first.</p>
@@ -98,6 +98,11 @@
       <div class="section-heading"><div><p class="eyebrow">CASE REVIEW</p><h2 id="case-title" tabindex="-1">Investigation</h2></div><button id="reload-case" class="secondary" type="button">Refresh selected case</button></div>
       <p id="case-detail-status" role="status" aria-live="polite"></p>
       <dl id="case-facts" class="alert-facts"></dl><button id="case-open-alert" type="button" class="secondary" disabled>Open linked alert and evidence</button>
+      <h3>Download this investigation</h3>
+      <p class="hint">Markdown is for reading; JSON is for software. Both include all saved notes, decisions and original evidence, not just the visible page. Save your draft first if you want it included. Downloads do not change or close the case.</p>
+      <p class="hint">Reports may contain usernames, IP addresses and private notes. Review the file before sharing it. Sirf saved kaam report mein aayega.</p>
+      <div class="actions"><button id="case-export-markdown" type="button" class="secondary" disabled>Download Markdown</button><button id="case-export-json" type="button" class="secondary" disabled>Download JSON</button></div>
+      <p id="case-export-status" role="status" aria-live="polite"></p>
       <p class="hint">Notes and reasons are kept when a save fails or you refresh this case. Unsaved drafts stay only in this page and are lost on browser reload.</p>
       <label class="case-author-label">Author label for notes and decisions<input id="case-author" maxlength="80" required placeholder="e.g. lab_analyst"></label>
       <div class="case-editor-grid">

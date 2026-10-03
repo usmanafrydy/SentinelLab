@@ -2,7 +2,7 @@
 // Shared API/DOM helpers come from app.js and alerts.js.
 const casePageSize = 10, caseDrafts = new Map();
 let caseSource = null, creatingAlert = null, currentCase = null, selectedCaseId = null;
-let caseBusy = false, caseLoading = false, needsCaseReview = false;
+let caseBusy = false, caseLoading = false, needsCaseReview = false, exportBusy = false;
 let caseReadRequest = 0, caseListRequest = 0, caseHistoryRequest = 0;
 let caseOffset = 0, caseNext = null, actionOffset = 0, actionNext = null;
 const caseWords = {open: "Open", in_progress: "In progress", closed: "Closed", undecided: "Undecided",
@@ -16,6 +16,7 @@ function prepareCaseSource(alert) {
   $("investigate-alert").disabled = caseBusy;
 }
 function caseControls() {
+  for (const format of ["json", "markdown"]) $("case-export-" + format).disabled = exportBusy || caseBusy || caseLoading || !currentCase || needsCaseReview;
   $("case-note-fields").disabled = caseBusy || caseLoading || !currentCase;
   $("case-state-fields").disabled = caseBusy || caseLoading || !currentCase || needsCaseReview;
   $("reload-case").disabled = caseBusy || caseLoading || !selectedCaseId;
@@ -102,6 +103,7 @@ async function openCase(id, message = "Review the linked evidence before choosin
   $("case-history-page").textContent = ""; status("case-history-status", "");
   $("case-title").focus(); $("case-detail").scrollIntoView({block: "start"});
   status("case-detail-status", "Loading the latest case…"); caseControls();
+  status("case-export-status", "");
   try {
     const record = await api(`/api/cases/${id}`);
     if (request !== caseReadRequest) return;
@@ -166,4 +168,26 @@ $("cases-previous").addEventListener("click", () => loadCases(Math.max(0, caseOf
 $("cases-next").addEventListener("click", () => { if (caseNext !== null) loadCases(caseNext); });
 $("case-history-previous").addEventListener("click", () => loadCaseActions(Math.max(0, actionOffset - casePageSize)));
 $("case-history-next").addEventListener("click", () => { if (actionNext !== null) loadCaseActions(actionNext); });
+async function downloadCase(format) {
+  if (exportBusy || caseBusy || caseLoading || !currentCase || needsCaseReview) return;
+  const {id, revision} = currentCase;
+  exportBusy = true; caseControls();
+  status("case-export-status", "Preparing saved evidence and complete history…");
+  try {
+    const response = await fetch(`/api/cases/${id}/report?format=${format}&revision=${revision}`, {cache: "no-store"});
+    if (response.status === 401) $("session-expired").hidden = false;
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(result.error || "Report could not be exported.");
+    }
+    const blob = await response.blob(), url = URL.createObjectURL(blob), link = document.createElement("a");
+    link.href = url; link.download = `sentinellab-case-${id}-rev-${revision}.${format === "json" ? "json" : "md"}`;
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+    if (selectedCaseId === id) status("case-export-status", `Download requested for case ${id}, revision ${revision}. Check your browser downloads. Unsaved text was not included.`);
+  } catch (error) {
+    if (selectedCaseId === id) status("case-export-status", error.message, true);
+  } finally { exportBusy = false; caseControls(); }
+}
+for (const format of ["json", "markdown"]) $("case-export-" + format).addEventListener("click", () => downloadCase(format));
 loadCases();

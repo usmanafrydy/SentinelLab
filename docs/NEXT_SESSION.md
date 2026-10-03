@@ -1,25 +1,27 @@
-# Next session Day 13
+# Next session Day 14
 
 Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Simple English and Roman Urdu as needed.
 
-1. Read AGENTS.md, PROGRESS.md, AUTHENTICATION.md, INVESTIGATIONS.md, WEB.md and DAY_12_GUIDE.md. Compare published main and local files before editing. Preserve unrelated work/access controls.
-2. Day 12 adds single-account local sign-in using scrypt, expiring server-side sessions/logout and session-bound browser case authors. CLI/historical labels remain self-declared; direct file access is outside this boundary. No public-deployment claim. Full suite: 168 tests.
-3. Proposed Day 13: faithful investigation report export. Specify content, snapshot consistency, escaping, bounds, private report handling and tests before implementation. Include alert identity, evidence references, notes, reasoned conclusions and limitations; preserve originals.
-4. Broader design improvement, evaluated scenarios, clean setup, demo recording and portfolio release remain pending. Preserve existing beginner help.
-5. Owner requires docs/SentinelLab_Project_Handbook.docx and docs/SENTINELLAB_HANDBOOK.md to be updated every checkpoint in easy English: concepts, file responsibilities, steps, tests, limits and next work. Chapters 26-29 add Days 10-12 and current completion map; older chapters are historical. Update the current map and test count as work progresses.
-6. Word content/structure verified: 1084 paragraphs, 18 tables, earlier paragraphs/tables preserved. Canonical rendering fails because bundled LibreOffice is absent. Do not claim page-layout QA passed. Preserve historical editions and Word lock files.
-7. Use one learning question at a time. Day 1/5 done; Day 6 questions 1/2 correct; later answers pending. Day 12 question: does signing out delete saved notes/original records?
+1. Read AGENTS.md, PROGRESS.md, AUTHENTICATION.md, INVESTIGATIONS.md, REPORTS.md, WEB.md and DAY_13_GUIDE.md. Compare published main and local files before editing. Preserve unrelated work/access controls.
+2. Day 13 adds faithful Markdown/JSON exports from one bounded read-only snapshot: full history/originals, safe fenced Markdown, authenticated attachments with expected revision, and exclusive private CLI output. Full suite: 184 passing tests. Sixteen new tests plus browser verification are documented in PROGRESS.md. No schema change.
+3. Proposed Day 14: focused interface/navigation improvement. Make import, detection, investigations and reports easier to find, reduce unnecessary scrolling, preserve beginner help/accessibility, and retain auth/draft/error/evidence behavior. Define a bounded plan first. No hosting/new roles in this checkpoint.
+4. Still pending: held-out scenario evaluation, fresh setup, known limits, demo recording/screenshots, portfolio case study/CV bullets and final release acceptance. AC-10 has component evidence, not complete final release acceptance.
+5. Update docs/SentinelLab_Project_Handbook.docx and docs/SENTINELLAB_HANDBOOK.md EVERY checkpoint in easy English: concepts, actual changes, every changed file's role, steps, tests, troubleshooting, limits and next work. Chapter 29 is the current completion map; chapter 30 explains Day 13. Earlier chapters are historical. Update front matter/map/test count.
+6. Word content/structure verified: 1162 paragraphs, 20 tables, prior lessons/tables retained, 2935 words added. Canonical rendering still fails because bundled LibreOffice soffice.exe is unavailable. Do not claim page-layout QA passed or use desktop LibreOffice. Preserve historical editions/Word lock files.
+7. One learning question at a time. Day 13 pending: should an unsaved typed note appear in the downloaded report? Answer here. Earlier unanswered questions are not a reason to restart completed implementation.
 
-## Environment and demonstration
+## Current demonstration
 
-MSYS2 Python 3.12.7, .venv/bin/python.exe; application standard library only. Owner privately created usman account in ignored secrets/analyst.json. Never print hashes or ask for the password in chat. Check if the server is already running before starting:
+MSYS2 Python 3.12.7, .venv/bin/python.exe; standard library only. Owner account usman lives in ignored secrets/analyst.json; never read/print hashes or ask for the password in chat. Check existing processes before starting:
 
-scripts/serve.py --database data/runtime/day12_demo.db --port 8773 --credentials secrets/analyst.json
+scripts/serve.py --database data/runtime/day13_demo.db --port 8774 --credentials secrets/analyst.json
 
-The user signs in privately. PID saved in data/runtime/day12_server.pid. Restart invalidates sessions; do not stop unrelated processes. Day 12 database was copied from Day 11: 16 synthetic events, 1 import, 3 alerts, 1 run, case 1 in_progress/suspicious revision 5 with 5 actions at preparation. User activity may change counts. Prior demos are separate; old processes retain old Python behavior. Port 8772 and day12_qa.db/account.json are synthetic QA only.
+PID saved in data/runtime/day13_server.pid (14824 at preparation; verify process identity before stopping). Restart invalidates sessions. Old processes retain old Python code. Day 13 was copied consistently from Day 12: 16 events, one import, three alerts, one run, one case with five actions, case 1 in_progress/suspicious revision 5. User activity may change counts. Earlier demos remain separate; later edits do not synchronize. Use Day 13 for continued work. Synthetic QA uses day13_qa.db with existing day12_qa_account.json on 8775; QA browser signed out after testing.
 
-All rules use one snapshot capped at 10000 events/100000 combined references. Explicit detection save migrates v1 to v2, preserving v3; valid case creation migrates v2 to v3 atomically. Reads never migrate. Case changes preserve originals/alerts. Upload never automatically runs detection. Browser case IDs/revisions are decimal strings for 64-bit precision.
+Browser downloads use the browser-selected folder, usually Downloads. CLI outputs stay under ignored reports/generated, never overwrite. Limits: 1000 actions, 1000 evidence events, 8 MiB source, 16 MiB encoded output; failures never intentionally truncate. Originals/notes are not redacted. Never publish generated/private reports, credentials, cookies, runtime logs/databases or lock files.
+
+Rules use one snapshot capped at 10000 events/100000 combined references. Explicit detection save migrates v1 to v2 preserving v3; case creation migrates v2 to v3 atomically. Reads/exports never migrate. Upload never auto-detects. Browser case IDs/revisions and exported database-local IDs/revisions are decimal strings. New browser authors come from the account; historical/CLI labels remain self-declared, and database history is not tamper-proof.
 
 ## Publication continuity
 
-Day 12 parent: 0167848e26cb73e2f5f24102a99e7e4434bcb6d8. Consult the subsequent verified main commit before editing. Local HEAD/index remain at Day 2 due existing Windows metadata restrictions. Publish through connector and verify remote ref and all file hashes; disclose local metadata remains unsynchronized. Never reset away work or change deny ACLs. Exclude secrets, cookies, runtime data/logs/reports and lock files.
+Day 13 parent: e8940b4a2f3a2b9836079dff84df6aed9c9f0c12. Consult subsequent verified main before editing. Local HEAD/index remain at Day 2 due Windows metadata restrictions. Publish through connector and verify remote ref/all file hashes; disclose unsynchronized local metadata. Never reset work or change deny ACLs. Source/docs are published; runtime/secrets excluded.

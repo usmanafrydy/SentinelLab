@@ -17,6 +17,7 @@ from sentinellab.storage.alerts import alert_summary, list_history, get_alert_pa
 from sentinellab.storage.cases import CaseConflict
 from sentinellab.web.case_api import WRITE_PATH, read_case_request, write_case_request, _pairs, _invalid_constant
 from sentinellab.web.auth import Auth
+from sentinellab.reports import build_report, render_report, report_filename
 
 ASSETS = Path(__file__).resolve().parent
 
@@ -48,7 +49,7 @@ class Handler(BaseHTTPRequestHandler):
         # Do not log search values, upload content, or the per-run request token.
         pass
 
-    def reply(self, status, payload, content_type="application/json; charset=utf-8", *, cookie=None):
+    def reply(self, status, payload, content_type="application/json; charset=utf-8", *, cookie=None, filename=None):
         data = json.dumps(payload, ensure_ascii=True).encode() if not isinstance(payload, bytes) else payload
         self.send_response(status)
         self.send_header("Content-Type", content_type)
@@ -56,6 +57,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
+        if filename is not None:
+            self.send_header('Content-Disposition', f'attachment; filename="{filename}"')
         self.send_header("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'")
         if cookie is not None:
             self.send_header("Set-Cookie", cookie)
@@ -127,6 +130,20 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(200, (ASSETS / url.path.lstrip("/")).read_bytes(), kind + "; charset=utf-8")
             elif url.path == "/api/summary":
                 self.reply(200, database_summary(self.server.database))
+            elif match := re.fullmatch(r'/api/cases/([1-9][0-9]{0,18})/report', url.path):
+                params = parse_qs(url.query, keep_blank_values=True, strict_parsing=True, max_num_fields=2)
+                if (set(params) != {'format', 'revision'} or any(len(v) != 1 for v in params.values())
+                        or params['format'][0] not in ('json', 'markdown')
+                        or re.fullmatch(r'[1-9][0-9]{0,18}', params['revision'][0]) is None):
+                    raise ValueError
+                format = params['format'][0]
+                report = build_report(self.server.database, int(match[1]), expected_revision=int(params['revision'][0]))
+                if report is None:
+                    self.reply(404, {'error': 'Case not found.'})
+                else:
+                    self.reply(200, render_report(report, format),
+                               ('application/json' if format == 'json' else 'text/markdown') + '; charset=utf-8',
+                               filename=report_filename(match[1], report['case']['revision'], format))
             elif url.path == "/api/cases" or url.path.startswith("/api/cases/"):
                 code, result = read_case_request(self.server.database, url.path, url.query)
                 self.reply(code, result)
@@ -156,6 +173,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(200 if event else 404, {"event": event})
             else:
                 self.reply(404, {"error": "Page not found."})
+        except CaseConflict as error:
+            self.reply(409, {'error': str(error), 'code': 'stale_revision'})
         except StorageError as error:
             self.reply(400, {"error": str(error)})
         except ValueError:

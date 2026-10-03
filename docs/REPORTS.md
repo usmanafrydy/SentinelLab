@@ -1,0 +1,17 @@
+# Investigation export contract - Day 13
+
+Export one saved case as UTF-8 JSON or Markdown. Both contain the same report version, export UTC time, case identity/title/revision/status/disposition/times, full saved alert (rule version/parameters/reason/group/evidence references), first detection run, complete ordered action history, and ordered linked events with original_record and first-import ID/line/time. Database-local IDs and revisions are decimal strings in exports to preserve 64-bit precision. Original text is not altered; JSON escaping is reversible. No detection is rerun and no database write or migration occurs.
+
+Read every section through one read-only SQLite transaction. The export reflects that snapshot, not later edits. Browser requests require the currently displayed revision; stale requests return 409 and ask for refresh. CLI optionally accepts an expected revision. A missing case returns 404 in HTTP; absent/inconsistent linked records fail rather than silently omitting evidence. These checks are not cryptographic tamper detection.
+
+Bounds: 1,000 actions, 1,000 linked events, 8 MiB aggregate selected source values, and 16 MiB encoded output. Check row/byte limits in SQL before loading selected values. Exceeding any limit fails the entire export; never truncate a report. Reports may include more history/evidence than the visible page. No automatic redaction: originals and notes may be sensitive. Download locally; review before sharing. Generated/private report directories are ignored by Git.
+
+Markdown uses fixed headings and dynamically sized fenced JSON blocks for all stored values, preventing stored Markdown/HTML from becoming markup in CommonMark-compatible viewers. There is no HTML preview or active content. JSON consumers must parse large identifiers as strings. A custom viewer that executes text inside code blocks is outside this contract.
+
+Authenticated GET /api/cases/ID/report?format=json|markdown&revision=N returns an attachment with a fixed numeric filename, no-store and nosniff. Existing Host/Origin/cross-site checks apply. The browser checks failures before downloading, preserves unsaved drafts, and explains that only saved work is included. Export does not close a case or save drafts. No credentials, session tokens or server database paths enter reports.
+
+scripts/export_report.py uses the same service. It writes only below reports/generated, into an existing parent directory, with exclusive creation (never overwrites). It builds/validates the report before opening the file; a failed write removes the incomplete newly created file. A process/power failure can leave a partial file, so this is not a durable atomic filesystem transaction. CLI relies on local filesystem access rather than browser sign-in.
+
+Limitations included in every report: alerts are leads, conclusions are analyst judgments, older/CLI author labels are self-declared, history is not tamper-proof, timestamps are UTC, originals are stored accepted record text rather than original file bytes, and unsaved browser text is excluded. Exports are not signed, encrypted, redacted, or a forensic chain-of-custody guarantee.
+
+Verification: compare both formats against originals/history, all R1/R2/R3 details and roles; unchanged DB bytes; full history beyond one page; limits and missing references; stale revision; concurrent WAL writer snapshot; hostile fence/HTML text; large IDs; old schemas/missing DB; exclusive CLI output and failure cleanup; authenticated downloads and rejected anonymous/expired/cross-site requests.
