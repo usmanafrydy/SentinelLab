@@ -1,0 +1,43 @@
+{
+  "checkpoint": "Day 20",
+  "date": "2026-10-04",
+  "version": "0.1.0",
+  "tested_parent": "9e2d265bbc52a97759144514445b0dd743f32ae3",
+  "baseline_files_matched": 159,
+  "application_assets_tests_and_evaluation_unchanged": true,
+  "suite": {
+    "passed": 194,
+    "seconds": 28.258
+  },
+  "authenticated_http_rehearsal": {
+    "status": "passed",
+    "checks": 7
+  },
+  "evaluation": {
+    "exact_json_match_including_fingerprints": true,
+    "scenario_count": 12,
+    "rule_agreement_count": 12,
+    "TP": 3,
+    "FP": 3,
+    "TN": 3,
+    "FN": 3,
+    "scope": "authored synthetic data with known rules; not real-world accuracy"
+  },
+  "owner_practice": {
+    "optional_not_release_blocker": true,
+    "observed_response": "prioritise checking supporting evidence before deciding a case",
+    "full_presentation_assessed": false
+  },
+  "retained_qualifications": [
+    "Word visual pagination unverified; supported renderer lacks bundled LibreOffice.",
+    "Original local Git HEAD/index restricted and behind; publication files verified separately.",
+    "Single-account local prototype; no production certification or public hosting."
+  ],
+  "handbook": {
+    "paragraphs": 1577,
+    "tables": 24,
+    "prior_content_preserved": true,
+    "visual_pagination_verified": false,
+    "render_error": "LibreOffice soffice.exe was not found on PATH"
+  }
+}

@@ -1,6 +1,6 @@
-# Release readiness after Day 19
+# Final v0.1.0 release decision
 
-Reviewed 4 October 2026. Target completion is 17 October. The [Day 18 acceptance review](FINAL_ACCEPTANCE.md) passed its automated checks with qualifications; Day 19 prepares v0.1.0-rc.1 as a pre-release; a final stable release remains pending. Component coverage means implementation and relevant checks exist; it does not mean all environments or risks have been tested.
+Reviewed 4 October 2026. Decision: complete the bounded local portfolio milestone as v0.1.0 with the qualifications below. The user explicitly proceeded after optional exercises were waived as a release blocker. All 159 baseline files matched the candidate; Day 20 passed 194 tests, seven HTTP rehearsal checks and exact evaluation comparison. See [final notes](releases/v0.1.0.md), [verification record](../reports/examples/day20_release_checks.json) and [handover](HANDOVER.md). This is not production certification.
 
 | Criterion | Evidence available | Remaining qualification |
 | --- | --- | --- |
@@ -18,14 +18,15 @@ Reviewed 4 October 2026. Target completion is 17 October. The [Day 18 acceptance
 | AC-12 Hostile inputs | Bounds, request-token, escaping and query tests | No production security audit or public hosting |
 | AC-13 Edge cases | Ties, boundaries, duplicates and ordering tests | Rule-specific coverage, not all attacks |
 | AC-14 Evaluation | Frozen labels, twelve scenarios, reproducible metrics | Authored with rule knowledge; not independent/blinded |
-| AC-15 Reproduction and demo | Fresh venv, workflow helper, setup, screenshots and reports | Verified network ZIP and fresh venv passed; git clone not tested; presentation/final release pending |
+| AC-15 Reproduction and demo | Fresh venv, workflow helper, setup, screenshots and reports | Verified ZIP/fresh venv and demo evidence; v0.1.0 release; git clone not tested; owner practice optional |
 
-## Remaining work before final release
+## Retained qualifications and their disposition
 
-1. Source acquisition: completed through a verified HTTPS ZIP route on Day 18, followed by checking all 152 blobs and running 194 tests in a fresh venv. Earlier runtime TLS setup is not claimed repaired; git clone remains untested.
-2. Interactive account command: owner reported successful creation on Day 18. The separate ignored file exists and was not read. This is user-reported evidence; the assistant did not directly observe password visibility.
-3. Word layout: content preservation and structure are checked. The supported Day 18 render attempt failed because bundled LibreOffice soffice.exe is missing; pagination stays unverified. Use the Markdown companion for reading meanwhile.
-4. Acceptance sequence: existing and downloaded suites, seven HTTP rehearsal checks, exact evaluation comparison and distribution review completed. Day 18 edits only documentation/results; verify the final publication inventory and unchanged application files.
-5. Presentation and versioned release: Day 19 prepares VERSION 0.1.0-rc.1, [candidate notes](releases/v0.1.0-rc.1.md) and [practice guide](portfolio/PRESENTATION_PRACTICE.md). The owner has been asked the first question; do not mark practice complete without actual responses. Publish the candidate as a GitHub Pre-release at the reviewed commit and verify its tag target. No final stable version or video is claimed. Retain limitations when making the final release decision.
+1. Source acquisition passed through a TLS-verified ZIP route with every blob checked on Day 18. Fresh venv passed 194 tests. Earlier runtime certificate settings, git clone and other operating systems are not claimed verified.
+2. The owner reported successful separate manual account creation. Only file existence was checked; password/hash were not read and keyboard visibility was not independently observed.
+3. Word content is preserved and the supported renderer is retried at this checkpoint. Missing bundled LibreOffice leaves visual pagination unverified; the Markdown companion is the readable alternative. This is a documented non-blocking layout qualification.
+4. Automated acceptance and distribution checks provide evidence for the local scope. They do not certify public hosting or every hostile-input scenario. Final publication must match the reviewed complete tree and release tag target.
+5. Presentation practice is optional. The owner correctly prioritised supporting evidence in one answer; no complete presentation or broad proficiency assessment is claimed. The final CV wording describes guided AI-assisted work.
+6. Original local Git HEAD/index remain restricted and behind. Connector publication and complete blob comparison establish published file content, not repaired local history. No reset, ACL change or force push is authorised by this limitation.
 
-Existing local Git metadata remains behind because of Windows restrictions; connector publication and complete blob verification are used. This is a known local-history limitation, not permission to reset work or change access controls. The deadline remains October 17. Optional new features should not displace the remaining verification and explanation work.
+The previous v0.1.0-rc.1 remains preserved. Publish v0.1.0 at the reviewed final commit; subsequent changes require a new version. Optional live collection, public hosting, multiple roles, stronger evidence integrity and further learning are future work, not unfinished promises in this bounded release. No compulsory Day 21 task or automation exists.

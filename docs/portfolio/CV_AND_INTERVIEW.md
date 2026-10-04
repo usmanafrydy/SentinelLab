@@ -2,19 +2,19 @@
 
 Use these as project descriptions after you can demonstrate and explain the features. They describe an AI-assisted learning project, not employment experience, a production deployment or wholly unassisted implementation. Adapt the wording to your actual involvement; do not list tools or concepts you cannot discuss.
 
-## Suggested project entry
+## Final suggested project entry
 
-**SentinelLab | AI-assisted cybersecurity portfolio project**  
+**SentinelLab v0.1.0 | Guided AI-assisted cybersecurity project**  
 Python, SQLite, HTML, CSS, JavaScript, unittest  
 [GitHub repository](https://github.com/usmanafrydy/SentinelLab)
 
-- Developed an AI-assisted local login-event investigation prototype with JSONL validation, SQLite evidence retention, three explainable detection rules and browser case management.
-- Implemented and verified deduplicated events/alerts, revision-aware investigation history and Markdown/JSON exports linking findings to original records.
-- Documented false alarms and detection gaps using twelve synthetic scenarios, supported by 194 automated tests and an isolated authenticated workflow rehearsal.
+- Completed a guided, AI-assisted implementation of a local login-event investigation prototype with three explained detection rules, retained original evidence and browser case management.
+- Project capabilities include event/alert deduplication, revision-aware investigation history, local sign-in and Markdown/JSON reports linking findings to original records.
+- Verification includes 194 passing tests, seven authenticated workflow checks and twelve authored synthetic evaluation scenarios documenting false alarms and missed cases.
 
-If your role is still mainly guided learning, use this more conservative opening: **Completed a guided, AI-assisted implementation of a local security-event investigation prototype and practiced its validation, detection and case-review workflows.** Retain only the supporting bullets you can explain honestly.
+These bullets describe the project and its verification, not proof that the owner independently wrote or personally assessed every component. Code, tests, documentation and debugging received substantial AI assistance. Use only claims you can explain honestly. A complete owner presentation assessment has not been performed; practice is optional and may continue after release.
 
-Do not write 100 percent detection accuracy, production SIEM, prevented cyberattacks, enterprise deployment, real incident response, tamper-proof evidence, or independently wrote every line. Do not turn the synthetic 50 percent metrics into a claim about real attacks. No external job application or profile has been submitted or edited.
+Do not write perfect detection accuracy, production SIEM, prevented cyberattacks, enterprise deployment, real incident response, tamper-proof evidence or independently wrote every line. Do not turn the synthetic 50 percent metrics into a real-world claim. No external CV, job application or profile has been submitted or edited. The [project summary](PROJECT_SUMMARY.md) gives supporting context.
 
 ## A thirty second introduction
 

@@ -1,11 +1,11 @@
 # SentinelLab portfolio material
 
-Prepared 4 October 2026. This folder presents the implemented local learning prototype, not a production security deployment or completed release certification.
+Final local portfolio milestone v0.1.0, 4 October 2026. Start with the [project summary](PROJECT_SUMMARY.md) and [handover](../HANDOVER.md). This folder presents a guided AI-assisted learning prototype, not a production deployment or independent certification. Presentation practice is optional.
 
 - [Five minute demonstration](DEMO_SCRIPT.md): ordered steps, speaking notes, expected results and recovery.
 - [Project case study](CASE_STUDY.md): problem, design, evidence, tradeoffs, evaluation and limitations.
 - [CV and interview notes](CV_AND_INTERVIEW.md): accurate project wording, explanation prompts and ownership guidance.
-- [Release readiness](../RELEASE_READINESS.md): all fifteen acceptance criteria mapped to evidence and remaining checks.
+- [Release readiness](../RELEASE_READINESS.md): all fifteen acceptance criteria mapped to evidence and retained qualifications.
 - [Synthetic example report](sample-report.md) and [JSON version](sample-report.json): real exports from the browser-created demonstration case. Their export timestamps differ because they were generated separately; saved case, actions and evidence agree.
 
 All screenshots and example report data in this folder are synthetic. They show the actual application, not generated mockups. Screenshots are viewport excerpts, not a complete export of every record or a full accessibility audit. No credential file, cookie or private investigation was included.

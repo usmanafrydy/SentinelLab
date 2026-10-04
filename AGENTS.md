@@ -8,6 +8,7 @@
 - The assistant creates and maintains all required files, directories, code, tests, sample data, and documentation.
 - Explain each work step in beginner-friendly language: purpose, concept, action, expected result, verification, and troubleshooting.
 - Explain important decisions so the owner can understand and present the project in interviews.
+- Owner presentation quizzes and repeated hands-on exercises are optional; do not block technical completion or release on them. Record actual answers honestly without claiming unperformed practice was completed.
 - At every completed meaningful checkpoint, run relevant checks, review the staged diff, make a descriptive Git commit, and push to the configured GitHub repository.
 - Report push failures explicitly. Never claim that local work is on GitHub without verifying the push.
 - Do not force-push, erase history, or overwrite unrelated changes.

@@ -1,5 +1,14 @@
 # Progress
 
+## Day 20 - October 4, 2026
+
+- Verified all 159 candidate files against main/tag commit 9e2d265bbc52a97759144514445b0dd743f32ae3. Candidate v0.1.0-rc.1 was published as a pre-release; preserve its target. Day 20 metadata/docs only: application/assets/tests/rules/schema/evaluation inputs unchanged.
+- Final complete suite passed 194 tests in 28.258 seconds. Seven authenticated HTTP rehearsal checks pass. Evaluation exactly matches published Day 15 report including source/input fingerprints, with twelve rule agreements and TP/FP/TN/FN each three. Private everyday account/database untouched by these isolated checks.
+- Owner correctly answered that supporting evidence should be checked before deciding a case. Repeated hands-on practice was skipped; the user then authorised Day 20 final release. Optional exercises are no longer release blockers; no full presentation assessment is claimed. Updated AGENTS and continuity accordingly.
+- Prepared VERSION 0.1.0, final release notes, handover/startup/maintenance guide, project summary, conservative AI-assisted CV wording and safe verification JSON. Updated current acceptance/readiness/portfolio status, preserving earlier dated evidence. No external CV submission, public deployment, private backup or data deletion.
+- Added cumulative Word/Markdown chapter 37 and current map: 1577 paragraphs, 24 tables, 1515 words added with prior content preserved. Supported renderer failed because bundled LibreOffice soffice.exe was unavailable; visual pagination remains unverified. Word visual pagination and original local Git metadata restrictions remain disclosed qualifications, not falsely marked passed.
+- Publish an explicit allowlist, verify all source blobs/main, create normal GitHub v0.1.0 release at the reviewed commit and verify tag/ref/release. Keep the earlier candidate unchanged. Final release means local portfolio milestone, not production security certification.
+
 ## Day 19 - October 4, 2026
 
 - Verified all 155 published Day 18 blobs against e3fb62ceca8e8f7d25fdd1b95c31b9c9a5a1b908 before editing. Reran scripts/rehearse.py: seven authenticated HTTP workflow checks pass. Application/assets/tests/evaluation data unchanged; the full 194-test results remain the Day 18 existing/fresh-environment runs, not a new Day 19 suite run.

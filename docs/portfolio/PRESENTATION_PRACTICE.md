@@ -1,6 +1,6 @@
 # Presenting SentinelLab in simple English
 
-Use one step at a time. This is a practice guide, not a record that the owner has already completed or passed the demonstration. The existing five-minute DEMO_SCRIPT.md contains the exact operation sequence. Your current laptop demo is at http://127.0.0.1:8776/ with your usual private account; prepared data counts may change as you use it.
+Practice is optional and does not block the v0.1.0 release. Use one step at a time. This is a practice guide, not a record that the owner has already completed or passed the demonstration. The existing five-minute DEMO_SCRIPT.md contains the exact operation sequence. Your current laptop demo is at http://127.0.0.1:8776/ with your usual private account; prepared data counts may change as you use it.
 
 ## 1 Explain the purpose
 
@@ -46,6 +46,6 @@ Say that AI provided substantial code, test, documentation and debugging assista
 
 ## Practice record
 
-The first question was issued on Day 19: what extra information would you check before calling an R3 login sequence confirmed compromise? An answer and feedback belong in this chat. The prepared guide does not prove the owner has answered. Continue with one question at a time: purpose, duplicates, one rule, investigation judgment, saved report and limits. Record actual responses before marking practice complete.
+The first question was issued on Day 19: what extra information would you check before calling an R3 login sequence confirmed compromise? During follow-up, the owner answered that supporting evidence should be checked before deciding a case; that judgment was affirmed. The repeated duplicate-upload exercise was skipped by choice. This does not establish a full presentation assessment. Further answers and feedback belong in this chat. Continue with one question at a time: purpose, duplicates, one rule, investigation judgment, saved report and limits. Record actual responses before marking practice complete.
 
 If the page is unavailable, start the existing demo using SETUP.md. Sign in privately. Use the labelled screenshots and sample report as an explicitly identified fallback; do not describe them as a live result. Do not reveal credentials during screen sharing.

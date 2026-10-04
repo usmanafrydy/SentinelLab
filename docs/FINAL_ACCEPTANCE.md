@@ -1,5 +1,9 @@
 # Day 18 final acceptance review
 
+## Day 20 final local release disposition
+
+Version 0.1.0 completes the agreed local portfolio scope with documented qualifications. Final checks passed 194 tests in 28.258 seconds, seven authenticated workflow checks and an exact evaluation-report match. Application source remains unchanged from the candidate. Presentation practice is optional by the latest user direction and is not claimed complete. Word visual layout and restricted original local Git history remain non-blocking disclosed limitations. See [release decision](RELEASE_READINESS.md), [handover](HANDOVER.md) and [final notes](releases/v0.1.0.md). Earlier dated evidence below is historical, including statements that release or practice was then pending.
+
 Reviewed 4 October 2026. Decision: the automated acceptance checks pass with documented qualifications. This is the acceptance-review checkpoint, not a final version tag, production certification or independent audit. Completion target remains 17 October.
 
 ## Exact source and method

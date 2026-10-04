@@ -1,6 +1,6 @@
 # Set up and run SentinelLab
 
-Current instructions through Day 18, 4 October 2026. This is a local learning prototype. It imports files when asked; it does not automatically monitor your laptop or network. Run the server on its built-in loopback address only.
+Current instructions for v0.1.0 through Day 20, 4 October 2026. See HANDOVER.md for the short existing-laptop guide. Optional practice is not a setup or release requirement. This is a local learning prototype. It imports files when asked; it does not automatically monitor your laptop or network. Run the server on its built-in loopback address only.
 
 ## Continue your existing laptop project
 
