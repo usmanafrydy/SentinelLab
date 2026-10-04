@@ -1,6 +1,6 @@
 # Set up and run SentinelLab
 
-Current instructions through Day 16, 4 October 2026. This is a local learning prototype. It imports files when asked; it does not automatically monitor your laptop or network. Run the server on its built-in loopback address only.
+Current instructions through Day 18, 4 October 2026. This is a local learning prototype. It imports files when asked; it does not automatically monitor your laptop or network. Run the server on its built-in loopback address only.
 
 ## Continue your existing laptop project
 
@@ -27,7 +27,7 @@ cd SentinelLab-fresh
 git rev-parse HEAD
 ```
 
-Alternatively, download the repository ZIP from GitHub, extract it, and open PowerShell inside the extracted folder containing scripts and src. A ZIP has no Git history. Record the commit you downloaded if reproducibility matters. GitHub source does not contain private accounts, runtime databases or virtual environments. The Day 16 automated source-download attempt was blocked by local TLS certificate errors; see SETUP_REHEARSAL.md for the verified-source fallback. Do not disable certificate checks to work around that error.
+Alternatively, download the repository ZIP from GitHub, extract it, and open PowerShell inside the extracted folder containing scripts and src. A ZIP has no Git history. Record the commit you downloaded if reproducibility matters. GitHub source does not contain private accounts, runtime databases or virtual environments. The Day 16 automated source-download attempt was blocked by local TLS certificate errors. On Day 18, bundled workspace Python successfully downloaded the exact Day 17 commit ZIP with TLS verification enabled, and all 152 extracted blobs matched GitHub. A fresh environment passed 194 tests and the complete HTTP rehearsal. This verifies a working archive route, not git clone or a repair to the earlier runtime. See FINAL_ACCEPTANCE.md and the historical SETUP_REHEARSAL.md. Do not disable certificate checks to work around that error.
 
 ### 2 Create a fresh Python environment
 
@@ -73,7 +73,7 @@ Evaluation should show 12 scenarios and 12 expected-rule agreements, with TP, FP
 
 Choose your own username in place of your_name. Enter the same private 15-to-128-character password twice. Nothing appears while typing; press Enter after each entry. Do not put a password in a command, chat, screenshot or repository. The default account file is secrets/analyst.json. Keep it private. Existing files are never overwritten. If it already exists, use the existing account rather than deleting it. Account recovery requires deliberate local handling; it is not automatic.
 
-The rehearsal exercises account creation through the application service. Hidden interactive entry was not reverified during Day 16 because terminal-input automation was blocked. This does not prevent a person from using the command in their own PowerShell terminal.
+The rehearsal exercises account creation through the application service. Hidden interactive entry was not reverified during Day 16 because terminal-input automation was blocked. On Day 18 the owner ran the command in PowerShell with a separate ignored test file and reported account creation. The assistant confirmed file existence without reading credentials; it did not observe keyboard visibility. This test account does not replace the existing everyday account.
 
 ### 6 Start the new empty workspace
 

@@ -1,5 +1,13 @@
 # Progress
 
+## Day 18 - October 4, 2026
+
+- Verified 152 Day 17 files against published cbc94443ead66ca2268dab49968b255e463cf00e. Downloaded exact commit ZIP (822122 bytes) through bundled Python urllib/default SSL context with certificate checking enabled. Validated paths and every Git blob before extraction into ignored day18_clean; no private files or old environment copied. Earlier runtime TLS configuration is not claimed repaired; git clone was not tested.
+- Existing full suite: 194 pass in 35.288 seconds. New downloaded-source venv: 194 pass in 32.519 seconds, Python 3.12.7/SQLite 3.46.1. Seven-check real authenticated HTTP rehearsal passes including duplicate prevention, saved case/report fidelity, restart/session/logout and cleanup. Parsed evaluation JSON exactly matches the published Day 15 report including fingerprints; confusion counts remain three each.
+- Owner requested PowerShell help, received beginner steps, ran separate day18_check account command and reported account created. Confirmed only ignored file existence, never read credentials. Keyboard visibility was not directly observed. Existing private account/demo unchanged.
+- Reviewed baseline publication paths and six portfolio originals against the synthetic sample. Added FINAL_ACCEPTANCE.md, DAY_18_GUIDE.md and safe reports/examples/day18_acceptance.json. Updated README/setup/readiness/acceptance/continuity and cumulative handbook chapter 35. No application, test, rule or interface changes.
+- Word content checks preserve earlier explanations and all 24 tables; 1478 paragraphs with a detailed new chapter. Supported render fails because bundled LibreOffice soffice.exe is missing; visual pagination remains unverified. Final versioned release and owner presentation practice remain pending. Publish the explicit allowlist and verify all final blobs; preserve local Git metadata restrictions.
+
 ## Day 17 - October 4, 2026
 
 - Verified all 141 Day 16 files against published 7b4df5146f72894961640e29d7faef42a0a19416 before edits. Prepared isolated ignored day17_portfolio.db and synthetic portfolio_analyst account on 8778. Two imports leave 16 events; two saved checks leave three alerts and two runs. Owner day14_demo.db/private account untouched.

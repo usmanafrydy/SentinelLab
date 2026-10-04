@@ -1,0 +1,84 @@
+{
+  "record_version": 1,
+  "checkpoint": "Day 18",
+  "date": "2026-10-04",
+  "decision": "acceptance checks passed with documented qualifications; final release pending",
+  "tested_commit": "cbc94443ead66ca2268dab49968b255e463cf00e",
+  "source_acquisition": {
+    "method": "GitHub commit ZIP using bundled Python urllib and default SSL context",
+    "tls_verification": true,
+    "archive_bytes": 822122,
+    "archive_sha256": "73181bfe38470f24e29a65c52a1e4106659f9e613f663095b27bd30a46827ced",
+    "verified_git_blob_count": 152,
+    "private_files_copied": false,
+    "git_clone_tested": false
+  },
+  "environment": {
+    "os": "Windows",
+    "python": "3.12.7 MSYS2 UCRT",
+    "sqlite": "3.46.1",
+    "fresh_venv": true,
+    "third_party_application_packages_installed": false
+  },
+  "tests": {
+    "command": "scripts/run_tests.py",
+    "existing_workspace": {
+      "passed": 194,
+      "seconds": 35.288
+    },
+    "downloaded_fresh_workspace": {
+      "passed": 194,
+      "seconds": 32.519
+    }
+  },
+  "http_rehearsal": {
+    "command": "scripts/rehearse.py",
+    "status": "passed",
+    "checks": 7,
+    "scope": "temporary account, real separate server, authenticated import/reimport, detection/repeat, investigation, both reports, restart/session/logout and cleanup"
+  },
+  "evaluation": {
+    "command": "scripts/evaluate.py",
+    "matches_published_json_including_fingerprints": true,
+    "scenario_count": 12,
+    "rule_agreement_count": 12,
+    "confusion": {
+      "FN": 3,
+      "FP": 3,
+      "TN": 3,
+      "TP": 3
+    },
+    "limitation": "Authored synthetic scenarios with known rules; not blinded or real-world accuracy."
+  },
+  "manual_account_entry": {
+    "status": "owner reported account created",
+    "separate_ignored_file_exists": true,
+    "password_or_hash_read": false,
+    "visibility_observed_by_assistant": false
+  },
+  "distribution_review": {
+    "published_baseline_paths_reviewed": 152,
+    "forbidden_private_paths_found": 0,
+    "portfolio_originals_checked_against_synthetic_sample": 6,
+    "scope": "explicit published inventory; not a guarantee that arbitrary future files contain no secrets"
+  },
+  "remaining": [
+    "Cumulative Word visual pagination remains unverified: supported render failed because bundled LibreOffice soffice.exe was not found.",
+    "Owner presentation and explanation practice remain to be completed.",
+    "Final versioned release has not been created.",
+    "Original local Git HEAD/index remain behind under existing access restrictions."
+  ],
+  "limits": [
+    "No new operating system or independent security audit.",
+    "No new browser usability check on Day 18; Day 17 browser evidence remains applicable.",
+    "A working bundled-Python ZIP download does not prove the earlier MSYS2/PowerShell TLS configuration is repaired.",
+    "Authored synthetic evaluation does not establish real-world accuracy."
+  ],
+  "handbook": {
+    "paragraphs": 1478,
+    "tables": 24,
+    "prior_content_preserved": true,
+    "visual_pagination_verified": false,
+    "render_error": "LibreOffice soffice.exe was not found on PATH"
+  }
+}

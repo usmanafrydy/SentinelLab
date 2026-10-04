@@ -4,9 +4,9 @@ An AI-assisted local security-event investigation prototype for a cybersecurity 
 
 ## Current status
 
-Day 17 completed on 4 October 2026: portfolio demonstration script, case study, CV/interview notes, three actual screenshots, reviewed synthetic reports and a release-readiness map. All 194 tests pass. Final acceptance and a versioned release remain pending; target completion is October 17, 2026.
+Day 18 acceptance review completed on 4 October 2026: verified GitHub ZIP acquisition, a fresh environment with 194 passing tests, seven successful authenticated workflow checks and unchanged evaluation results. The owner reported successful manual account creation. See the [acceptance review and qualifications](docs/FINAL_ACCEPTANCE.md). Presentation practice, Word visual pagination and the final versioned release remain pending; target completion is October 17, 2026.
 
-Start with [setup instructions](docs/SETUP.md), the [portfolio gallery](docs/portfolio/README.md), [five minute demo](docs/portfolio/DEMO_SCRIPT.md) and [case study](docs/portfolio/CASE_STUDY.md). Review [remaining release checks](docs/RELEASE_READINESS.md). The [Day 17 lesson](docs/DAY_17_GUIDE.md) explains this checkpoint simply.
+Start with [setup instructions](docs/SETUP.md), the [portfolio gallery](docs/portfolio/README.md), [five minute demo](docs/portfolio/DEMO_SCRIPT.md) and [case study](docs/portfolio/CASE_STUDY.md). Review [remaining release checks](docs/RELEASE_READINESS.md). The [Day 18 lesson](docs/DAY_18_GUIDE.md) explains this checkpoint simply.
 
 ![SentinelLab with synthetic demonstration data](docs/portfolio/screenshots/01-overview.jpg)
 
@@ -48,13 +48,13 @@ Follow [SETUP.md](docs/SETUP.md) for a fresh copy or for continuing the owner's 
 & $projectPython scripts/evaluate.py
 ```
 
-The [rehearsal record](docs/SETUP_REHEARSAL.md) describes the fresh venv, seven HTTP workflow checks and environment limitations. Source-download TLS verification and hidden keyboard password entry were not completed in that environment. Local Git metadata in the owner's original copy remains behind under existing restrictions; connector publication is checked against every file hash.
+The [rehearsal record](docs/SETUP_REHEARSAL.md) describes the fresh venv, seven HTTP workflow checks and environment limitations. Day 18 successfully downloaded and hash-verified the published ZIP using bundled Python with TLS verification enabled, then tested a fresh venv. This does not repair the earlier runtime certificate configuration or test git clone. The owner reported the separate manual account command succeeded; keyboard visibility was not observed by the assistant. Local Git metadata in the owner's original copy remains behind under existing restrictions; connector publication is checked against every file hash.
 
 The [evaluation lesson](docs/DAY_15_GUIDE.md) explains twelve authored scenarios: TP, FP, TN and FN are each three; all expected rule sets agree. These are synthetic results with known rules, not independent or real-world accuracy. See the [JSON results](reports/examples/day15_evaluation.json).
 
 ## Documentation
 
-The cumulative [Markdown handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word handbook](docs/SentinelLab_Project_Handbook.docx) include work through Day 17. Chapter 29 is the current completion map; chapter 34 explains the portfolio checkpoint. Earlier chapters retain historical lessons. Word content is checked, but visual pagination remains unverified while the supported LibreOffice renderer is unavailable.
+The cumulative [Markdown handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word handbook](docs/SentinelLab_Project_Handbook.docx) include work through Day 18. Chapter 29 is the current completion map; chapter 34 explains the portfolio and chapter 35 explains acceptance verification. Earlier chapters retain historical lessons. Word content is checked, but visual pagination remains unverified while the supported LibreOffice renderer is unavailable.
 
 Detailed contracts: [event format](docs/EVENT_FORMAT.md), [rules](docs/DETECTION_RULES.md), [alert storage](docs/ALERT_STORAGE.md), [investigations](docs/INVESTIGATIONS.md), [local access](docs/AUTHENTICATION.md), [reports](docs/REPORTS.md), [navigation](docs/NAVIGATION.md) and [evaluation](docs/EVALUATION.md). See [progress](docs/PROGRESS.md) and [next session](docs/NEXT_SESSION.md) for continuity.
 

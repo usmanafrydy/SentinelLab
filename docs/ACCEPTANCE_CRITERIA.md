@@ -1,5 +1,11 @@
 # Acceptance criteria
 
+## Current Day 18 acceptance evidence
+
+All 152 baseline files matched published cbc94443ead66ca2268dab49968b255e463cf00e. Bundled Python downloaded its GitHub ZIP with default TLS verification; every extracted blob matched. Existing workspace: 194 tests pass in 35.288 seconds. Downloaded fresh venv: 194 pass in 32.519 seconds. The seven-check authenticated HTTP rehearsal passes; evaluation exactly matches the published report including fingerprints. Owner reported separate manual CLI account creation; file existence checked without reading credentials. Reviewed published paths and six portfolio originals against synthetic input.
+
+[FINAL_ACCEPTANCE.md](FINAL_ACCEPTANCE.md) maps every criterion to executed evidence and limitations. Day 18 changes documentation/results only; application, assets, tests and evaluation data remain unchanged. AC-15 still needs owner presentation and final versioned release. Word pagination and restricted original local Git history remain qualified. Earlier entries below are historical.
+
 ## Current Day 17 portfolio evidence
 
 The [release-readiness map](RELEASE_READINESS.md) explicitly maps all fifteen criteria to available evidence and qualifications. The browser-created synthetic case is In progress / Suspicious at revision 3 with three actions and six original records. Reviewed JSON/Markdown exports and three real screenshots accompany a reproducible demonstration script, case study and truthful CV notes. The suite passes 194 tests after the prototype-badge text correction. No new security behavior or final release certification is claimed. AC-15 still requires final release verification and explicit handling of the known download/interactive-entry limitations; Word page layout remains separately unverified.
