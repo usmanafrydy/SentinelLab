@@ -1,6 +1,6 @@
 # SentinelLab portfolio material
 
-Final local portfolio milestone v0.1.0, 4 October 2026. Start with the [project summary](PROJECT_SUMMARY.md) and [handover](../HANDOVER.md). This folder presents a guided AI-assisted learning prototype, not a production deployment or independent certification. Presentation practice is optional.
+Final local portfolio milestone v0.1.0, 5 October 2026. Start with the [project summary](PROJECT_SUMMARY.md) and [handover](../HANDOVER.md). This folder presents a guided AI-assisted learning prototype, not a production deployment or independent certification. Presentation practice is optional.
 
 - [Five minute demonstration](DEMO_SCRIPT.md): ordered steps, speaking notes, expected results and recovery.
 - [Project case study](CASE_STUDY.md): problem, design, evidence, tradeoffs, evaluation and limitations.

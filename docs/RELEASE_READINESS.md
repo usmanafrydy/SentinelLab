@@ -1,6 +1,6 @@
 # Final v0.1.0 release decision
 
-Reviewed 4 October 2026. Decision: complete the bounded local portfolio milestone as v0.1.0 with the qualifications below. The user explicitly proceeded after optional exercises were waived as a release blocker. All 159 baseline files matched the candidate; Day 20 passed 194 tests, seven HTTP rehearsal checks and exact evaluation comparison. See [final notes](releases/v0.1.0.md), [verification record](../reports/examples/day20_release_checks.json) and [handover](HANDOVER.md). This is not production certification.
+Reviewed October 4 and finalised October 5, 2026. Decision: complete the bounded local portfolio milestone as v0.1.0 with the qualifications below. The user explicitly proceeded after optional exercises were waived as a release blocker. All 159 baseline files matched the candidate; Day 20 passed 194 tests, seven HTTP rehearsal checks and exact evaluation comparison. See [final notes](releases/v0.1.0.md), [verification record](../reports/examples/day20_release_checks.json) and [handover](HANDOVER.md). This is not production certification.
 
 | Criterion | Evidence available | Remaining qualification |
 | --- | --- | --- |

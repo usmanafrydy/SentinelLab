@@ -1,6 +1,6 @@
 # Next session After the v0.1.0 local release
 
-Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Easy English and Roman Urdu where useful. The user authorised Day 20 final release after being told presentation practice is optional. No compulsory daily continuation remains; respond to the next concrete request.
+Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Easy English and Roman Urdu where useful. The user authorised Day 20 final release after being told presentation practice is optional. Preparation/tests took place October 4 and publication continued October 5, 2026. No compulsory daily continuation remains; respond to the next concrete request.
 
 1. Read AGENTS.md, PROGRESS.md, docs/releases/v0.1.0.md and HANDOVER.md. Verify the actual final GitHub release/tag/main before reporting publication; do not infer it solely from this prepared handover. Compare all current local/published blobs before edits. Preserve unrelated work and access controls.
 2. Day 20: all 159 baseline files matched candidate commit 9e2d265bbc52a97759144514445b0dd743f32ae3. Full suite 194 pass in 28.258 seconds; seven HTTP rehearsal checks pass; evaluation JSON exactly matches earlier fingerprints/results. Metadata/docs only; application/assets/tests/evaluation inputs unchanged. Final version is 0.1.0 and previous v0.1.0-rc.1 remains historical.

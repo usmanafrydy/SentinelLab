@@ -1,6 +1,6 @@
 # Current cumulative update through Day 20
 
-Updated 4 October 2026. This cumulative handbook explains the completed SentinelLab v0.1.0 local portfolio scope and its retained limitations. Day 20 adds the final release decision, operating handover, project summary and conservative AI-assisted CV wording. Final checks passed 194 tests and seven authenticated workflow checks; the synthetic evaluation exactly matches prior results. Presentation practice is optional and not claimed complete. Word visual pagination and the original restricted local Git history remain disclosed qualifications. This final project milestone is not production security certification.
+Updated 5 October 2026. This cumulative handbook explains the completed SentinelLab v0.1.0 local portfolio scope and its retained limitations. Day 20 adds the final release decision, operating handover, project summary and conservative AI-assisted CV wording. Final checks passed 194 tests and seven authenticated workflow checks; the synthetic evaluation exactly matches prior results. Presentation practice is optional and not claimed complete. Word visual pagination and the original restricted local Git history remain disclosed qualifications. This final project milestone is not production security certification.
 
 # SentinelLab Project Handbook
 
@@ -2163,7 +2163,7 @@ The frontend communicates using local HTTP requests. The backend validates reque
 
 ## What remains before the portfolio release
 
-Day 20 completes the bounded v0.1.0 local portfolio milestone. The owner authorised final release after optional practice was clarified as non-blocking. Further learning, interview practice and bug fixes can happen after release; no complete owner presentation assessment is claimed. Word visual pagination and restricted original local Git history remain documented limitations. Public hosting, live collection, multiple roles and stronger evidence integrity are separate future designs. The October 17 completion target is met by this October 4 local release checkpoint.
+Day 20 completes the bounded v0.1.0 local portfolio milestone. The owner authorised final release after optional practice was clarified as non-blocking. Further learning, interview practice and bug fixes can happen after release; no complete owner presentation assessment is claimed. Word visual pagination and restricted original local Git history remain documented limitations. Public hosting, live collection, multiple roles and stronger evidence integrity are separate future designs. The October 17 completion target is met by this October 5 local release checkpoint.
 
 ## Rules for future updates
 
@@ -3063,7 +3063,7 @@ Future public hosting, live collection, multiple roles or stronger evidence inte
 
 # 37 Final release and the Day 20 handover
 
-4 October 2026. Today completes the bounded SentinelLab local portfolio milestone as version 0.1.0, ahead of the October 17 target. The word final describes this project's agreed local scope. It does not mean the program is a certified production security product or that every possible future feature is finished.
+Prepared and tested 4 October 2026; final publication continued 5 October 2026. This checkpoint completes the bounded SentinelLab local portfolio milestone as version 0.1.0, ahead of the October 17 target. The word final describes this project's agreed local scope. It does not mean the program is a certified production security product or that every possible future feature is finished.
 
 ## What we decided
 

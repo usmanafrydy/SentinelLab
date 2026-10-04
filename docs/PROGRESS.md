@@ -1,7 +1,8 @@
 # Progress
 
-## Day 20 - October 4, 2026
+## Day 20 - October 4 to 5, 2026
 
+- Resumed October 5 after interruption: all 164 local files matched preparation commit 5a6c432a09ca3780c90b638e67a02f0c3fee61d9. Final tag/release had not yet been submitted. Corrected current release dates while preserving October 4 test evidence; no application changes or repeated suite needed.
 - Verified all 159 candidate files against main/tag commit 9e2d265bbc52a97759144514445b0dd743f32ae3. Candidate v0.1.0-rc.1 was published as a pre-release; preserve its target. Day 20 metadata/docs only: application/assets/tests/rules/schema/evaluation inputs unchanged.
 - Final complete suite passed 194 tests in 28.258 seconds. Seven authenticated HTTP rehearsal checks pass. Evaluation exactly matches published Day 15 report including source/input fingerprints, with twelve rule agreements and TP/FP/TN/FN each three. Private everyday account/database untouched by these isolated checks.
 - Owner correctly answered that supporting evidence should be checked before deciding a case. Repeated hands-on practice was skipped; the user then authorised Day 20 final release. Optional exercises are no longer release blockers; no full presentation assessment is claimed. Updated AGENTS and continuity accordingly.

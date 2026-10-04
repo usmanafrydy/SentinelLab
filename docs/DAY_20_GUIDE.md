@@ -1,6 +1,6 @@
 # Day 20 Final release and portfolio handover
 
-4 October 2026. Today completes the bounded SentinelLab local portfolio milestone as version 0.1.0, ahead of the October 17 target. The word final describes this project's agreed local scope. It does not mean the program is a certified production security product or that every possible future feature is finished.
+Prepared and tested 4 October 2026; final publication continued 5 October 2026. This checkpoint completes the bounded SentinelLab local portfolio milestone as version 0.1.0, ahead of the October 17 target. The word final describes this project's agreed local scope. It does not mean the program is a certified production security product or that every possible future feature is finished.
 
 ## What we decided
 

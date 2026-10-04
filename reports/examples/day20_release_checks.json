@@ -39,5 +39,8 @@
     "prior_content_preserved": true,
     "visual_pagination_verified": false,
     "render_error": "LibreOffice soffice.exe was not found on PATH"
-  }
+  },
+  "release_finalization_date": "2026-10-05",
+  "resumed_published_files_verified": 164,
+  "resumed_preparation_commit": "5a6c432a09ca3780c90b638e67a02f0c3fee61d9"
 }

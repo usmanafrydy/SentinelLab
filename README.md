@@ -4,7 +4,7 @@ An AI-assisted local security-event investigation prototype for a cybersecurity 
 
 ## Current status
 
-**v0.1.0 completes the local portfolio scope on 4 October 2026.** Read the [release notes](docs/releases/v0.1.0.md), [handover and startup guide](docs/HANDOVER.md) and [project summary](docs/portfolio/PROJECT_SUMMARY.md). Final checks: 194 tests and seven authenticated workflow checks pass; the twelve-scenario evaluation exactly reproduces earlier results. This is a guided AI-assisted learning prototype, not production security infrastructure.
+**v0.1.0 completes the local portfolio scope on 5 October 2026.** Read the [release notes](docs/releases/v0.1.0.md), [handover and startup guide](docs/HANDOVER.md) and [project summary](docs/portfolio/PROJECT_SUMMARY.md). Final checks: 194 tests and seven authenticated workflow checks pass; the twelve-scenario evaluation exactly reproduces earlier results. This is a guided AI-assisted learning prototype, not production security infrastructure.
 
 Optional presentation practice does not block release. Word visual pagination remains unverified, and the original laptop local Git history remains restricted/behind; both qualifications are documented. The source and release target are verified separately. [GitHub releases](https://github.com/usmanafrydy/SentinelLab/releases) distinguish the final v0.1.0 from the preserved candidate.
 
