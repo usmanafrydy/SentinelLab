@@ -1,5 +1,18 @@
 # Progress
 
+## Day 16 - October 4, 2026
+
+- Began October 3 and completed October 4. Verified all 137 Day 15 published files at 834a51c1bc170c1c1f6240f72d8d02837594387b before editing. Source download via Python and PowerShell failed TLS verification. Used only local bytes matching the published GitHub blob hashes in ignored data/runtime/day16_clean. No private account, database or old environment copied; download/clone remains unverified.
+- Created a fresh venv without pip: MSYS2 UCRT Python 3.12.7, SQLite 3.46.1, scrypt available, isolated True. Baseline 193 tests pass. New standalone scripts/rehearse.py and regression test exercise a random temporary account, actual authenticated HTTP routes in a child process, 16-event import/reimport, three alerts/two runs, R3 case/note/decision, both reports, restart persistence, session expiry through restart/logout and cleanup.
+- Final worker uses cooperative pipe EOF shutdown after an experimental forced-shutdown approach proved unreliable in this environment. Final seven-check rehearsal passes in the clean environment; worker processes exit cleanly. Existing demo/account untouched. No new browser UI or application rule/schema/auth changes.
+- Initial candidate suite hit intermittent Windows error 10053 in test_login_request_protections. Header-only rejection tests now send no body to avoid racing an early close with a discarded upload; malformed-body tests remain. Twenty targeted repetitions pass; full candidate suite passes 194 tests. No security check was weakened.
+- A subsequent full run also hit error 10053 in an anonymous-write check. Shared tests/integration/test_web.py now buffers finite headers/body together before sending, with no write retries and unchanged status assertions. Final full clean-environment run: 194 tests pass in 33.611 seconds. Production server code is unchanged.
+- Interactive account setup reached the hidden prompt, but automatic approval review rejected terminal input because sandbox_approval is disabled. Rehearsal uses the actual account service with a random in-memory password; hidden keyboard entry remains unverified. Earlier trial terminal processes ended with session restart. No unrelated server stopped.
+- Rewrote SETUP.md with separate existing-project and fresh-install flows, capability/interpreter selection, checks, account/startup/sample/report steps and troubleshooting. Added technical setup evidence and detailed easy-English Day 16 guide. Cumulative Word/Markdown chapter 33 and current map updated while retaining prior lessons. Canonical Word rendering remains separately reported; content checks do not verify pagination.
+- Handbook verification: 1356 paragraphs, 24 tables and 2357 words added; prior paragraphs/tables preserved except intentional current-status updates. Canonical render again fails because bundled LibreOffice soffice.exe is missing. Visual pagination remains unverified.
+- Publish explicit code/test/docs through the connector with full hash verification. Local Git metadata remains behind under existing restrictions. Runtime rehearsal source, accounts, databases and reports are excluded. Day 17 planned: synthetic portfolio demonstration, screenshots, truthful case study/CV bullets and final acceptance preparation before October 17.
+
+
 ## Day 15 - October 3, 2026
 
 - Verified all 118 Day 14 files against main 45d65162ced1d244df78c57f829dd6437cf6e72c before edits. Defined EVALUATION.md and froze twelve narrative labels/expected rule sets before the first detector run. Rule code unchanged.

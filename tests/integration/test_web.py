@@ -35,7 +35,15 @@ class WebTests(unittest.TestCase):
     def request(self, method, path, body=None, headers=None):
         connection = HTTPConnection("127.0.0.1", self.server.server_port, timeout=5)
         try:
+            # The client normally sends headers and body separately. Buffer this
+            # finite test request so an early rejection cannot race a later body
+            # send on Windows. Send once; never retry a potentially mutating POST.
+            chunks = []
+            send = connection.send
+            connection.send = chunks.append
             connection.request(method, path, body=body, headers=headers or {})
+            connection.send = send
+            send(b''.join(chunks))
             response = connection.getresponse()
             return response.status, dict(response.getheaders()), response.read()
         finally:

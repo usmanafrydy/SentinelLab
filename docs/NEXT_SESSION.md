@@ -1,15 +1,15 @@
-# Next session Day 16
+# Next session Day 17
 
-Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Deadline October 17, 2026. Use simple English and Roman Urdu where helpful.
+Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Target release October 17, 2026. Explain in simple English and Roman Urdu when useful.
 
-1. Read AGENTS.md, PROGRESS.md, EVALUATION.md, DAY_15_GUIDE.md and SETUP.md. Compare current published main with local files before edits; preserve unrelated work/access controls.
-2. Day 15 adds an isolated twelve-scenario evaluation. TP/FP/TN/FN are all 3, rule agreement 12/12. Scoring unit is one scenario with any alert positive. Intent is authored story context, not inferred truth. Corpus is separate from earlier fixtures but not blinded/independent; now a regression benchmark. Never present the 50 percent metrics as real-world accuracy. No rule tuning occurred.
-3. Run scripts/evaluate.py through the existing .venv/bin/python.exe; no user database or credentials. Complete JSON on stdout. Exit 0 rule agreement, 1 mismatch with report, 2 invalid run without partial stdout. Published report is reports/examples/day15_evaluation.json; fingerprints identify inputs and all package Python plus CLI. Keep source unchanged while evaluating.
-4. All 193 tests pass. An initial full run hit Windows error 10053 in an existing login HTTP test; isolated rerun and full rerun passed. New evaluation tests all passed. Repeated full evaluation reports match. Existing user demo/account unchanged; no browser changes today.
-5. Day 16 proposed: rehearse setup from the published source in a separate clean folder; follow setup instructions, use synthetic credentials and validate import, detection, case, notes/decision and export. Document/fix reproducible issues. Do not overwrite the user's environment, private account or database. Do not treat historical SETUP examples as current instructions.
-6. Update both cumulative Word and Markdown at every checkpoint. Chapter 29 is the current map; 31 covers navigation; 32 covers evaluation. Preserve historical chapters and update front matter. Bundled LibreOffice remains absent, so Word page layout is unverified despite content checks.
-7. Remaining release work: clean setup, fixes, known limits, demonstration material, portfolio case study/CV bullets and final acceptance by October 17. Public hosting/multiple roles are optional. No automatic start or reminder requested.
-8. Ask one learning question at a time. Day 15: if R1 and R3 both alert on one benign scenario, does our scoring count one false-positive scenario or two? Answers go in chat.
+1. Read AGENTS.md, PROGRESS.md, SETUP.md, SETUP_REHEARSAL.md and DAY_16_GUIDE.md. Compare published main and local files before editing; preserve unrelated work and existing access controls.
+2. Day 16 completed a fresh venv and isolated authenticated HTTP rehearsal. Baseline 137 published blobs were verified, then copied into ignored data/runtime/day16_clean after network TLS failures. Never claim fresh download/clone passed. No user data or prior environment copied. The clean copy is a rehearsal artifact, not the active project.
+3. scripts/rehearse.py uses a random account, temporary DB, a separate LocalServer worker and cooperative EOF shutdown. Seven checks cover access, imports/deduplication, detection/runs, case/history/report originals, restart persistence and logout. The final clean candidate passes 194 tests; corrected header-only auth check passed twenty repetitions. No app rule/schema/GUI change. Hidden account keyboard entry remains unverified due terminal-input approval rejection; account service was tested.
+4. SETUP.md now separates existing-user continuation from fresh setup. Existing user account remains secrets/analyst.json; never print its contents/password. Continue day14_demo.db on 8776. Rehearsal closes its temporary servers and does not start that daily demo. App restart may stop the daily server; check before starting.
+5. Day 17 proposed: prepare a clear synthetic portfolio demo, representative screenshots, an honest case study and draft CV bullets; map actual evidence against final acceptance and list remaining blockers. Do not claim a production SIEM, real-world accuracy, complete attack coverage, or tamper-proof evidence. No public hosting/multiple roles promised.
+6. Update both cumulative Word and Markdown every checkpoint. Chapter 29 current map, 31 navigation, 32 evaluation, 33 setup rehearsal. Preserve historical chapters. Word content/structure is checked; bundled LibreOffice remains unavailable, so pagination is unverified.
+7. Day 15 corpus remains TP/FP/TN/FN each 3 with 12/12 expected-rule agreement. It is authored with knowledge of rules, not independent evaluation. Distinguish rule agreement from malicious-intent classification. Application code unchanged in Day 16, so saved evaluation source fingerprints remain valid.
+8. One learning question: after restarting with the same database, should the saved case disappear or should only the login session need renewal? Answers go in chat. Deadline October 17; no automatic future work or reminders requested.
 
 ## Current demonstration
 
@@ -17,7 +17,7 @@ MSYS2 Python 3.12.7, .venv/bin/python.exe, application standard library only. Ex
 
 scripts/serve.py --database data/runtime/day14_demo.db --port 8776 --credentials secrets/analyst.json
 
-Check whether the server is running before starting. PID saved in data/runtime/day14_server.pid; 7776 at the last start after a session restart, but verify process identity before stopping. App restart may stop local processes; server restart invalidates sessions. Do not stop unrelated processes.
+Check whether the server is running before starting. PID file data/runtime/day14_server.pid may be stale after an app restart; verify process identity before stopping. App restart may stop local processes; server restart invalidates sessions. Do not stop unrelated processes.
 
 Day 14 demo was a consistent backup of day13_demo.db: 16 events, one import, three alerts, one run, case 1 in_progress/suspicious revision 5 with five actions. User activity may change it. Older demos remain separate and do not synchronize. Continue using day14_demo.db. QA uses day14_qa.db on 8777 with existing synthetic day12_qa_account.json; QA was signed out after checks. Its case reached revision 5 through synthetic note/decision checks, not user work.
 
@@ -29,4 +29,4 @@ Rules: one snapshot, maximum 10000 events/100000 combined references. R1 five fa
 
 Reports: same read-only snapshot, 1000 actions/1000 originals, 8 MiB source/16 MiB encoded; fail whole export rather than truncate. Drafts excluded. CLI files restricted to ignored reports/generated, no overwrite. Historical/CLI authors remain self-declared; database history is not tamper-proof.
 
-Day 15 parent: 45d65162ced1d244df78c57f829dd6437cf6e72c. Inspect subsequent verified main before editing. Local HEAD/index remain at Day 2 due existing Windows metadata restrictions. Publish via connector; verify remote ref and all file hashes. Never reset work or change deny ACLs. Exclude credentials, cookies, runtime files, downloaded/private reports and Word lock files.
+Day 16 parent: 834a51c1bc170c1c1f6240f72d8d02837594387b. Inspect subsequent verified main before editing. Local HEAD/index remain at Day 2 due existing Windows metadata restrictions. Publish via connector; verify remote ref and all file hashes. Never reset work or change deny ACLs. Exclude credentials, cookies, runtime files, downloaded/private reports and Word lock files.

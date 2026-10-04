@@ -104,9 +104,12 @@ class AuthTests(unittest.TestCase):
         self.assertEqual(self.login()[0],200)
 
     def test_login_request_protections(self):
+        # These checks reject headers before reading the body. Send an empty
+        # body to avoid racing the server's early close with a discarded upload
+        # on Windows; malformed JSON/body checks remain separate below.
         for changes in ({'Origin':'null'},{'Host':'foreign.invalid'},{'X-SentinelLab-Token':'wrong'},{'Sec-Fetch-Site':'cross-site'}):
-            self.assertEqual(self.login(**changes)[0],403)
-        self.assertEqual(self.login(**{'Content-Type':'text/plain'})[0],415)
+            self.assertEqual(self.post('/api/login', b'', **changes)[0],403)
+        self.assertEqual(self.post('/api/login', b'', **{'Content-Type':'text/plain'})[0],415)
         self.assertEqual(self.post('/api/login',b'',**{'Content-Length':'4097'})[0],413)
         self.assertEqual(self.post('/api/login',b'',**{'Transfer-Encoding':'chunked'})[0],411)
         for data in (b'null',b'[]',b'{',b'\xff',b'{"username":"a","username":"b","password":"x"}',b'{"username":NaN,"password":"x"}',{},dict(username='test_analyst',password=1)):

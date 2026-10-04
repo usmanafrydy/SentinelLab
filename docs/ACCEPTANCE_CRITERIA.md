@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## Current Day 16 setup evidence
+
+Verified all 137 baseline source blobs against published commit 834a51c1bc170c1c1f6240f72d8d02837594387b and staged only those source files into a separate ignored folder. A newly created venv passed the 193 baseline tests. Final Day 16 candidate passes 194 tests and the seven-check authenticated HTTP rehearsal: import/deduplication, saved detections/run history, case/note/decision, faithful report content, process restart/session rejection and cleanup. A header-only login test was adjusted after intermittent Windows connection-aborted errors and passed twenty targeted checks. Application code is unchanged. See SETUP_REHEARSAL.md for detailed evidence.
+
+Fresh network acquisition failed TLS verification, so the source fallback used hash-verified local bytes. Hidden-password input automation was rejected; real account service was exercised instead. These steps remain explicitly unverified. This is one Windows environment, not a new OS, browser visual audit or public deployment. Portfolio demonstration and final release acceptance remain pending. Earlier entries below are historical.
+
+
 ## Current Day 15 evaluation evidence
 
 The fixed labeled corpus exercises twelve scenarios through real import/storage/detection using isolated temporary databases. Intent scoring gives TP 3, FP 3, TN 3 and FN 3. Expected rule sets agree in all twelve cases; this is distinct from classification quality. Source/event/manifest fingerprints and deterministic JSON support reproduction. Nine new tests bring the full suite to 193 passing tests. One initial existing HTTP test hit Windows error 10053; its isolated rerun and a complete subsequent run passed. No rule was tuned on the corpus. Authored with knowledge of the rules, this is not blinded or real-world evaluation. Day 14 navigation is complete; clean setup, final demo and release acceptance remain pending. Older entries below are historical evidence.

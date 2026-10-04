@@ -4,9 +4,9 @@ A planned security event detection and investigation platform for a cybersecurit
 
 ## Current status
 
-Day 15 completed: reproducible synthetic scenario evaluation of all three login rules. Twelve scenarios produced TP 3, FP 3, TN 3 and FN 3; all twelve expected rule sets agreed. These authored examples are not a real-world accuracy estimate. All 193 tests pass. Focused workspaces, local sign-in, cases, evidence and exports remain available. Clean setup and portfolio release remain pending. Target completion: October 17, 2026.
+Day 16 completed: a fresh isolated Python environment, a repeatable authenticated import-to-report rehearsal, and clearer setup instructions. The final suite passes 194 tests. Source files matched the published checkpoint; fresh download and interactive hidden-password entry remain unverified due environment restrictions. Detection rules and application behavior are unchanged. Demonstration material, portfolio case study and final release acceptance remain pending. Target completion: October 17, 2026.
 
-Read [Day 15](docs/DAY_15_GUIDE.md), the [evaluation contract](docs/EVALUATION.md) and [published synthetic results](reports/examples/day15_evaluation.json). Run `.venv/bin/python.exe scripts/evaluate.py` from this laptop's project folder.
+Start with [current setup](docs/SETUP.md), [the Day 16 lesson](docs/DAY_16_GUIDE.md) and [the rehearsal evidence](docs/SETUP_REHEARSAL.md). Run `.venv/bin/python.exe scripts/rehearse.py` on this laptop for an isolated synthetic workflow check. The [Day 15 evaluation](docs/DAY_15_GUIDE.md) and [synthetic results](reports/examples/day15_evaluation.json) explain false alarms and coverage gaps; they are not real-world accuracy estimates.
 
 ## Planned scope
 
