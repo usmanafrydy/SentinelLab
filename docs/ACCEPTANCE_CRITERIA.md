@@ -1,5 +1,10 @@
 # Acceptance criteria
 
+## Current Day 17 portfolio evidence
+
+The [release-readiness map](RELEASE_READINESS.md) explicitly maps all fifteen criteria to available evidence and qualifications. The browser-created synthetic case is In progress / Suspicious at revision 3 with three actions and six original records. Reviewed JSON/Markdown exports and three real screenshots accompany a reproducible demonstration script, case study and truthful CV notes. The suite passes 194 tests after the prototype-badge text correction. No new security behavior or final release certification is claimed. AC-15 still requires final release verification and explicit handling of the known download/interactive-entry limitations; Word page layout remains separately unverified.
+
+
 ## Current Day 16 setup evidence
 
 Verified all 137 baseline source blobs against published commit 834a51c1bc170c1c1f6240f72d8d02837594387b and staged only those source files into a separate ignored folder. A newly created venv passed the 193 baseline tests. Final Day 16 candidate passes 194 tests and the seven-check authenticated HTTP rehearsal: import/deduplication, saved detections/run history, case/note/decision, faithful report content, process restart/session rejection and cleanup. A header-only login test was adjusted after intermittent Windows connection-aborted errors and passed twenty targeted checks. Application code is unchanged. See SETUP_REHEARSAL.md for detailed evidence.

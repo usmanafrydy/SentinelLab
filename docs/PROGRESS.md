@@ -1,5 +1,17 @@
 # Progress
 
+## Day 17 - October 4, 2026
+
+- Verified all 141 Day 16 files against published 7b4df5146f72894961640e29d7faef42a0a19416 before edits. Prepared isolated ignored day17_portfolio.db and synthetic portfolio_analyst account on 8778. Two imports leave 16 events; two saved checks leave three alerts and two runs. Owner day14_demo.db/private account untouched.
+- Browser verified R3 details and original success, created Case 1, saved factual note/benign alternative, and saved In progress / Suspicious with a reason. Revision 3 has three session-authored actions and six linked originals. No claim of confirmed compromise. Captured and visually reviewed three actual JPEG viewport excerpts; published no credentials/private records.
+- Exported both formats with expected revision 3, reviewed all original records against the synthetic sample, checked three authors/actions, and compared equivalent saved sections. Only export times differ. Published reviewed synthetic reports in docs/portfolio; ordinary generated exports remain ignored.
+- Added gallery, five-minute speaking/operating script, honest AI-assisted case study, CV/interview drafts and AC-01 through AC-15 release-readiness map. Rewrote README around actual implemented behavior/stack. No public site, video, job application or final release tag created.
+- Replaced obsolete DAY 14 badges in both HTML templates with PROTOTYPE. No rule, schema, authentication or Python source behavior change. Full regression suite: 194 tests pass in 33.879 seconds. Browser screenshots were framed to retain headings below the fixed header; screenshots are partial views, not complete evidence exports.
+- Added detailed Day 17 lesson and cumulative Word/Markdown chapter 34 while preserving historical lessons and updating the current map. Word content checks and the supported-renderer attempt are reported separately from visual pagination.
+- Handbook checks: 1415 paragraphs, 24 tables, 2123 words added, prior content/tables retained except intentional current-status updates. Supported renderer again fails because bundled LibreOffice soffice.exe is missing; visual pagination remains unverified.
+- Publish explicit docs, templates and reviewed synthetic artifacts using connector/full blob verification. Existing local Git metadata restrictions remain. Day 18 planned: final acceptance preparation, disposition of source-download/hidden-entry/Word-render limits, presentation practice and final release checkpoint by October 17.
+
+
 ## Day 16 - October 4, 2026
 
 - Began October 3 and completed October 4. Verified all 137 Day 15 published files at 834a51c1bc170c1c1f6240f72d8d02837594387b before editing. Source download via Python and PowerShell failed TLS verification. Used only local bytes matching the published GitHub blob hashes in ignored data/runtime/day16_clean. No private account, database or old environment copied; download/clone remains unverified.

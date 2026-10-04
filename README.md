@@ -1,105 +1,61 @@
 # SentinelLab
 
-A planned security event detection and investigation platform for a cybersecurity portfolio.
+An AI-assisted local security-event investigation prototype for a cybersecurity portfolio. Import synthetic login records, review explained alerts, retain original evidence, record investigations and export reports.
 
 ## Current status
 
-Day 16 completed: a fresh isolated Python environment, a repeatable authenticated import-to-report rehearsal, and clearer setup instructions. The final suite passes 194 tests. Source files matched the published checkpoint; fresh download and interactive hidden-password entry remain unverified due environment restrictions. Detection rules and application behavior are unchanged. Demonstration material, portfolio case study and final release acceptance remain pending. Target completion: October 17, 2026.
+Day 17 completed on 4 October 2026: portfolio demonstration script, case study, CV/interview notes, three actual screenshots, reviewed synthetic reports and a release-readiness map. All 194 tests pass. Final acceptance and a versioned release remain pending; target completion is October 17, 2026.
 
-Start with [current setup](docs/SETUP.md), [the Day 16 lesson](docs/DAY_16_GUIDE.md) and [the rehearsal evidence](docs/SETUP_REHEARSAL.md). Run `.venv/bin/python.exe scripts/rehearse.py` on this laptop for an isolated synthetic workflow check. The [Day 15 evaluation](docs/DAY_15_GUIDE.md) and [synthetic results](reports/examples/day15_evaluation.json) explain false alarms and coverage gaps; they are not real-world accuracy estimates.
+Start with [setup instructions](docs/SETUP.md), the [portfolio gallery](docs/portfolio/README.md), [five minute demo](docs/portfolio/DEMO_SCRIPT.md) and [case study](docs/portfolio/CASE_STUDY.md). Review [remaining release checks](docs/RELEASE_READINESS.md). The [Day 17 lesson](docs/DAY_17_GUIDE.md) explains this checkpoint simply.
 
-## Planned scope
+![SentinelLab with synthetic demonstration data](docs/portfolio/screenshots/01-overview.jpg)
 
-- Import and validate one authentication-log format.
-- Normalize and store events in SQLite.
-- Detect repeated account failures, failures across many accounts, and success after a failure burst.
-- Explain alerts using linked evidence and an event timeline.
-- Record investigation notes and export reports.
-- Test detection behavior using synthetic and local-lab data.
+## Implemented workflow
 
-The list above describes the final target; the Current status section states what is implemented. This is a learning prototype, not a production SIEM.
+- Validate bounded JSONL login events, normalize timestamps to UTC and retain accepted original record text.
+- Store/search events in SQLite, deduplicate identical imports and report identity conflicts without replacing originals.
+- Explicitly run R1 repeated-account failures, R2 failures across distinct accounts, and R3 success after earlier failures.
+- Save versioned alert evidence and run history without duplicating unchanged findings.
+- Sign in locally, create cases, append notes, record reasoned decisions and reject stale updates.
+- Export complete saved investigations as bounded Markdown or JSON snapshots.
+- Check rule behavior with synthetic scenarios and an isolated authenticated workflow rehearsal.
 
-## Proposed stack
+An alert is a lead for investigation, not proof of compromise. This application is not a live collector or production SIEM. It uses a single local account and loopback HTTP. Direct database access can alter records; reports are not signed or automatically redacted.
 
-Current checkpoint: Python 3.12, SQLite, a loopback-only standard-library HTTP server, HTML/CSS/JavaScript, and unittest. No third-party dependencies yet. This server is a local learning prototype; review the web stack before authenticated deployment. Planned later: FastAPI, HTML/CSS/JavaScript, and optional pytest tooling; versions will be selected when needed.
+## Stack and layout
 
-## Layout
+Python 3.12, SQLite, the Python standard-library HTTP server, HTML, CSS, JavaScript and unittest. No third-party application packages are required. A framework migration, public hosting and multiple roles are not implemented release features.
 
 ```text
-src/sentinellab/
-  ingestion/       Input parsing, validation, and normalization
-  detection/       Detection rules and event correlation
-  storage/         Database access and schema
-  web/
-    templates/     Dashboard pages
-    static/        Styles and browser scripts
-tests/
-  unit/            Isolated behavior checks
-  integration/     Workflow checks
-  fixtures/        Small synthetic test inputs
-data/samples/      Shareable synthetic demonstration data
-docs/              Plan, architecture, and progress
-scripts/           Future development and lab utilities
-reports/examples/  Sanitized demonstration reports
+src/sentinellab/       Ingestion, detection, storage, cases, reports and web code
+scripts/              Account, server, import, detection, export and verification commands
+tests/                Unit and integration checks
+data/samples/         Synthetic demonstrations
+data/evaluation/      Labeled synthetic evaluation corpus
+docs/portfolio/       Demo, case study, CV notes, screenshots and reviewed sample reports
+reports/examples/     Published synthetic rule/evaluation results
 ```
 
-Empty directories contain `.gitkeep` files because Git does not track empty directories.
+Runtime databases, credentials, virtual environments and normal generated/private reports are ignored. The portfolio's example reports are explicit reviewed synthetic exceptions, not permission to publish future private exports.
 
-## Getting started
+## Run and learn
 
-Use the [Day 14 workspace guide](docs/DAY_14_GUIDE.md) for the current interface and startup on port 8776. The [navigation contract](docs/NAVIGATION.md) explains draft preservation, keyboard focus and Back/Forward behavior. Navigation does not save drafts; full reload still loses unsaved text. The cumulative Word/Markdown handbook now includes chapter 31 for Day 14 and an updated completion map. Word page layout remains unverified because the bundled LibreOffice renderer is unavailable.
-
-Start with the [Day 13 report guide](docs/DAY_13_GUIDE.md) for the current workspace and exports, and the [report contract](docs/REPORTS.md) for content and limits. The [Day 12 sign-in guide](docs/DAY_12_GUIDE.md) covers account setup. The [Day 11 browser guide](docs/DAY_11_GUIDE.md) covers investigations and the [Day 10 guide](docs/DAY_10_GUIDE.md) covers the equivalent CLI. See the [access contract](docs/AUTHENTICATION.md) and [investigation contract](docs/INVESTIGATIONS.md) for exact behavior and limits.
-
-The browser includes a Start here walkthrough and expandable explanations. The cumulative [project handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word edition](docs/SentinelLab_Project_Handbook.docx) include explanations through Day 14; chapters 30 and 31 teach reports and navigation, with file responsibilities, usage, tests and remaining work. Older editions remain historical references. Word content/structure checks pass; visual pagination review is pending because bundled LibreOffice is unavailable. Every future checkpoint must update both cumulative editions.
-
-Start with the [Day 9 guide](docs/DAY_09_GUIDE.md) for browser detection and alert evidence, the [Day 8 guide](docs/DAY_08_GUIDE.md) for command-line history, or the [Day 7 guide](docs/DAY_07_GUIDE.md) for all three rules. CLI saving requires explicit --save; browser saving requires Run detection and save. Uploading alone never runs detection.
-
-Run the reader and tests using [setup instructions](docs/SETUP.md). Read the [Day 6 detection guide](docs/DAY_06_GUIDE.md), [rule contract](docs/DETECTION_RULES.md), [Day 5 browser guide](docs/DAY_05_GUIDE.md), [web design and limits](docs/WEB.md), [Day 4 search guide](docs/DAY_04_GUIDE.md), [search contract](docs/SEARCH.md), [Day 3 guide](docs/DAY_03_GUIDE.md) and [database design](docs/DATABASE.md). The [Day 2 guide](docs/DAY_02_GUIDE.md) explains validation. Planning references: [Day 1 guide](docs/DAY_01_GUIDE.md), [project brief](docs/PROJECT_BRIEF.md), [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md), and [event format](docs/EVENT_FORMAT.md). Continue using [next-session notes](docs/NEXT_SESSION.md) and the [dated roadmap](docs/ROADMAP.md).
-
-## Development workflow
-
-Complete one meaningful change, run applicable checks, review the staged diff, commit with a descriptive message, and push to the configured GitHub repository. Keep progress documentation accurate.
-
-Use synthetic or explicitly authorized local-lab data. Never commit credentials, private logs, or real investigation reports.
-
-## Open the local browser workspace
-
-From the project folder on this laptop:
+Follow [SETUP.md](docs/SETUP.md) for a fresh copy or for continuing the owner's existing project. The owner uses .venv/bin/python.exe; other Windows Python installations commonly use .venv/Scripts/python.exe. Select the right interpreter as the guide shows, then run:
 
 ```powershell
-& ./.venv/bin/python.exe scripts/account.py --username usman
-& ./.venv/bin/python.exe scripts/serve.py --database data/runtime/day12_demo.db --port 8773 --credentials secrets/analyst.json
+& $projectPython scripts/run_tests.py
+& $projectPython scripts/rehearse.py
+& $projectPython scripts/evaluate.py
 ```
 
-Create the account once with hidden password entry; skip setup if it already exists. Open http://127.0.0.1:8773 and sign in. Keep the server terminal running; stop with Ctrl+C. Use synthetic samples under data/samples. See SETUP.md for other Python environment layouts. Browser login does not restrict direct CLI/filesystem access. Do not deploy or tunnel this development server.
+The [rehearsal record](docs/SETUP_REHEARSAL.md) describes the fresh venv, seven HTTP workflow checks and environment limitations. Source-download TLS verification and hidden keyboard password entry were not completed in that environment. Local Git metadata in the owner's original copy remains behind under existing restrictions; connector publication is checked against every file hash.
 
-## Preview the first detection rule
+The [evaluation lesson](docs/DAY_15_GUIDE.md) explains twelve authored scenarios: TP, FP, TN and FN are each three; all expected rule sets agree. These are synthetic results with known rules, not independent or real-world accuracy. See the [JSON results](reports/examples/day15_evaluation.json).
 
-```powershell
-& ./.venv/bin/python.exe scripts/database.py import data/samples/day06_repeated_failures.jsonl --database data/runtime/day06_demo.db
-& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day06_demo.db --rule R1 --json
-```
+## Documentation
 
-Expected: 6 stored events, 1 R1 preview with 5 failure references. This preview does not save alerts or run automatically in the browser. See the [synthetic example result](reports/examples/day06_r1_preview.json); its internal IDs refer to the sample database, not every installation.
+The cumulative [Markdown handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word handbook](docs/SentinelLab_Project_Handbook.docx) include work through Day 17. Chapter 29 is the current completion map; chapter 34 explains the portfolio checkpoint. Earlier chapters retain historical lessons. Word content is checked, but visual pagination remains unverified while the supported LibreOffice renderer is unavailable.
 
-## Preview all three rules
+Detailed contracts: [event format](docs/EVENT_FORMAT.md), [rules](docs/DETECTION_RULES.md), [alert storage](docs/ALERT_STORAGE.md), [investigations](docs/INVESTIGATIONS.md), [local access](docs/AUTHENTICATION.md), [reports](docs/REPORTS.md), [navigation](docs/NAVIGATION.md) and [evaluation](docs/EVALUATION.md). See [progress](docs/PROGRESS.md) and [next session](docs/NEXT_SESSION.md) for continuity.
 
-```powershell
-& ./.venv/bin/python.exe scripts/database.py import data/samples/day07_all_rules.jsonl --database data/runtime/day07_demo.db
-& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day07_demo.db --json
-```
-
-Expected: 16 events, 3 previews (one per rule). Use --rule R2 or --rule R3 to inspect one pattern. See the [synthetic combined result](reports/examples/day07_all_rules_preview.json). Alert counts are not confirmed incident counts. Runs stop without partial results above 10,000 input events or 100,000 evidence references.
-
-## Save alerts and read history
-
-```powershell
-& ./.venv/bin/python.exe scripts/database.py import data/samples/day07_all_rules.jsonl --database data/runtime/day08_demo.db --json
-& ./.venv/bin/python.exe scripts/detect.py --database data/runtime/day08_demo.db --save --json
-& ./.venv/bin/python.exe scripts/alerts.py summary --database data/runtime/day08_demo.db --json
-& ./.venv/bin/python.exe scripts/alerts.py list --database data/runtime/day08_demo.db --json
-& ./.venv/bin/python.exe scripts/alerts.py runs --database data/runtime/day08_demo.db --json
-```
-
-Fresh sample: 3 new alerts. Repeat the save: 0 new alerts, 3 already saved, and a second run. Saving upgrades an existing v1 database to v2 within the same transaction; original events are preserved. See the [storage contract](docs/ALERT_STORAGE.md) for rollback, late data, evidence links, and limits.
+This is a guided, AI-assisted learning project. Code, tests, documentation and debugging received substantial assistance. Portfolio claims should reflect the learner's actual understanding and involvement; no real incident-response experience or measured business impact is implied.
