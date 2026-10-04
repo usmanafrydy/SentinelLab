@@ -1,6 +1,6 @@
-# Release readiness after Day 18
+# Release readiness after Day 19
 
-Reviewed 4 October 2026. Target completion is 17 October. The [Day 18 acceptance review](FINAL_ACCEPTANCE.md) passed its automated checks with qualifications; a final versioned release remains pending. Component coverage means implementation and relevant checks exist; it does not mean all environments or risks have been tested.
+Reviewed 4 October 2026. Target completion is 17 October. The [Day 18 acceptance review](FINAL_ACCEPTANCE.md) passed its automated checks with qualifications; Day 19 prepares v0.1.0-rc.1 as a pre-release; a final stable release remains pending. Component coverage means implementation and relevant checks exist; it does not mean all environments or risks have been tested.
 
 | Criterion | Evidence available | Remaining qualification |
 | --- | --- | --- |
@@ -26,6 +26,6 @@ Reviewed 4 October 2026. Target completion is 17 October. The [Day 18 acceptance
 2. Interactive account command: owner reported successful creation on Day 18. The separate ignored file exists and was not read. This is user-reported evidence; the assistant did not directly observe password visibility.
 3. Word layout: content preservation and structure are checked. The supported Day 18 render attempt failed because bundled LibreOffice soffice.exe is missing; pagination stays unverified. Use the Markdown companion for reading meanwhile.
 4. Acceptance sequence: existing and downloaded suites, seven HTTP rehearsal checks, exact evaluation comparison and distribution review completed. Day 18 edits only documentation/results; verify the final publication inventory and unchanged application files.
-5. Presentation and versioned release: the owner should explain the architecture, a rule, a false alarm and a report using the existing demo script. No final tag or video exists. Record any remaining limitation honestly when making the final release decision.
+5. Presentation and versioned release: Day 19 prepares VERSION 0.1.0-rc.1, [candidate notes](releases/v0.1.0-rc.1.md) and [practice guide](portfolio/PRESENTATION_PRACTICE.md). The owner has been asked the first question; do not mark practice complete without actual responses. Publish the candidate as a GitHub Pre-release at the reviewed commit and verify its tag target. No final stable version or video is claimed. Retain limitations when making the final release decision.
 
 Existing local Git metadata remains behind because of Windows restrictions; connector publication and complete blob verification are used. This is a known local-history limitation, not permission to reset work or change access controls. The deadline remains October 17. Optional new features should not displace the remaining verification and explanation work.

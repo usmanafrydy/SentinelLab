@@ -4,9 +4,9 @@ An AI-assisted local security-event investigation prototype for a cybersecurity 
 
 ## Current status
 
-Day 18 acceptance review completed on 4 October 2026: verified GitHub ZIP acquisition, a fresh environment with 194 passing tests, seven successful authenticated workflow checks and unchanged evaluation results. The owner reported successful manual account creation. See the [acceptance review and qualifications](docs/FINAL_ACCEPTANCE.md). Presentation practice, Word visual pagination and the final versioned release remain pending; target completion is October 17, 2026.
+Day 19 prepares **v0.1.0-rc.1**, the first release candidate, on 4 October 2026. Read the [candidate notes](docs/releases/v0.1.0-rc.1.md) and [presentation practice guide](docs/portfolio/PRESENTATION_PRACTICE.md). All 155 baseline files matched GitHub and the seven-check authenticated rehearsal passed again. The unchanged application retains Day 18 evidence: 194 tests pass in both the existing workspace and a fresh environment from verified downloaded source. Owner presentation practice, Word visual pagination and the final stable release remain pending; target completion is October 17, 2026.
 
-Start with [setup instructions](docs/SETUP.md), the [portfolio gallery](docs/portfolio/README.md), [five minute demo](docs/portfolio/DEMO_SCRIPT.md) and [case study](docs/portfolio/CASE_STUDY.md). Review [remaining release checks](docs/RELEASE_READINESS.md). The [Day 18 lesson](docs/DAY_18_GUIDE.md) explains this checkpoint simply.
+Start with [setup instructions](docs/SETUP.md), the [portfolio gallery](docs/portfolio/README.md), [five minute demo](docs/portfolio/DEMO_SCRIPT.md) and [case study](docs/portfolio/CASE_STUDY.md). Review [remaining release checks](docs/RELEASE_READINESS.md). The [Day 19 lesson](docs/DAY_19_GUIDE.md) explains this checkpoint simply.
 
 ![SentinelLab with synthetic demonstration data](docs/portfolio/screenshots/01-overview.jpg)
 
@@ -54,7 +54,7 @@ The [evaluation lesson](docs/DAY_15_GUIDE.md) explains twelve authored scenarios
 
 ## Documentation
 
-The cumulative [Markdown handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word handbook](docs/SentinelLab_Project_Handbook.docx) include work through Day 18. Chapter 29 is the current completion map; chapter 34 explains the portfolio and chapter 35 explains acceptance verification. Earlier chapters retain historical lessons. Word content is checked, but visual pagination remains unverified while the supported LibreOffice renderer is unavailable.
+The cumulative [Markdown handbook](docs/SENTINELLAB_HANDBOOK.md) and [Word handbook](docs/SentinelLab_Project_Handbook.docx) include work through Day 19. Chapter 29 is the current completion map; chapters 34 to 36 explain the portfolio, acceptance verification and release/presentation preparation. Earlier chapters retain historical lessons. Word content is checked, but visual pagination remains unverified while the supported LibreOffice renderer is unavailable.
 
 Detailed contracts: [event format](docs/EVENT_FORMAT.md), [rules](docs/DETECTION_RULES.md), [alert storage](docs/ALERT_STORAGE.md), [investigations](docs/INVESTIGATIONS.md), [local access](docs/AUTHENTICATION.md), [reports](docs/REPORTS.md), [navigation](docs/NAVIGATION.md) and [evaluation](docs/EVALUATION.md). See [progress](docs/PROGRESS.md) and [next session](docs/NEXT_SESSION.md) for continuity.
 

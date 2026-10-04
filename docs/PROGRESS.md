@@ -1,5 +1,13 @@
 # Progress
 
+## Day 19 - October 4, 2026
+
+- Verified all 155 published Day 18 blobs against e3fb62ceca8e8f7d25fdd1b95c31b9c9a5a1b908 before editing. Reran scripts/rehearse.py: seven authenticated HTTP workflow checks pass. Application/assets/tests/evaluation data unchanged; the full 194-test results remain the Day 18 existing/fresh-environment runs, not a new Day 19 suite run.
+- Started the existing owner day14_demo.db server on 8776 using existing private credentials without reading them; normal sign-in page returned HTTP 200 and was opened for the owner. A session restart stopped process 12588; after the owner asked to run the project, it was restarted as 18996 with the same database/account and HTTP 200 verified. day19_server.pid was updated after restoring the cleared filesystem permission grant. Browser automation was blocked on its internal connection-error page; owner instructed to refresh manually. Verify process identity before future use. No unrelated service stopped or demo data reset.
+- Prepared VERSION 0.1.0-rc.1, release notes, detailed Day 19 lesson and easy-English presentation guide. Corrected stale source-acquisition/acceptance wording in the portfolio case study. Started one-at-a-time teaching with the R3 additional-evidence question; owner practice is not marked complete without an actual answer.
+- Candidate publication uses the signed-in GitHub release form because the connector has no release-creation action. Publish reviewed source commit with Pre-release selected and verify tag/ref/release. Final stable release remains pending; no production or independent-audit claim.
+- Updated cumulative Word/Markdown chapter 36, current map and continuity while preserving earlier explanations: 1527 paragraphs, 24 tables, 1577 new words. Supported render failed because bundled LibreOffice soffice.exe was not found; visual pagination remains unverified. Existing original local Git-history restrictions remain; use explicit publication allowlist and final blob verification.
+
 ## Day 18 - October 4, 2026
 
 - Verified 152 Day 17 files against published cbc94443ead66ca2268dab49968b255e463cf00e. Downloaded exact commit ZIP (822122 bytes) through bundled Python urllib/default SSL context with certificate checking enabled. Validated paths and every Git blob before extraction into ignored day18_clean; no private files or old environment copied. Earlier runtime TLS configuration is not claimed repaired; git clone was not tested.
