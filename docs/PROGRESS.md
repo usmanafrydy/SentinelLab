@@ -1,5 +1,12 @@
 # Progress
 
+## Interface refresh - October 5, 2026
+
+- Updated shared and workspace CSS plus the sign-in template with navy navigation, blue actions, teal accents, clearer cards and responsive layouts. Existing detection and data behaviour is unchanged.
+- All 194 tests passed in 34.012 seconds; browser review covered the four workspaces, original evidence and selected investigation controls, with desktop and narrow-screen checks. Fixed table-heading wrapping and sign-in text encoding during review.
+- Added cumulative handbook chapter 38. Word page layout remains unverified because the supported renderer is unavailable.
+- Owner completed Git history synchronization and line-ending correction 29562b2 before this update. Later connector publication does not silently synchronize the original local Git metadata.
+
 ## Day 20 - October 4 to 5, 2026
 
 - Resumed October 5 after interruption: all 164 local files matched preparation commit 5a6c432a09ca3780c90b638e67a02f0c3fee61d9. Final tag/release had not yet been submitted. Corrected current release dates while preserving October 4 test evidence; no application changes or repeated suite needed.

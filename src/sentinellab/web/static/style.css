@@ -4,3 +4,69 @@
 .table-wrap table{min-width:680px}
 
 .login-main{max-width:620px;padding-top:60px}.login-main label{margin-top:18px}.session-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}#session-expired{padding:14px;background:#fcf7e9}#session-expired a{color:var(--accent);font-weight:600}
+
+
+/* Visual refresh: shared controls and sign-in. No external fonts or assets. */
+:root {
+  --ink: #192b46;
+  --muted: #586a82;
+  --line: #dce4ef;
+  --accent: #2255c5;
+  --bg: #f2f5fb;
+}
+body { background: var(--bg); line-height: 1.6; }
+header { background: #101f38; border-bottom: 1px solid #2c3e59; }
+.brand { letter-spacing: -.6px; }
+.mark { width: 38px; height: 40px; background: #1b3d60; border-color: #508baf; color: #94f0df; border-radius: 12px 12px 16px 4px; }
+.badge { border: 1px solid #405470; border-radius: 30px; padding: 7px 12px; color: #cad8ed; font-weight: 600; }
+h1,h2,h3 { line-height: 1.25; }
+h2 { letter-spacing: -.45px; }
+.eyebrow { color: #2457bf; }
+.panel { box-shadow: 0 6px 22px #21385c07; }
+input,select,textarea { background: #f8faff; border-color: #98aac2; border-radius: 9px; min-height: 44px; }
+input:hover,select:hover,textarea:hover { border-color: #6281ab; }
+button { min-height: 44px; border-radius: 9px; background: #2255c5; box-shadow: 0 3px 7px #214b9b18; transition: background .15s, box-shadow .15s; }
+button:hover { background: #1945aa; filter: none; box-shadow: 0 4px 12px #214b9b28; }
+button.secondary { background: #fff; color: #25416a; border-color: #a8bad2; box-shadow: none; }
+button.secondary:hover { background: #eef3ff; border-color: #6687b7; }
+button:disabled { opacity: .5; box-shadow: none; }
+:is(button,input,select,textarea,summary,a):focus-visible { outline: 3px solid #3679e0; outline-offset: 3px; }
+summary { color: #2255b8; }
+a { text-underline-offset: 4px; }
+.table-wrap { border-radius: 12px; }
+th { background: #eef3fb; color: #435b7b; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; padding-block: 15px; }
+td { padding-block: 15px; }
+tbody tr:hover { background: #f5f8ff; }
+.failure { background: #fff0eb; color: #923c20; border: 1px solid #f4d7ca; }
+.success { background: #e7f7f1; color: #14634c; border: 1px solid #bde3d5; }
+pre { background: #eff4fb; color: #213a5c; }
+.error { color: #b02e35; }
+.login-page { min-height: 100vh; background: radial-gradient(ellipse at 10% 60%,#173e57 0,transparent 55%),#0e1c33; }
+.login-page header { padding: 22px max(24px,calc((100% - 1200px)/2)); background: transparent; }
+.login-main { max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 64px 28px; }
+.login-story { color: #edf3ff; }
+.login-story .eyebrow { color: #84dccd; }
+.login-story h2 { font-size: clamp(36px,4.7vw,60px); letter-spacing: -.055em; margin: 20px 0; max-width: 11ch; }
+.login-story > p:not(.eyebrow) { color: #bfd0e4; max-width: 42ch; font-size: 17px; }
+.login-path { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 18px; }
+.login-path li { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: center; color: #d9e5f4; }
+.login-path span { display: grid; place-items: center; border: 1px solid #466785; border-radius: 10px; height: 36px; font: 12px Consolas,monospace; color: #8ee0d2; }
+.login-main .panel { padding: 36px; border-radius: 22px; box-shadow: 0 24px 70px #0003; margin: 0; }
+.login-main h1 { font-size: 30px; letter-spacing: -.035em; }
+.login-main .actions button { width: 100%; }
+.login-main .hint { font-size: 12px; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 20px; }
+.login-main details { margin-top: 20px; font-size: 13px; }
+@media(max-width:850px) {
+  .login-main { grid-template-columns: 1fr; max-width: 600px; gap: 28px; padding: 32px 20px; }
+  .login-story h2 { max-width: none; font-size: 36px; margin: 12px 0; }
+  .login-path { display: none; }
+  .login-story > p:not(.eyebrow) { font-size: 15px; }
+}
+@media(max-width:450px) {
+  .login-page header { padding: 16px; gap: 8px; }
+  .login-page .badge { font-size: 8px; padding: 6px 8px; }
+  .login-main .panel { padding: 24px; }
+  .login-main h1 { font-size: 26px; }
+}
+@media(prefers-reduced-motion:reduce) { button { transition: none; } }
+th { white-space: nowrap; overflow-wrap: normal; }

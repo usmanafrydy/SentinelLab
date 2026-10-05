@@ -1,3 +1,7 @@
+# Latest update on 5 October 2026
+
+Chapter 38 explains the interface design refresh after v0.1.0 and the subsequent Git history correction. Earlier checkpoints below remain historical.
+
 # Current cumulative update through Day 20
 
 Updated 5 October 2026. This cumulative handbook explains the completed SentinelLab v0.1.0 local portfolio scope and its retained limitations. Day 20 adds the final release decision, operating handover, project summary and conservative AI-assisted CV wording. Final checks passed 194 tests and seven authenticated workflow checks; the synthetic evaluation exactly matches prior results. Presentation practice is optional and not claimed complete. Word visual pagination and the original restricted local Git history remain disclosed qualifications. This final project milestone is not production security certification.
@@ -3149,3 +3153,46 @@ The source download contains files, not your Python installation or credentials.
 There is no compulsory next daily checkpoint. You can use the project, read the handbook, practise a demonstration, ask about a concept or request a specific improvement. Optional presentation exercises remain available. A bug should include a synthetic reproduction and expected versus actual behavior; never send passwords or private account contents.
 
 Public hosting, live event collection, multiple analysts and stronger evidence integrity are possible future projects requiring new design and testing. They are not hidden unfinished promises in this local release. The finished result is a bounded, documented, reproducible learning prototype that you can explain honestly and gradually improve.
+
+
+# 38 Interface design refresh after the first release
+
+## Why we changed the appearance
+
+On 5 October 2026, the owner asked for a more attractive interface to demonstrate SentinelLab to a friend. The update gives the existing application a navy, blue and teal appearance. It changes how information looks, not how detection rules decide whether a pattern matches. The v0.1.0 release remains a historical snapshot; the newer design is a later source update on main.
+
+## What you will see
+
+The desktop navigation is dark navy. The selected workspace has a lighter blue background and a teal edge. This makes it easier to identify the page you are using. The main working area stays light so records and forms remain readable. Primary actions are blue. Secondary actions use white buttons with a visible border. Successful and failed login results keep their written labels as well as different colours.
+
+The overview has a soft blue-to-teal title area, white statistic cards and three separate learning cards. Its numbers still come from the real local database; decorative elements do not invent activity or security scores. The sign-in page has a short explanation of the workflow beside the account form. On a narrow screen the sections stack vertically.
+
+## Which files do which jobs
+
+src/sentinellab/web/static/style.css contains shared colours, fonts, input fields, buttons, tables, keyboard focus outlines and the sign-in layout. CSS means Cascading Style Sheets. HTML supplies the page content, while CSS controls its presentation. Shared colour variables let related elements use consistent colours.
+
+src/sentinellab/web/static/workspace.css controls the signed-in layout: the sidebar, selected navigation link, introduction, statistic cards, learning cards, alert totals, evidence facts and investigation panels. Media queries choose different layouts at different screen widths. Wide tables scroll inside their wrapper rather than forcing the whole page sideways. Table headings remain on one line for readability.
+
+src/sentinellab/web/templates/login.html contains the sign-in page structure and its new introductory section. The existing username and password inputs, labels, autocomplete settings, field limits and form identifiers are preserved. The decorative S mark and numbered steps do not replace accessible field labels.
+
+Existing alerts.css and cases.css still provide their original component rules. The later workspace stylesheet adjusts their appearance. JavaScript, Python detection code, authentication code, database schemas and report generation are unchanged by this design update. No external font, image service or frontend package is required.
+
+## How to use the new design
+
+Open http://127.0.0.1:8776/ while the existing local server is running. Refresh the page to load the latest styles. Sign in with the existing account if requested. Select Overview, Events, Detection or Investigations using the navigation links. At smaller widths the navigation becomes a compact grid above the page. You can scroll a wide table sideways to reach its remaining columns.
+
+Roman Urdu: Rang aur layout behtar kiye gaye hain. Aap ka saved data aur detection ke rules wohi hain. Page refresh karein, phir menu se Events, Detection ya Investigations kholein. Chhoti screen par table ko side mein scroll kiya ja sakta hai.
+
+## Accessibility and verification
+
+Controls have visible keyboard focus outlines and buttons have a minimum height of 44 CSS pixels. The existing skip link, field labels, status messages, selected-page attribute and hidden-panel behaviour remain. Reduced-motion preferences disable the new button transitions. Colour is not the only way results or selected navigation are described. This is practical accessibility work, not a claim of a complete accessibility certification.
+
+The complete existing suite passed 194 tests in 34.012 seconds. Browser review covered overview, events, original evidence, detection history, investigations and the selected case controls. Desktop and narrow layouts were inspected, including a 390-pixel phone-width check. The owner signed in privately; the assistant did not obtain the password. The browser review used read-only navigation and did not save new notes, change a decision, import records or run detection against the owner's saved workspace.
+
+The cumulative Word and Markdown handbooks include this explanation while preserving previous lessons. Word content and structure are checked. Visual pagination remains unverified because the supported bundled LibreOffice renderer is unavailable. Browser screenshots verify the application interface, not the Word document.
+
+## Git history and future changes
+
+Before this redesign, the owner fetched the published history, synchronized the local branch and committed the line-ending correction as 29562b2. That correction was verified on GitHub. Earlier handbook statements about the Day 2 local history describe the situation before this repair. The assistant still encounters Windows restrictions when writing the original .git directory, so later publication may use the GitHub connector and require a fresh local fetch. Do not assume file publication also updates local Git metadata.
+
+The release tag must not be moved to disguise later changes. Future design improvements can build on this update with new commits. Further features are optional and should be requested separately. A more polished interface does not make the learning prototype a production security system.

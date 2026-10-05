@@ -1,3 +1,7 @@
+# Latest interface checkpoint on October 5, 2026
+
+The owner requested a visual redesign after v0.1.0. Shared/workspace CSS and the login template now use a navy, blue and teal design. All 194 tests passed; signed-in browser navigation and responsive layouts were reviewed. Both handbooks include chapter 38. No rules, APIs, schema or private data were changed. Git history was synchronized by the owner at 29562b2 before this work; verify current main/local state because connector publication cannot update the restricted local .git directory. Preserve release tags and the untracked Day 8 handbook. Word pagination remains unverified.
+
 # Next session After the v0.1.0 local release
 
 Active project: C:\Users\Dell\Desktop\Projects\SentinelLab. Easy English and Roman Urdu where useful. The user authorised Day 20 final release after being told presentation practice is optional. Preparation/tests took place October 4 and publication continued October 5, 2026. No compulsory daily continuation remains; respond to the next concrete request.
